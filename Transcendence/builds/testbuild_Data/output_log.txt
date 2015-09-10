@@ -1,31 +1,41 @@
-Initialize engine version: 5.1.0f3 (ec70b008569d)
+Initialize engine version: 5.1.3f1 (b0a23b31c3d8)
 GfxDevice: creating device client; threaded=1
 Direct3D:
     Version:  Direct3D 11.0 [level 11.0]
-    Renderer: AMD Radeon HD 6800 Series (ID=0x6738)
-    Vendor:   ATI
-    VRAM:     1011 MB
+    Renderer: Intel(R) HD Graphics (ID=0x152)
+    Vendor:   Intel
+    VRAM:     128 MB
 Begin MonoManager ReloadAssembly
-Platform assembly: C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\UnityEngine.dll (this message is harmless)
-Loading C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\UnityEngine.dll into Unity Child Domain
-Platform assembly: C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\Assembly-CSharp.dll (this message is harmless)
-Loading C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
-Platform assembly: C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
-Loading C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
-Platform assembly: C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
-Loading C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
-Platform assembly: C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
-Loading C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
-- Completed reload, in  0.108 seconds
-desktop: 1680x1050 60Hz; virtual: 1680x1050 at 0,0
+Platform assembly: C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.dll (this message is harmless)
+Loading C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.dll into Unity Child Domain
+Platform assembly: C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\Assembly-CSharp.dll (this message is harmless)
+Loading C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\Assembly-CSharp.dll into Unity Child Domain
+Platform assembly: C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.Analytics.dll (this message is harmless)
+Loading C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.Analytics.dll into Unity Child Domain
+Platform assembly: C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.Networking.dll (this message is harmless)
+Loading C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.Networking.dll into Unity Child Domain
+Platform assembly: C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.UI.dll (this message is harmless)
+Loading C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\UnityEngine.UI.dll into Unity Child Domain
+Platform assembly: C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\System.Core.dll (this message is harmless)
+- Completed reload, in  0.051 seconds
+desktop: 1280x1024 60Hz; virtual: 1280x1024 at 0,0
 <RI> Initializing input.
+XInput1_3.dll not found. Trying XInput9_1_0.dll instead...
 <RI> Input initialized.
 <RI> Initialized touch support.
-Platform assembly: C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\System.Core.dll (this message is harmless)
-Platform assembly: C:\Users\Johnathan\Desktop\Transcendence_title\builds\testbuild_Data\Managed\System.dll (this message is harmless)
-Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
-UnloadTime: 6.156712 ms
+Platform assembly: C:\Users\butljoh16\Documents\GitHub\Transcendence\Transcendence\builds\testbuild_Data\Managed\System.dll (this message is harmless)
+Level '' (2) couldn't be loaded because it has not been added to the build settings.
+To add a level to the build settings use the menu File->Build Settings...
+ 
+(Filename:  Line: 290)
 
-Unloading 7 unused Assets to reduce memory usage. Loaded Objects now: 159.
-Total: 0.315140 ms (FindLiveObjects: 0.021733 ms CreateObjectMapping: 0.016602 ms MarkObjects: 0.255976 ms  DeleteObjects: 0.019318 ms)
+Unloading 3 Unused Serialized files (Serialized files now loaded: 0)
+UnloadTime: 3.998311 ms
+
+Unloading 5 unused Assets to reduce memory usage. Loaded Objects now: 177.
+Total: 0.275170 ms (FindLiveObjects: 0.024374 ms CreateObjectMapping: 0.013149 ms MarkObjects: 0.228667 ms  DeleteObjects: 0.008338 ms)
 
