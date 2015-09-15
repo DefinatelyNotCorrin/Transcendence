@@ -12,10 +12,10 @@ public class CardContainer {
 }
 
 
-public static CardContainer Load(string path)
-{
-    var serializer = new XmlSerializer(typeof(CardContainer));
-    var stream = new FileStream(path, FileMode.Open);
-    var container = serializer.Deserialize(stream) as CardContainer;
-    stream.Close();
-}
+//*public static CardContainer Load(string path)
+//{
+//    var serializer = new XmlSerializer(typeof(CardContainer));
+//    var stream = new FileStream(path, FileMode.Open);
+//    var container = serializer.Deserialize(stream) as CardContainer;
+//    stream.Close();
+//}
