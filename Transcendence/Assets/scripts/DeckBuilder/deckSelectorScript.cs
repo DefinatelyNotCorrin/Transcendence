@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿/*
+using UnityEngine;
 using System.Collections;
 using Unity.UI;
 
@@ -28,3 +29,4 @@ public class deckSelectorScript : MonoBehaviour {
         }
     }
 }
+*/ // compiler error from this script

@@ -5,17 +5,25 @@ using System.Xml.Serialization;
 using System.IO;
 
 [XmlRoot("CardContainer")]
-public class CardContainer {
-        [XmlArray("Cards")]
-        [XmlArrayItem("Card")]
-        public List<Card> Cards = new List<Card>();
+public class CardContainer
+{
+    [XmlArray("Cards")]
+    [XmlArrayItem("Card")]
+    public List<Card> cards = new List<Card>();
+
+    public static CardContainer Load(string path)
+    {
+        TextAsset _xml = Resources.Load<TextAsset>(path);
+
+        XmlSerializer serializer = new XmlSerializer(typeof(CardContainer));
+
+        StringReader reader = new StringReader(_xml.text);
+
+        CardContainer cards = serializer.Deserialize(reader) as CardContainer;
+
+        reader.Close();
+
+        return cards;
+    }
+
 }
-
-
-//*public static CardContainer Load(string path)
-//{
-//    var serializer = new XmlSerializer(typeof(CardContainer));
-//    var stream = new FileStream(path, FileMode.Open);
-//    var container = serializer.Deserialize(stream) as CardContainer;
-//    stream.Close();
-//}
