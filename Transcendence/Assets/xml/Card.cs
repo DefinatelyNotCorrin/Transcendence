@@ -24,13 +24,13 @@ using System.Xml.Serialization;
 	public int cost;
 
 	[XmlAttribute("attack")]
-	public string attack;
+	public int attack;
 
 	[XmlAttribute("health")]
-	public string health;
+	public int health;
 
 	[XmlAttribute("defense")]
-	public string defense;
+	public double defense;
 
 	[XmlAttribute("ability")]
 	public string ability;
