@@ -1,46 +1,47 @@
 ﻿using UnityEngine;
-using System.Collections;
-using System.Xml;
-using System.Xml.Serialization;
+using System;
 
 	public class Card {
 
-	[XmlAttribute("name")]
-	public string name;
-		
-	[XmlAttribute("ID")]
-	public int id;
+    //base values
+    public string name;
+    public string ID;
+    public string image;
+    public string description;
+    public string alliance;
+    public string type;
+    public string cost;
+    public string attack;
+    public string health;
+    public string defense;
+    public string range;
+    public string target;
 
-	[XmlAttribute("image")]
-	public string image;
+    //values for combat 
+    public int currentID;
+    public int currentCost;
+    public int currentAttack;
+    public int currentHealth;
+    public double currentDefense;
+    public string currentRange;
+    
 
-	[XmlAttribute("alliance")]
-	public string alliance;
+    void Start()
 
-	[XmlAttribute("type")]
-	public string type;
+    {
+        //sets the combat values to the base as the object is initialized
+        currentID = Int32.Parse(ID);
+        currentCost = Int32.Parse(cost);
+        currentAttack = Int32.Parse(attack);
+        currentHealth = Int32.Parse(health);
+        currentDefense = Convert.ToDouble(defense);
 
-	[XmlAttribute("cost")]
-	public int cost;
 
-	[XmlAttribute("attack")]
-	public int attack;
 
-	[XmlAttribute("health")]
-	public int health;
+    }
 
-	[XmlAttribute("defense")]
-	public double defense;
+}
 
-	[XmlAttribute("ability")]
-	public string ability;
 
-	[XmlAttribute("range")]
-	public string range;
-
-	[XmlAttribute("target")]
-	public string target;
-
-	}
 
 
