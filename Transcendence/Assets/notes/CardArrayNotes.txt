@@ -4,7 +4,7 @@ Deck Class Notes
 Useful Methods/Variables of Decks:
 
 Size
-Shuffle
+Shuffle and Shuffled Deck Array
 Poll/Peek
 Sort
 Add Cards
