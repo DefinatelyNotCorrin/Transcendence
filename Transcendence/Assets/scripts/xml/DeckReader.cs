@@ -17,40 +17,29 @@ public class DeckReader {
         arr = new ArrayList();
         path = inputPath;
         XmlReader reader = XmlReader.Create(path);
-
+       
         while(reader.Read())
         {
 
             //should check to see if the line is an element, and then if it is called 'card'
             if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "card"))
              {
-                //generates card object based on read values
+                //generates new empty card object
                 Card card = new Card();
-                if (reader.NodeType == XmlNodeType.Element)
-                {
-                    string elementTag = reader.Name;
-                    switch (elementTag) {
-                    if (reader.Name == "Name")
-                    {
-                        card.name = reader.ReadElementContentAsString();
-                    }
-                    else if (reader.Name == "Name")
-                    {
-                        card.ID = reader.ReadElementContentAsString();
-                    }
+
+                    //set values of new card Object from xml attributes
+                    card.name = reader.GetAttribute("name");
                     card.ID = reader.GetAttribute("ID");
-                    card.image = reader.GetAttribute("Image");
-                    card.description = reader.GetAttribute("Description");
-                    card.alliance = reader.GetAttribute("Alliance");
-                    card.type = reader.GetAttribute("Type");
-                    card.cost = reader.GetAttribute("Cost");
-                    card.attack = reader.GetAttribute("Attack");
-                    card.health = reader.GetAttribute("Health");
-                    card.defense = reader.GetAttribute("Defense");
-                    card.range = reader.GetAttribute("Range");
-                    card.target = reader.GetAttribute("Target");
-                }
-            }
+                    card.image = reader.GetAttribute("image");
+                    card.description = reader.GetAttribute("description");
+                    card.alliance = reader.GetAttribute("alliance");
+                    card.type = reader.GetAttribute("type");
+                    card.cost = reader.GetAttribute("cost");
+                    card.attack = reader.GetAttribute("attack");
+                    card.defense = reader.GetAttribute("defense");
+                    card.range = reader.GetAttribute("range");
+                    card.target = reader.GetAttribute("target");
+                    
 
                 //stores that new card in the DeckReader array list
                 arr.Add(card);
