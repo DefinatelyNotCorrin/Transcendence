@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System;
 
-	public class Card {
+	public class Card : MonoBehaviour {
 
     //base values
     public string name;
@@ -35,6 +35,7 @@ using System;
         currentAttack = Int32.Parse(attack);
         currentHealth = Int32.Parse(health);
         currentDefense = Convert.ToDouble(defense);
+        currentRange = range;
 
 
 
