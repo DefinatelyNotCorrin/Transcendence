@@ -8,7 +8,7 @@ public class CardDisplay : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-        path = Application.dataPath + "/scripts/xml/cardsTest.xml";
+        path = Application.dataPath + "/scripts/xml/cards.xml";
         DeckReader reader = new DeckReader();
 
         if (File.Exists(path))
