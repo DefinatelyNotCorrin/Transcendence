@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 
 public class CardDisplay : MonoBehaviour {
@@ -13,7 +13,7 @@ public class CardDisplay : MonoBehaviour {
 
         if (File.Exists(path))
         {
-            ArrayList database = reader.load(path);
+            List<Card> database = reader.load(path);
 
             foreach (Card card in database)
             {

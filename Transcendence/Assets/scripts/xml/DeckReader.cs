@@ -1,20 +1,20 @@
-﻿using System.Collections;
+﻿using System.Collections.Generic;
 using System.Xml;
 
 public class DeckReader {
 
     //arr of card objects
-    public ArrayList arr;
+    public List<Card> arr;
 
     //the path of the xml card data you want to load
     public string path;
 
     //load the card data from the xml file, and return the database as an ArrayList of Cards
-    public ArrayList load(string inputPath)
+    public List<Card> load(string inputPath)
     {
 
         //follows the path of the xml, and loads it into a reader
-        arr = new ArrayList();
+        arr = new List<Card>();
         path = inputPath;
         XmlReader reader = XmlReader.Create(path);
        

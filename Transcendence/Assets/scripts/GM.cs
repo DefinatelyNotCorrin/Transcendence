@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class GM : MonoBehaviour
 {
@@ -21,7 +22,7 @@ public class GM : MonoBehaviour
         card = cards[cardID];
 
         //generates the card using the prefabCard prefab
-        card = (GameObject)Instantiate(prefabCard, transform.position, transform.rotation);
+        ///card = (GameObject)Instantiate(CardPrefab, transform.position, transform.rotation);
 
     }
 
@@ -50,7 +51,7 @@ public class GM : MonoBehaviour
             card = cards[currentCard];
 
             //generates the card using the card prefab
-            card = (GameObject)Instantiate(prefabCard, transform.position, transform.rotation);
+            //card = (GameObject)Instantiate(PrefabCard, transform.position, transform.rotation);
            
             currentCard++;
         }
