@@ -5,8 +5,10 @@ using System.Collections.Generic;
 public class GM : MonoBehaviour
 {
 
+    public GameObject PrefabCard;
+
     //should create one single card from a list of cards, if ID and PATH for the XML file are known
-    public void generateCard(int cardID, string path)
+    public void generateCard(int cardLocation, string path)
     {
         //a list that will hold all the cards
         List<Card> cards = new List<Card>();
@@ -15,14 +17,11 @@ public class GM : MonoBehaviour
         DeckReader reader = new DeckReader();
         cards = reader.load(path);
 
-        //the card that will be put on the playing field
-        Card card;
-
-        //sets the in game card's values equal to the values it should have (gotten from the list<>)
-        card = cards[cardID];
-
         //generates the card using the prefabCard prefab
-        ///card = (GameObject)Instantiate(CardPrefab, transform.position, transform.rotation);
+        GameObject card = (GameObject)Instantiate(PrefabCard, transform.position, transform.rotation);
+
+        card.GetComponent<Card>().name = cards[cardLocation].name;
+        card.GetComponent<Card>().health = cards[cardLocation].health;
 
     }
 
@@ -37,22 +36,21 @@ public class GM : MonoBehaviour
         DeckReader reader = new DeckReader();
         cards = reader.load(path);
 
-        //the card that will be put on the playing field
-        Card card;
-
         //information about the size of the array of cards, and what card the while loop is on
         int totalCards = cards.Count;
         int currentCard = 0;
 
         //goes through the cards one bye one and adds them to the playing field
-        while (totalCards <= currentCard)
+        while (currentCard <= totalCards)
         {
             //sets the in game card's values equal to the values gotten from the list<>
-            card = cards[currentCard];
+            //Card = cards[currentCard];
 
             //generates the card using the card prefab
-            //card = (GameObject)Instantiate(PrefabCard, transform.position, transform.rotation);
-           
+            GameObject card = (GameObject)Instantiate(PrefabCard, transform.position, transform.rotation);
+
+            card.GetComponent<Card>().name = cards[currentCard].name;
+
             currentCard++;
         }
     }
