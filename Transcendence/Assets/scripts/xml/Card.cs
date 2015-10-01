@@ -29,20 +29,17 @@ using System;
     void Start()
 
     {
-        
+        //sets the combat values to the base as the object is initialized
+        currentID = Int32.Parse(ID);
+        currentCost = Int32.Parse(cost);
+        currentAttack = Int32.Parse(attack);
+        currentHealth = Int32.Parse(health);
+        currentDefense = Convert.ToDouble(defense);
+        currentRange = range;
+
+
 
     }
-
-	void setCurrents() {
-
-		//sets the combat values to the base as the object is initialized
-		currentID = Int32.Parse (ID);
-		currentCost = Int32.Parse (cost);
-		currentAttack = Int32.Parse (attack);
-		currentHealth = Int32.Parse (health);
-		currentDefense = Convert.ToDouble (defense);
-		currentRange = range;
-	}
 
 }
 

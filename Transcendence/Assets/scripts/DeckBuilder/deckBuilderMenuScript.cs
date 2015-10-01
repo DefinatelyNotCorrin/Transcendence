@@ -15,10 +15,10 @@ public class deckBuilderMenuScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //menuAudio = GetComponent<AudioSource>();
-        //newDeckButton = newDeckButton.GetComponent<Button>();
-        //editDeckButton = editDeckButton.GetComponent<Button>();
-        //backButton = backButton.GetComponent<Button>();
+        menuAudio = GetComponent<AudioSource>();
+        newDeckButton = newDeckButton.GetComponent<Button>();
+        editDeckButton = editDeckButton.GetComponent<Button>();
+        backButton = backButton.GetComponent<Button>();
 
     }
 

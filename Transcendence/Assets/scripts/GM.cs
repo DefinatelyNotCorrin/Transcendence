@@ -6,27 +6,22 @@ public class GM : MonoBehaviour
 {
 
     public GameObject PrefabCard;
-	public RectTransform cardSpawn;
-	public GameObject hand;
 
     //should create one single card from a list of cards, if ID and PATH for the XML file are known
-    public void generateCard()
+    public void generateCard(int cardLocation, string path)
     {
-		//string path, int cardLocation
         //a list that will hold all the cards
-        //List<Card> cards = new List<Card>();
+        List<Card> cards = new List<Card>();
 
         //loads the cards into the list from an XML file
-        //DeckReader reader = new DeckReader();
-        //cards = reader.load(path);
+        DeckReader reader = new DeckReader();
+        cards = reader.load(path);
 
         //generates the card using the prefabCard prefab
-		Debug.Log ("Method Called");
-		GameObject card = (GameObject)Instantiate(PrefabCard, cardSpawn.position, cardSpawn.rotation);
-		card.transform.SetParent (cardSpawn.transform.parent);
+        GameObject card = (GameObject)Instantiate(PrefabCard, transform.position, transform.rotation);
 
-        //card.GetComponent<Card>().name = cards[cardLocation].name;
-        //card.GetComponent<Card>().health = cards[cardLocation].health;
+        card.GetComponent<Card>().name = cards[cardLocation].name;
+        card.GetComponent<Card>().health = cards[cardLocation].health;
 
     }
 
