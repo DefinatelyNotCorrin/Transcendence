@@ -11,6 +11,7 @@ public class CardDisplay : MonoBehaviour {
         path = Application.dataPath + "/scripts/xml/cards.xml";
         DeckReader reader = new DeckReader();
 
+
         if (File.Exists(path))
         {
             List<Card> database = reader.load(path);
@@ -19,10 +20,18 @@ public class CardDisplay : MonoBehaviour {
             {
                 print((card.name));
             }
+
+            Deck deck = new Deck();
+            deck.archiveDeck = database;
+            deck.activeDeck = database;
+            deck.resetActive();
+            Debug.Log(deck.poll());
+            deck.shuffle();
+            Debug.Log("2" + deck.poll());
         }
         else
         {
-            print(("Error: File not Found"));
+            Debug.Log("Error: File not Found");
         }
 	}
 
