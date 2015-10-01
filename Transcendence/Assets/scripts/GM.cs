@@ -47,6 +47,11 @@ public class GM : MonoBehaviour
         card.GetComponent<Card>().range = cards[0].range;
         card.GetComponent<Card>().target = cards[0].target;
 
+        if (cards[0].description.Equals(null))
+        {
+            Debug.Log("Its null!");
+        }
+
         card.GetComponent<Card>().currentID = cards[0].currentID;
         card.GetComponent<Card>().currentCost = cards[0].currentCost;
         card.GetComponent<Card>().currentAttack = cards[0].currentAttack;

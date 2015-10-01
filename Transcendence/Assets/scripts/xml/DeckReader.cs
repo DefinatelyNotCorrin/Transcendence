@@ -30,7 +30,7 @@ public class DeckReader {
                     //set values of new card Object from xml attributes
                     card.name = reader.GetAttribute("name");
                     card.ID = reader.GetAttribute("ID");
-                    card.image = reader.GetAttribute("image");
+                    //card.image = reader.GetAttribute("image");
                     card.description = reader.GetAttribute("description");
                     card.alliance = reader.GetAttribute("alliance");
                     card.type = reader.GetAttribute("type");
@@ -39,6 +39,7 @@ public class DeckReader {
                     card.defense = reader.GetAttribute("defense");
                     card.range = reader.GetAttribute("range");
                     card.target = reader.GetAttribute("target");
+                    card.health = reader.GetAttribute("health");
                     
 
                 //stores that new card in the DeckReader array list
