@@ -1,7 +1,9 @@
 ﻿using UnityEngine;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 
+[System.Serializable]
 public class Deck : MonoBehaviour {
 
     public List<Card> archiveDeck;
@@ -81,7 +83,25 @@ public class Deck : MonoBehaviour {
             activeDeck.Add(c);
         }
     }
+    
+    void shuffleDeck() {
+    //shuffling - Fisher-Yates method
+    float r = Random.range(0,activeDeck.Capacity());
+    int count = getDeckSize();
+        while (count > 1) //go through each element
+        {
+            //random number from 0 to range of unshuffled deck
+            int randomDraw = r.Next(0, count);
 
+    //take whatever is drawn and swap it with the end of the list
+    Card temp = activeDeck[randomDraw];
+    activeDeck[randomDraw] = activeDeck[count - 1];
+            activeDeck[count - 1] = temp;
+
+            count--;
+
+        }
+    }
 
     //SORTING,SHUFFLING,SERIALIZING
 
