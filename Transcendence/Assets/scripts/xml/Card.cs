@@ -33,7 +33,7 @@ using System;
 
     }
 
-	void setCurrents() {
+	public void setCurrents() {
 
 		//sets the combat values to the base as the object is initialized
 		currentID = Int32.Parse (ID);
