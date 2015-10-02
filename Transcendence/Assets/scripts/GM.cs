@@ -60,9 +60,9 @@ public class GM : MonoBehaviour
         card.GetComponent<Card>().currentRange = cards[0].currentRange;
 
         //moves the card into the canvas
-        card.transform.SetParent(cardSpawn.transform.parent);
+        card.transform.SetParent(cardSpawn);
         //moves the card to the spawn
-        card.transform.position = cardSpawn.transform.position;
+        card.GetComponent<isDraggable>().parentToReturnTo = cardSpawn;
 
 
         //sets the visible attributes of the card game object to those stored in it's card script parameters
@@ -130,6 +130,8 @@ public class GM : MonoBehaviour
             //sets the visible attributes of the card game object to those stored in it's card script parameters
             card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().name;
             card.transform.Find("Description").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().description;
+
+            card.transform.SetParent(cardSpawn);
 
             //card.transform.Find("Image").gameObject.GetComponent<Image>().sprite = cards[currentCard].image;
             currentCard++;
