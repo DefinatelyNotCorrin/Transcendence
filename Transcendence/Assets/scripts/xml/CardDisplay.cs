@@ -22,12 +22,16 @@ public class CardDisplay : MonoBehaviour {
             }
 
             Deck deck = new Deck();
-            deck.archiveDeck = database;
-            deck.activeDeck = database;
+            deck.archiveDeck = new List<Card>();
+            foreach (Card c in database)
+            {
+                deck.archiveDeck.Add(c);
+            }
             deck.resetActive();
-            Debug.Log(deck.poll());
-            deck.shuffle();
-            Debug.Log("2" + deck.poll());
+            Debug.Log(deck.peek().name);
+            //deck.shuffle();
+            deck.filterName("World Guardian");
+            Debug.Log("2" + deck.peek().name);
         }
         else
         {

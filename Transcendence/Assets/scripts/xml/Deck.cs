@@ -1,5 +1,5 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System;
 using System.Collections.Generic;
 
 [System.Serializable]
@@ -101,6 +101,141 @@ public class Deck : MonoBehaviour {
 
         } */
     }
+
+    public List<Card> filterName (string name)
+    {
+        List<Card> filtered =  new List<Card>();
+        foreach (Card c in archiveDeck)
+        {
+            if (c.name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) 
+            {
+                filtered.Add(c);
+            }
+        }
+        return filtered;
+    }
+
+    public List<Card> filterID(string ID)
+    {
+        List<Card> filtered = new List<Card>();
+        foreach (Card c in archiveDeck)
+        {
+            if (c.ID.Equals(ID, StringComparison.InvariantCultureIgnoreCase))
+            {
+                filtered.Add(c);
+            }
+        }
+        return filtered;
+    }
+
+    public List<Card> filterAlliance(string alliance)
+    {
+        List<Card> filtered = new List<Card>();
+        foreach (Card c in archiveDeck)
+        {
+            if (c.alliance.Equals(alliance, StringComparison.InvariantCultureIgnoreCase))
+            {
+                filtered.Add(c);
+            }
+        }
+        return filtered;
+    }
+
+    public List<Card> filterType(string type)
+    {
+        List<Card> filtered = new List<Card>();
+        foreach (Card c in archiveDeck)
+        {
+            if (c.type.Equals(type, StringComparison.InvariantCultureIgnoreCase))
+            {
+                filtered.Add(c);
+            }
+        }
+        return filtered;
+    }
+
+    public List<Card> filterCost(string cost)
+    {
+        List<Card> filtered = new List<Card>();
+        foreach (Card c in archiveDeck)
+        {
+            if (c.cost.Equals(cost, StringComparison.InvariantCultureIgnoreCase))
+            {
+                filtered.Add(c);
+            }
+        }
+        return filtered;
+    }
+
+    public List<Card> filterAttack(string attack)
+    {
+        List<Card> filtered = new List<Card>();
+        foreach (Card c in archiveDeck)
+        {
+            if (c.attack.Equals(attack, StringComparison.InvariantCultureIgnoreCase))
+            {
+                filtered.Add(c);
+            }
+        }
+        return filtered;
+    }
+
+    public List<Card> filterHealth(string health)
+    {
+        List<Card> filtered = new List<Card>();
+        foreach (Card c in archiveDeck)
+        {
+            if (c.health.Equals(health, StringComparison.InvariantCultureIgnoreCase))
+            {
+                filtered.Add(c);
+            }
+        }
+        return filtered;
+    }
+
+    public List<Card> filterDefense(string defense)
+    {
+        List<Card> filtered = new List<Card>();
+        foreach (Card c in archiveDeck)
+        {
+            if (c.defense.Equals(defense, StringComparison.InvariantCultureIgnoreCase))
+            {
+                filtered.Add(c);
+            }
+        }
+        return filtered;
+    }
+
+    public List<Card> filterRange(string range)
+    {
+        List<Card> filtered = new List<Card>();
+        foreach (Card c in archiveDeck)
+        {
+            if (c.range.Equals(range, StringComparison.InvariantCultureIgnoreCase))
+            {
+                filtered.Add(c);
+            }
+        }
+        return filtered;
+    }
+
+    public List<Card> filterTarget(string target)
+    {
+        List<Card> filtered = new List<Card>();
+        foreach (Card c in archiveDeck)
+        {
+            if (c.target.Equals(target, StringComparison.InvariantCultureIgnoreCase))
+            {
+                filtered.Add(c);
+            }
+        }
+        return filtered;
+    }
+
+
+
+
+
 
     //SORTING,SHUFFLING,SERIALIZING
 
