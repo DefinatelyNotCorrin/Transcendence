@@ -5,6 +5,7 @@ using System.Collections.Generic;
 [System.Serializable]
 public class Deck : MonoBehaviour {
 
+    public static string name;
     public List<Card> archiveDeck;
     public List<Card> activeDeck;
     public List<Card> discard;
@@ -12,13 +13,22 @@ public class Deck : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-	
-	}
+    }
 	
 	// Update is called once per frame
 	void Update () {
 	
 	}
+
+    public Deck(String name)
+    {
+
+    }
+
+    public Deck()
+    {
+
+    }
 
     public int getArchiveSize() //returns size of deck before match started
     {
@@ -105,7 +115,7 @@ public class Deck : MonoBehaviour {
     public List<Card> filterName (string name)
     {
         List<Card> filtered =  new List<Card>();
-        foreach (Card c in archiveDeck)
+        foreach (Card c in activeDeck)
         {
             if (c.name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) 
             {
@@ -118,7 +128,7 @@ public class Deck : MonoBehaviour {
     public List<Card> filterID(string ID)
     {
         List<Card> filtered = new List<Card>();
-        foreach (Card c in archiveDeck)
+        foreach (Card c in activeDeck)
         {
             if (c.ID.Equals(ID, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -131,7 +141,7 @@ public class Deck : MonoBehaviour {
     public List<Card> filterAlliance(string alliance)
     {
         List<Card> filtered = new List<Card>();
-        foreach (Card c in archiveDeck)
+        foreach (Card c in activeDeck)
         {
             if (c.alliance.Equals(alliance, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -144,7 +154,7 @@ public class Deck : MonoBehaviour {
     public List<Card> filterType(string type)
     {
         List<Card> filtered = new List<Card>();
-        foreach (Card c in archiveDeck)
+        foreach (Card c in activeDeck)
         {
             if (c.type.Equals(type, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -157,7 +167,7 @@ public class Deck : MonoBehaviour {
     public List<Card> filterCost(string cost)
     {
         List<Card> filtered = new List<Card>();
-        foreach (Card c in archiveDeck)
+        foreach (Card c in activeDeck)
         {
             if (c.cost.Equals(cost, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -170,7 +180,7 @@ public class Deck : MonoBehaviour {
     public List<Card> filterAttack(string attack)
     {
         List<Card> filtered = new List<Card>();
-        foreach (Card c in archiveDeck)
+        foreach (Card c in activeDeck)
         {
             if (c.attack.Equals(attack, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -183,7 +193,7 @@ public class Deck : MonoBehaviour {
     public List<Card> filterHealth(string health)
     {
         List<Card> filtered = new List<Card>();
-        foreach (Card c in archiveDeck)
+        foreach (Card c in activeDeck)
         {
             if (c.health.Equals(health, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -196,7 +206,7 @@ public class Deck : MonoBehaviour {
     public List<Card> filterDefense(string defense)
     {
         List<Card> filtered = new List<Card>();
-        foreach (Card c in archiveDeck)
+        foreach (Card c in activeDeck)
         {
             if (c.defense.Equals(defense, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -209,7 +219,7 @@ public class Deck : MonoBehaviour {
     public List<Card> filterRange(string range)
     {
         List<Card> filtered = new List<Card>();
-        foreach (Card c in archiveDeck)
+        foreach (Card c in activeDeck)
         {
             if (c.range.Equals(range, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -222,7 +232,7 @@ public class Deck : MonoBehaviour {
     public List<Card> filterTarget(string target)
     {
         List<Card> filtered = new List<Card>();
-        foreach (Card c in archiveDeck)
+        foreach (Card c in activeDeck)
         {
             if (c.target.Equals(target, StringComparison.InvariantCultureIgnoreCase))
             {
@@ -231,6 +241,38 @@ public class Deck : MonoBehaviour {
         }
         return filtered;
     }
+
+    public List<Card> sortByName()
+    {
+        List<Card> sorted = new List<Card>();
+        for (int i = 0; i < activeDeck.Count; i++)
+        {
+            Card current = activeDeck[i];
+            int j = i - 1;
+            while (j >= 0 && String.Compare(archiveDeck[j].name, current.name) > 0 )
+            {
+                activeDeck.Insert(j + 1, activeDeck[j]);
+                activeDeck.Remove(j + 2);
+            }
+        }
+    }
+
+    public void sortByArtist()
+    {
+        for (int i = 0; i < songs.size(); i++)
+        {
+            Song current = songs.get(i);
+            int j = i - 1;
+            while (j >= 0 && (songs.get(j).getArtist().compareToIgnoreCase(current.getArtist()) > 0))
+            {
+                songs.set(j + 1, songs.get(j));
+                j--;
+            }
+            songs.set(j + 1, current);
+        }
+    }
+    
+
 
 
 
