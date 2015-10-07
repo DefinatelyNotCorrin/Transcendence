@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Xml;
+using UnityEngine;
 
-public class DeckReader {
+public class DeckReader: MonoBehaviour {
 
     //arr of card objects
     public List<Card> arr;

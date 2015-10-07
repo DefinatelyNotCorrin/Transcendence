@@ -25,7 +25,7 @@ public class GM : MonoBehaviour
         //generates the card using the prefabCard prefab
 		Debug.Log ("Method Called");
 
-		GameObject card = (GameObject)Instantiate(PrefabCard, cardSpawn.anchoredPosition, cardSpawn.rotation);
+		GameObject card = (GameObject)Instantiate(PrefabCard, cardSpawn.transform.position, cardSpawn.rotation);
 
 		card.transform.SetParent (cardSpawn.transform.parent);
 
@@ -68,6 +68,11 @@ public class GM : MonoBehaviour
         //sets the visible attributes of the card game object to those stored in it's card script parameters
         card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().name;
         card.transform.Find("Description").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().description;
+        card.transform.Find("Attack").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().attack;
+        card.transform.Find("Defense").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().defense;
+        card.transform.Find("Health").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().health;
+        card.transform.Find("Range").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().range;
+
         //card.GetComponent<Card>().health = cards[cardLocation].health;
 
     }
