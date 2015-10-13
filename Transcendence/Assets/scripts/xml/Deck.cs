@@ -10,7 +10,6 @@ public class Deck : MonoBehaviour {
     public List<Card> activeDeck;
     public List<Card> discard;
 
-
 	// Use this for initialization
 	void Start () {
     }
@@ -245,31 +244,23 @@ public class Deck : MonoBehaviour {
     public List<Card> sortByName()
     {
         List<Card> sorted = new List<Card>();
-        for (int i = 0; i < activeDeck.Count; i++)
+        foreach (Card c in activeDeck)
         {
-            Card current = activeDeck[i];
+            sorted.Add(c);
+        }
+        for (int i = 0; i < sorted.Count; i++)
+        {
+            Card current = sorted[i];
             int j = i - 1;
-            while (j >= 0 && String.Compare(archiveDeck[j].name, current.name) > 0 )
+            while (j >= 0 && String.Compare(sorted[j].name, current.name) > 0 )
             {
-                activeDeck.Insert(j + 1, activeDeck[j]);
-                activeDeck.Remove(j + 2);
+                sorted.Insert(j + 1, sorted[j]);
+                sorted.RemoveAt(j + 1);
             }
         }
+        return sorted;
     }
 
-    public void sortByArtist()
-    {
-        for (int i = 0; i < songs.size(); i++)
-        {
-            Song current = songs.get(i);
-            int j = i - 1;
-            while (j >= 0 && (songs.get(j).getArtist().compareToIgnoreCase(current.getArtist()) > 0))
-            {
-                songs.set(j + 1, songs.get(j));
-                j--;
-            }
-            songs.set(j + 1, current);
-        }
     }
     
 
@@ -281,4 +272,3 @@ public class Deck : MonoBehaviour {
 
     //SORTING,SHUFFLING,SERIALIZING
 
-}
