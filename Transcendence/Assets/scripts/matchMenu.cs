@@ -22,7 +22,7 @@ public class matchMenu : MonoBehaviour {
 
         data.text = "nerd";
         int x = 0;
-        while (x < 1) ;
+        while (x < 1)
         {
             data.text = "nerdDeck";
             loadPlayer1Deck.GetComponent<Dropdown>().options.Add(data);

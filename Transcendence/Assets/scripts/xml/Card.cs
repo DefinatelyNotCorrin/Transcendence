@@ -22,6 +22,7 @@ using System;
     public int currentCost;
     public int currentAttack;
     public int currentHealth;
+    public int battleSide;
     public double currentDefense;
     public string currentRange;
     

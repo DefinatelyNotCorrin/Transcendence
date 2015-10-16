@@ -1,12 +1,13 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEditor;
 
 public class deckBuilderMenuScript : MonoBehaviour
 {
 
     public Button newDeckButton;
-    public Button editDeckButton;
+    public Button loadDeckButton;
     public Button backButton;
     public AudioClip clickSound;
     public AudioClip heavyClickSound;
@@ -15,23 +16,31 @@ public class deckBuilderMenuScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        //menuAudio = GetComponent<AudioSource>();
-        //newDeckButton = newDeckButton.GetComponent<Button>();
-        //editDeckButton = editDeckButton.GetComponent<Button>();
-        //backButton = backButton.GetComponent<Button>();
+        loadDeckButton = loadDeckButton.GetComponent<Button>();
+        newDeckButton = newDeckButton.GetComponent<Button>();
+        backButton = backButton.GetComponent<Button>();
+
 
     }
 
     //for when the Create Deck button is pressed
-    public void CreatePress()
+    public void loadPress()
     {
-        menuAudio.PlayOneShot(heavyClickSound, 0.7F);
-        Application.LoadLevel(-1); //Level number should be the create menu for the deck builder
+        //menuAudio.PlayOneShot(heavyClickSound, 0.7F);
+        EditorUtility.DisplayDialog("Load Deck", "Please select a deck file to load.", "ok");
+        string path;
+        path = EditorUtility.OpenFilePanel("Load Deck", "", "XML");
+
+        Debug.Log(path);
+
+        this.gameObject.transform.FindChild("Player").gameObject.GetComponent<player>().deckPath = path;
+
+        Debug.Log("This works!\n" + this.gameObject.transform.FindChild("Player").gameObject.GetComponent<player>().deckPath);
 
     }
 
     //for when the Edit Deck button is pressed
-    public void EditPress()
+    public void newPress()
     {
         menuAudio.PlayOneShot(heavyClickSound, 0.7F);
         Application.LoadLevel(-1); //Level number should be the edit menu for the deck builder
