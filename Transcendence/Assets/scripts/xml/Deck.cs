@@ -9,9 +9,10 @@ public class Deck : MonoBehaviour {
     public List<Card> archiveDeck;
     public List<Card> activeDeck;
     public List<Card> discard;
+    private static System.Random rng = new System.Random();
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start () {
     }
 	
 	// Update is called once per frame
@@ -92,22 +93,16 @@ public class Deck : MonoBehaviour {
         }
     }
     
-    public void shuffle() { /*
-        //shuffling - Fisher-Yates method
-        int count = getDeckSize();
-        //float r = Random.Range(0,count);
-        while (count > 1) //go through each element
+    public void shuffle() {
+      /*  float rng = 
+        int n = activeDeck.Count;
+        while (n > 1)
         {
-            //random number from 0 to range of unshuffled deck
-            int randomDraw = (int)(Random.Range(0, count));
-
-    //take whatever is drawn and swap it with the end of the list
-    Card temp = activeDeck[randomDraw];
-    activeDeck[randomDraw] = activeDeck[count - 1];
-            activeDeck[count - 1] = temp;
-
-            count--;
-
+            n--;
+            int k = rng.Next(n + 1);
+            T value = list[k];
+            list[k] = list[n];
+            list[n] = value;
         } */
     }
 
@@ -239,26 +234,6 @@ public class Deck : MonoBehaviour {
             }
         }
         return filtered;
-    }
-
-    public List<Card> sortByName()
-    {
-        List<Card> sorted = new List<Card>();
-        foreach (Card c in activeDeck)
-        {
-            sorted.Add(c);
-        }
-        for (int i = 0; i < sorted.Count; i++)
-        {
-            Card current = sorted[i];
-            int j = i - 1;
-            while (j >= 0 && String.Compare(sorted[j].name, current.name) > 0 )
-            {
-                sorted.Insert(j + 1, sorted[j]);
-                sorted.RemoveAt(j + 1);
-            }
-        }
-        return sorted;
     }
 
     }
