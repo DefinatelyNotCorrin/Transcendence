@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
-using UnityEditor;
+//using UnityEditor;
 
 public class deckBuilderMenuScript : MonoBehaviour
 {
@@ -16,9 +16,10 @@ public class deckBuilderMenuScript : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        loadDeckButton = loadDeckButton.GetComponent<Button>();
-        newDeckButton = newDeckButton.GetComponent<Button>();
+        //loadDeckButton = loadDeckButton.GetComponent<Button>();
+       //newDeckButton = newDeckButton.GetComponent<Button>();
         backButton = backButton.GetComponent<Button>();
+        Application.targetFrameRate = -1;
 
 
     }
@@ -27,30 +28,30 @@ public class deckBuilderMenuScript : MonoBehaviour
     public void loadPress()
     {
         //menuAudio.PlayOneShot(heavyClickSound, 0.7F);
-        EditorUtility.DisplayDialog("Load Deck", "Please select a deck file to load.", "ok");
-        string path;
-        path = EditorUtility.OpenFilePanel("Load Deck", "", "XML");
+       // EditorUtility.DisplayDialog("Load Deck", "Please select a deck file to load!!!", "Fine. No need to be so enthusiastic.");
+       // string path;
+        //path = EditorUtility.OpenFilePanel("Load Deck", "", "XML");
 
-        Debug.Log(path);
+        //Debug.Log(path);
 
-        this.gameObject.transform.FindChild("Player").gameObject.GetComponent<player>().deckPath = path;
+       // this.gameObject.transform.FindChild("Player").gameObject.GetComponent<player>().deckPath = path;
 
-        Debug.Log("This works!\n" + this.gameObject.transform.FindChild("Player").gameObject.GetComponent<player>().deckPath);
+        //Debug.Log("This works!\n" + this.gameObject.transform.FindChild("Player").gameObject.GetComponent<player>().deckPath);
 
     }
 
     //for when the Edit Deck button is pressed
     public void newPress()
     {
-        menuAudio.PlayOneShot(heavyClickSound, 0.7F);
-        Application.LoadLevel(-1); //Level number should be the edit menu for the deck builder
+        //menuAudio.PlayOneShot(heavyClickSound, 0.7F);
+        //Application.LoadLevel(-1); //Level number should be the edit menu for the deck builder
 
     }
 
     //for when the back button is pressed
     public void BackPress()
     {
-        menuAudio.PlayOneShot(heavyClickSound, 0.7F);
+        //menuAudio.PlayOneShot(heavyClickSound, 0.7F);
        //Level number should be the main menu
         Application.LoadLevel(0);
 

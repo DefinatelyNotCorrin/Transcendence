@@ -13,10 +13,20 @@ public class matchMenu : MonoBehaviour {
     public Dropdown.OptionData data = new Dropdown.OptionData();
     public List<string> deckList;
 
-	// Use this for initialization
-	void Start () {
-	}
-	
+    // Use this for initialization
+    void Start() {
+        
+    }
+
+    public void loadMainMenu()
+    {
+
+    }
+
+    public void loadMatch()
+    {
+
+    }
 	// Update is called once per frame
 	void Update () {
 

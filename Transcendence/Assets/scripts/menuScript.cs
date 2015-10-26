@@ -45,7 +45,7 @@ public class menuScript : MonoBehaviour {
 
 	public void StartDeckBuilder() {
 		menuAudio.PlayOneShot(clickSound, 0.7F);
-		Application.LoadLevel (2); //Level 1 should be the deck builder scene
+		Application.LoadLevel (3); //Level 3 should be the deck builder scene
 	}
 
 	public void ExitGame() {

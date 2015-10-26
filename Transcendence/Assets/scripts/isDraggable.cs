@@ -15,7 +15,7 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
     public void OnBeginDrag(PointerEventData data) {
-		Debug.Log ("on begin drag");
+		//Debug.Log ("on begin drag");
         isDragging = true;
 
         //saves the current parent of the object
@@ -28,7 +28,7 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
 	public void OnDrag(PointerEventData data) {
-		Debug.Log ("dragging");
+		//Debug.Log ("dragging");
 
         //moves the card to the cursor position
         this.transform.position = data.position;
@@ -36,7 +36,7 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
 	public void OnEndDrag(PointerEventData data) {
-		Debug.Log ("on end drag");
+		//Debug.Log ("on end drag");
         isDragging = false;
 
         //
