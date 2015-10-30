@@ -7,9 +7,13 @@ public class GM : MonoBehaviour
 {
 
     //the prefab and the spawn locations
+    bool isFirstTurn = false;
     public GameObject PrefabCard;
     public RectTransform cardSpawnTemple;
     public RectTransform cardSpawnCitadel;
+    public GameObject player1;
+    public GameObject player2;
+    public GameObject canvas;
 
     string path;
 
@@ -17,6 +21,52 @@ public class GM : MonoBehaviour
 
     //Temple is 0 and Citadel is 1
 
+    public void Start()
+    {
+        firstTurn(player1);
+        firstTurn(player2);
+    }
+
+    public void Update()
+    {
+        //starts player 1 turn
+        if (player1.GetComponent<player>().isTurn == true && player1.GetComponent<player>().hasStartedGoing == false)
+        {
+            turn(player1);
+            player1.GetComponent<player>().hasStartedGoing = true;
+            player2.GetComponent<player>().hasStartedGoing = true;
+        }
+
+        //start player 2 turn
+        if (player2.GetComponent<player>().isTurn == true && player2.GetComponent<player>().hasStartedGoing == false)
+        {
+            turn(player1);
+            player2.GetComponent<player>().hasStartedGoing = true;
+        }
+
+        //the combat loop
+        if (player1.GetComponent<player>().hasStartedGoing = true && player1.GetComponent<player>().isTurn == true)
+        {
+            
+        }
+
+        if (player1.GetComponent<player>().hasStartedGoing = true && player1.GetComponent<player>().isTurn == true)
+        {
+
+        }
+
+    }
+    
+
+    public void firstTurn(GameObject player)
+    {
+
+    }
+
+    public void turn(GameObject player)
+    {
+
+    }
 
     //should create one single card from a list of cards, given player object
     public void generateCard(GameObject player)
@@ -76,7 +126,7 @@ public class GM : MonoBehaviour
             int totalCards = cards.Count;
             int currentCard = 0;
 
-            //goes through the cards one bye one and adds them to the playing field
+            //goes through the cards one by one and adds them to the playing field
             while (currentCard < totalCards)
             {
                 instantiateCard(player, cards[currentCard]);
@@ -165,7 +215,7 @@ public class GM : MonoBehaviour
             card.GetComponent<Card>().currentHealth = currentCard.currentHealth;
             card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
             card.GetComponent<Card>().currentRange = currentCard.currentRange;
-            card.GetComponent<Card>().battleSide = cardSpawnTemple.GetComponent<cardSpawn1>().battleSide;
+            card.GetComponent<Card>().battleSide = player.GetComponent<player>().playerSide;
 
             //moves the card into the canvas
             card.transform.SetParent(cardSpawnTemple);
