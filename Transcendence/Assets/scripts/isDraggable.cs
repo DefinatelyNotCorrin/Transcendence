@@ -23,6 +23,8 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         //sets the objects parent up one level (resetting the grid)
         this.transform.SetParent(this.transform.parent.parent);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
+
+
         
         
     }
@@ -32,6 +34,8 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         //moves the card to the cursor position
         this.transform.position = data.position;
+
+        this.gameObject.tag = "Dragging";
 
     }
 

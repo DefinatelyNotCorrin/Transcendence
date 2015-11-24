@@ -11,7 +11,7 @@ GameObject:
   - 114: {fileID: 11450888}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -43,13 +43,24 @@ MonoBehaviour:
   deckPath: /scripts/xml/cards.xml
   baseHP: 30
   currentHP: 30
+  isTurn: 0
+  hasStartedGoing: 0
+  manaMax: 0
+  currentMana: 0
+  deck: []
+  shuffledDeck: []
+  currentDrawCard: 0
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
   serializedVersion: 2
   m_Modification:
     m_TransformParent: {fileID: 0}
-    m_Modifications: []
+    m_Modifications:
+    - target: {fileID: 0}
+      propertyPath: m_TagString
+      value: Player
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
   m_RootGameObject: {fileID: 114824}
