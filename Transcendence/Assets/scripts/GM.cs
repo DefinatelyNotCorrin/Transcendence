@@ -31,6 +31,12 @@ public class GM : MonoBehaviour
     {
         drawCard(player1);
         drawCard(player2);
+        drawCard(player1);
+        drawCard(player2);
+        drawCard(player1);
+        drawCard(player2);
+        drawCard(player1);
+        drawCard(player2);
     }
 
     public void Update()
@@ -110,6 +116,7 @@ public class GM : MonoBehaviour
         }
         else {
             attackingCard.gameObject.tag = "Card";
+            attackingCard.GetComponent<Card>().isExhausted = true;
         }
 
         if (defendingCard.GetComponent<Card>().currentHealth <= 0)

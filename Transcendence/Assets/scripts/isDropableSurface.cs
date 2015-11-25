@@ -14,19 +14,22 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
     {
         isDraggable d = data.pointerDrag.GetComponent<isDraggable>();
 
-        if (data.pointerCurrentRaycast.gameObject.CompareTag("Field"))
+        // Placing a card in a field 
+        if (data.pointerCurrentRaycast.gameObject.CompareTag("Field") && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().hasBeenPlaced == false)
         {
+            //sends it to the new field
             d.parentToReturnTo = this.transform;
+            // Make sure the card is still a card
             GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
         }
 
-        if (data.pointerCurrentRaycast.gameObject.CompareTag("Card"))
+        // Dragging a card over another one turns on combat
+        if (data.pointerCurrentRaycast.gameObject.CompareTag("Card") && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().isExhausted == false)
         {
            // Debug.Log("Combat conditions have been met!");
-
-            GM.combat(GameObject.FindGameObjectWithTag("Dragging"), data.pointerCurrentRaycast.gameObject);
-        
+           GM.combat(GameObject.FindGameObjectWithTag("Dragging"), data.pointerCurrentRaycast.gameObject);        
         }
+
     }
 	public void OnPointerEnter(PointerEventData data)
     {

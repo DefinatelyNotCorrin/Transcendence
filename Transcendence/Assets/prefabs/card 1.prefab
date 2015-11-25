@@ -391,6 +391,8 @@ MonoBehaviour:
   battleSide: 0
   currentDefense: 0
   currentRange: 
+  isExhausted: 0
+  hasBeenPlaced: 0
 --- !u!114 &11472882
 MonoBehaviour:
   m_ObjectHideFlags: 1

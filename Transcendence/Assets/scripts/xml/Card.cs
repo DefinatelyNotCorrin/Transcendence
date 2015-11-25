@@ -26,12 +26,12 @@ using System;
     public double currentDefense;
     public string currentRange;
     public bool isExhausted;
+    public bool hasBeenPlaced;
     
 
     void Start()
 
-    {
-        
+    {  
 
     }
 
