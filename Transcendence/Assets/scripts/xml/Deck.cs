@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
 using System;
 using System.Collections.Generic;
+using System.Collections;
 
 [System.Serializable]
-public class Deck : MonoBehaviour {
+public class Deck : MonoBehaviour
+{
 
     public static string name;
     public List<Card> archiveDeck;
@@ -12,13 +14,16 @@ public class Deck : MonoBehaviour {
     private static System.Random rng = new System.Random();
 
     // Use this for initialization
-    void Start () {
+    void Start()
+    {
+
     }
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Update is called once per frame
+    void Update()
+    {
+
+    }
 
     public Deck(String name)
     {
@@ -92,26 +97,24 @@ public class Deck : MonoBehaviour {
             activeDeck.Add(c);
         }
     }
-    
-    public void shuffle() {
-      /*  float rng = 
-        int n = activeDeck.Count;
-        while (n > 1)
-        {
-            n--;
-            int k = rng.Next(n + 1);
-            T value = list[k];
-            list[k] = list[n];
-            list[n] = value;
-        } */
+
+    public void shuffle()
+    { 
+			for (int i = activeDeck.Count - 1; i > 0; i--) {
+				int r = UnityEngine.Random.Range(0,i);
+				Card tmp = activeDeck[i];
+				activeDeck[i] = activeDeck[r];
+				activeDeck[r] = tmp;
+		}
+        
     }
 
-    public List<Card> filterName (string name)
+    public List<Card> filterName(string name)
     {
-        List<Card> filtered =  new List<Card>();
+        List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.name.Equals(name, StringComparison.InvariantCultureIgnoreCase)) 
+            if (c.name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }
@@ -236,10 +239,7 @@ public class Deck : MonoBehaviour {
         return filtered;
     }
 
-    }
-    
-
-
+}
 
 
 

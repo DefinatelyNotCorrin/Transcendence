@@ -5,12 +5,11 @@ using System.IO;
 public class CardDisplay : MonoBehaviour {
 
     string path;
-
+    
 	// Use this for initialization
 	void Start () {
         path = Application.dataPath + "/scripts/xml/cards.xml";
         DeckReader reader = new DeckReader();
-
 
         if (File.Exists(path))
         {
@@ -18,7 +17,7 @@ public class CardDisplay : MonoBehaviour {
 
             foreach (Card card in database)
             {
-                print((card.name));
+                print(card.name + "_cost:" + card.cost + " atk:" + card.attack + " hp:" + card.health);
             }
 
             Deck deck = new Deck();
@@ -28,15 +27,17 @@ public class CardDisplay : MonoBehaviour {
             {
                 deck.archiveDeck.Add(c);
             }
-            Debug.Log(deck.peek().name);
-            //deck.shuffle();
             deck.resetActive();
-            List<Card> filtered = deck.filterCost("3");
+            deck.shuffle();
+            Debug.Log(deck.peek().name + "bypass archiving and reset active");
+
+			deck.shuffle();
             Debug.Log("Post Filter");
-            foreach (Card c in filtered)
+            foreach (Card card in deck.activeDeck)
             {
-                Debug.Log(c.name);
+                print(card.name + "_cost:" + card.cost + " atk:" + card.attack + " hp:" + card.health);
             }
+            Debug.Log("Printed list operated upon.");
         }
         else
         {

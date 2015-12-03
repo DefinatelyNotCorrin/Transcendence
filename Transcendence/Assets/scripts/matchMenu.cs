@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 
 public class matchMenu : MonoBehaviour {
-
+    /*
 
     public Dropdown player1DeckSelector;
     public Dropdown player2DeckSelecor;
@@ -43,5 +43,5 @@ public class matchMenu : MonoBehaviour {
 	
 	}
 
-    
+    */
 }
