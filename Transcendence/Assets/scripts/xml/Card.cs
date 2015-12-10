@@ -27,6 +27,7 @@ using System;
     public string currentRange;
     public bool isExhausted;
     public bool hasBeenPlaced;
+    public string ownerTag;
     
 
     void Start()

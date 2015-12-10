@@ -3,7 +3,15 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags: []
+  tags:
+  - Card
+  - Field
+  - Dragging
+  - Master
+  - Player 1
+  - Player 2
+  - Player 1 Mana
+  - Player 2 Mana
   layers:
   - Default
   - TransparentFX

@@ -12,7 +12,7 @@ public class GM : MonoBehaviour
     Player 1 is side 0, Player 2 is side 1
     */
 
-    //the prefab and the spawn locations
+    // Prefabs, locations, players, buttons, and readouts 
     bool isFirstTurn = false;
     public GameObject PrefabCard;
     public RectTransform cardSpawnTemple;
@@ -20,68 +20,158 @@ public class GM : MonoBehaviour
     public GameObject player1;
     public GameObject player2;
     public GameObject canvas;
+    public GameObject playerHandTemple;
+    public GameObject playerHandCitadel;
+    public Sprite cardBack;
+    public Sprite clear;
+    public Text player1Mana;
+    public Text player2Mana;
+    public Button player1EndTurnButton;
+    public Button player2EndTurnButton;
+    public bool hasEndedTurn;
     int cardnum = 4;
     string path;
-
     int card = 0;
-
-    //Temple is 0 and Citadel is 1
 
     public void Start()
     {
+
+        // The initial mulligan
         drawCard(player1);
         drawCard(player2);
+
         drawCard(player1);
         drawCard(player2);
+
         drawCard(player1);
         drawCard(player2);
+
         drawCard(player1);
         drawCard(player2);
+
+        int chance = UnityEngine.Random.Range(0, 1);
+
+        Debug.Log(chance);
+
+        // Set player starting mana cap
+        player1.GetComponent<player>().manaMax = 2;
+        player2.GetComponent<player>().manaMax = 2;
+
+        // Determine who goes first, and start that player's turn
+        if (chance == 0)
+        {
+            startTurn(player1);
+            player1.GetComponent<player>().isTurn = true;
+            player2.GetComponent<player>().isTurn = false;
+
+            foreach (Transform child in playerHandTemple.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = clear;
+            }
+            foreach (Transform child in playerHandCitadel.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
+            }
+        }
+        else if (chance == 1)
+        {
+            startTurn(player2);
+            player1.GetComponent<player>().isTurn = false;
+            player2.GetComponent<player>().isTurn = true;
+
+            foreach (Transform child in playerHandTemple.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
+            }
+            foreach (Transform child in playerHandCitadel.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = clear;
+            }
+        }
+
+    }
+
+    public void endTurn()
+    {
+
+        ///// FIX THE SECOND ONE SO IT IS HAS STARTED GOING
+
+        // Toggles to Player 2 turn if Player 1 pressed the button
+        if (player1.GetComponent<player>().isTurn)
+        {
+            startTurn(player2);
+            player1.GetComponent<player>().isTurn = false;
+            player2.GetComponent<player>().isTurn = true;
+
+            foreach (Transform child in playerHandTemple.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
+            }
+            foreach (Transform child in playerHandCitadel.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = clear;
+            }
+        }
+
+        // Toggles to player 1 turn if Player 2 pressed the button
+        else if (player2.GetComponent<player>().isTurn)
+        {
+            startTurn(player1);
+            player1.GetComponent<player>().isTurn = true;
+            player2.GetComponent<player>().isTurn = false;
+
+            foreach (Transform child in playerHandTemple.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = clear;
+            }
+            foreach (Transform child in playerHandCitadel.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
+            }
+        }
     }
 
     public void Update()
     {
-        //starts player 1 turn
-        if (player1.GetComponent<player>().isTurn == true && player1.GetComponent<player>().hasStartedGoing == false)
+
+        // Update mana every frame **** CAUSE WHY NOT? ****
+        player1Mana.text = player1.GetComponent<player>().currentMana.ToString();
+        player2Mana.text = player2.GetComponent<player>().currentMana.ToString();
+
+        // Toggle "End Turn" buttons based on player turn
+        if (player1.GetComponent<player>().isTurn)
         {
-            turn(player1);
-            player1.GetComponent<player>().hasStartedGoing = true;
-            player2.GetComponent<player>().isTurn = false;
-            player2.GetComponent<player>().hasStartedGoing = false;
+            player1EndTurnButton.interactable = true;
+            player2EndTurnButton.interactable = false;
         }
 
-        //start player 2 turn
-        if (player2.GetComponent<player>().isTurn == true && player2.GetComponent<player>().hasStartedGoing == false)
+        if (player2.GetComponent<player>().isTurn)
         {
-            turn(player1);
-            player2.GetComponent<player>().hasStartedGoing = true;
-            player1.GetComponent<player>().isTurn = false;
-            player1.GetComponent<player>().hasStartedGoing = false;
+            player1EndTurnButton.interactable = false;
+            player2EndTurnButton.interactable = true;
+
         }
 
-        //the combat loop
-        if (player1.GetComponent<player>().hasStartedGoing = true && player1.GetComponent<player>().isTurn == true)
+        // Check to see if a player has won
+        //if (player2.)
+
+        if (player1.GetComponent<player>().isTurn)
         {
             
         }
 
-        if (player1.GetComponent<player>().hasStartedGoing = true && player1.GetComponent<player>().isTurn == true)
-        {
-
-        }
-
-    }
-    
-    // First turn setup that runs at the start of the game
-    public void firstTurn(GameObject player)
-    {
-        drawCard(player);
     }
 
-    // Turn that runs during a player's turn
-    public void turn(GameObject player)
+    // The method called when the game is ended
+    public void endGame(player winner)
     {
-        if (player.GetComponent<player>().manaMax < 15)
+        Debug.Log(winner.name + " wins!");
+    }
+
+    // Turn that sets up a player's turn
+    public void startTurn(GameObject player)
+    {
+        if (player.GetComponent<player>().manaMax < 13)
         {
             player.GetComponent<player>().manaMax++;
         }
@@ -131,29 +221,18 @@ public class GM : MonoBehaviour
     public void drawCard(GameObject player)
     {
 
-        
-        List<Card> deck = new List<Card>();
-
         String deckPath = Application.dataPath + "/scripts/xml/cards.xml";
 
         DeckReader reader = new DeckReader();
 
+        List<Card> deck = new List<Card>();
         List<Card> archiveDeck = reader.load(deckPath);
-
-        Debug.Log(archiveDeck.Count);
 
         for (int i = 0; i < archiveDeck.Count; i++)
         {
             deck.Add(archiveDeck[i]);
-
-            if (i == 26)
-            {
-                Debug.Log("End of the line");
-                Debug.Log(deck[10].name);
-            }
         }
         
-
         instantiateCard(player, deck[cardnum]);
         cardnum++;
         player.GetComponent<player>().currentDrawCard++;
@@ -193,7 +272,8 @@ public class GM : MonoBehaviour
             card.GetComponent<Card>().currentHealth = currentCard.currentHealth;
             card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
             card.GetComponent<Card>().currentRange = currentCard.currentRange;
-            card.GetComponent<Card>().battleSide = player.GetComponent<player>().playerSide;
+            card.GetComponent<Card>().ownerTag = "Player 1";
+            
 
             //moves the card into the canvas
             card.transform.SetParent(cardSpawnTemple);
@@ -240,7 +320,7 @@ public class GM : MonoBehaviour
             card.GetComponent<Card>().currentHealth = currentCard.currentHealth;
             card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
             card.GetComponent<Card>().currentRange = currentCard.currentRange;
-            card.GetComponent<Card>().battleSide = player.GetComponent<player>().playerSide;
+            card.GetComponent<Card>().ownerTag = "Player 2";
 
             //moves the card into the canvas
             card.transform.SetParent(cardSpawnCitadel);
@@ -260,6 +340,41 @@ public class GM : MonoBehaviour
 
     /*
     The following methods are for testing purposes only, and are cut down versions of what will be in game logic
+    */
+
+    /*
+    Here is old logic I may want to see later:
+        // Runs once at the start of Player 1's turn
+        //if (player1.GetComponent<player>().isTurn == true && player1.GetComponent<player>().hasStartedGoing == false)
+        //{
+        //    turn(player1);
+        //    player1Mana.text = player1.GetComponent<player>().currentMana.ToString();
+        //    player1.GetComponent<player>().hasStartedGoing = true;
+
+        //}
+
+        // Runs once at the start of Player 2's turn
+        //if (player2.GetComponent<player>().isTurn == true && player2.GetComponent<player>().hasStartedGoing == false)
+        //{
+        //    turn(player1);
+        //    player2Mana.text = player2.GetComponent<player>().currentMana.ToString();
+        //    player2.GetComponent<player>().hasStartedGoing = true;
+
+        //}
+
+        // The check for the end turn buttons loop
+        //if (player1.GetComponent<player>().isTurn == true)
+        //{
+        //    player1EndTurnButton.interactable = true;
+        //    player2EndTurnButton.interactable = true;
+        //}
+
+        //if (player2.GetComponent<player>().isTurn == true)
+        //{
+        //    player2EndTurnButton.interactable = true;
+        //    player1EndTurnButton.interactable = true;
+        //}
+
     */
 
     //should create cards for each one in a deck and then instanstiate them in the game
