@@ -9,6 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 425900}
   - 114: {fileID: 11450888}
+  - 114: {fileID: 11442764}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -28,6 +29,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &11442764
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 114824}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4dca2715f16dee246adaaf778e2f6a2e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  archiveDeck: []
+  activeDeck: []
+  discard: []
 --- !u!114 &11450888
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -47,7 +62,7 @@ MonoBehaviour:
   hasStartedGoing: 0
   manaMax: 0
   currentMana: 0
-  deck: []
+  deck: {fileID: 0}
   shuffledDeck: []
   currentDrawCard: 0
 --- !u!1001 &100100000

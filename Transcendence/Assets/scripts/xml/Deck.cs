@@ -7,7 +7,7 @@ using System.Collections;
 public class Deck : MonoBehaviour
 {
 
-    public static string name;
+    public string name;
     public List<Card> archiveDeck;
     public List<Card> activeDeck;
     public List<Card> discard;
@@ -32,7 +32,9 @@ public class Deck : MonoBehaviour
 
     public Deck()
     {
-
+        activeDeck = new List<Card>();
+        archiveDeck = new List<Card>();
+        discard = new List<Card>();
     }
 
     public int getArchiveSize() //returns size of deck before match started

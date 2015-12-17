@@ -2212,7 +2212,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 3f3d4a7d5282ace4e894549310ff2446, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 75997973b2c2a3140aa2b5cdd3003662, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2792,21 +2792,41 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e076551efdcbed44830ed2c4bb06405, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hasEndedTurn: 0
+  player1EndTurnButton: {fileID: 2090334600}
+  player2EndTurnButton: {fileID: 2083037408}
+  player1Mana: {fileID: 263101207}
+  player2Mana: {fileID: 207903274}
+  player1VP: {fileID: 907888701}
+  player2VP: {fileID: 1998344660}
+  cardBack: {fileID: 21300000, guid: c01a4166800bdf5499d01760297d834d, type: 3}
+  clear: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   PrefabCard: {fileID: 162236, guid: 383e48603da9e054dbbb0d256f5ec51a, type: 2}
-  cardSpawnTemple: {fileID: 1205832562}
-  cardSpawnCitadel: {fileID: 1359086771}
   player1: {fileID: 1698672570}
   player2: {fileID: 1863538354}
   canvas: {fileID: 339648023}
   playerHandTemple: {fileID: 1205832561}
   playerHandCitadel: {fileID: 1359086770}
-  cardBack: {fileID: 21300000, guid: c01a4166800bdf5499d01760297d834d, type: 3}
-  clear: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
-  player1Mana: {fileID: 263101207}
-  player2Mana: {fileID: 207903274}
-  player1EndTurnButton: {fileID: 2090334600}
-  player2EndTurnButton: {fileID: 2083037408}
-  hasEndedTurn: 0
+  cardSpawnTemple: {fileID: 1205832562}
+  cardSpawnCitadel: {fileID: 1359086771}
+  topLeft1: {fileID: 249649968}
+  topLeft2: {fileID: 1226135520}
+  topLeft3: {fileID: 1366863943}
+  topMiddle1: {fileID: 32360776}
+  topMiddle2: {fileID: 1569673316}
+  topMiddle3: {fileID: 1791437421}
+  topRight1: {fileID: 973516980}
+  topRight2: {fileID: 375365709}
+  topRight3: {fileID: 1551863668}
+  bottomLeft1: {fileID: 1602226611}
+  bottomLeft2: {fileID: 1604910564}
+  bottomLeft3: {fileID: 2108624444}
+  bottomMiddle1: {fileID: 277400090}
+  bottomMiddle2: {fileID: 1717368250}
+  bottomMiddle3: {fileID: 1669847320}
+  bottomRight1: {fileID: 241890890}
+  bottomRight2: {fileID: 787011494}
+  bottomRight3: {fileID: 922459593}
 --- !u!224 &1504950336
 RectTransform:
   m_ObjectHideFlags: 0

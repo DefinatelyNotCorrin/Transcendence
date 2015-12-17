@@ -13,32 +13,55 @@ public class GM : MonoBehaviour
     */
 
     // Prefabs, locations, players, buttons, and readouts 
-    bool isFirstTurn = false;
+
+    public bool hasEndedTurn;
+    public Button player1EndTurnButton;
+    public Button player2EndTurnButton;
+    public Text player1Mana;
+    public Text player2Mana;
+    public Text player1VP;
+    public Text player2VP;
+    public Sprite cardBack;
+    public Sprite clear;
     public GameObject PrefabCard;
-    public RectTransform cardSpawnTemple;
-    public RectTransform cardSpawnCitadel;
     public GameObject player1;
     public GameObject player2;
     public GameObject canvas;
     public GameObject playerHandTemple;
     public GameObject playerHandCitadel;
-    public Sprite cardBack;
-    public Sprite clear;
-    public Text player1Mana;
-    public Text player2Mana;
-    public Button player1EndTurnButton;
-    public Button player2EndTurnButton;
-    public bool hasEndedTurn;
-    int cardnum = 4;
-    string path;
-    int card = 0;
+    public RectTransform cardSpawnTemple;
+    public RectTransform cardSpawnCitadel;
+
+    /// <summary>
+    /// The following are all of the individual card spaces on the field, labled from the perspective of Player 1 (side 0)
+    /// </summary>
+    
+    public GameObject topLeft1;
+    public GameObject topLeft2;
+    public GameObject topLeft3;
+    public GameObject topMiddle1;
+    public GameObject topMiddle2;
+    public GameObject topMiddle3;
+    public GameObject topRight1;
+    public GameObject topRight2;
+    public GameObject topRight3;
+
+    public GameObject bottomLeft1;
+    public GameObject bottomLeft2;
+    public GameObject bottomLeft3;
+    public GameObject bottomMiddle1;
+    public GameObject bottomMiddle2;
+    public GameObject bottomMiddle3;
+    public GameObject bottomRight1;
+    public GameObject bottomRight2;
+    public GameObject bottomRight3;
 
     public void Start()
     {
 
         // The initial mulligan
-        drawCard(player1);
-        drawCard(player2);
+        player1.GetComponent<player>().loadDeck();
+        player2.GetComponent<player>().loadDeck();
 
         drawCard(player1);
         drawCard(player2);
@@ -49,7 +72,10 @@ public class GM : MonoBehaviour
         drawCard(player1);
         drawCard(player2);
 
-        int chance = UnityEngine.Random.Range(0, 1);
+        drawCard(player1);
+        drawCard(player2);
+
+        int chance = UnityEngine.Random.Range(0, 2);
 
         Debug.Log(chance);
 
@@ -58,7 +84,7 @@ public class GM : MonoBehaviour
         player2.GetComponent<player>().manaMax = 2;
 
         // Determine who goes first, and start that player's turn
-        if (chance == 0)
+        if (chance == 1)
         {
             startTurn(player1);
             player1.GetComponent<player>().isTurn = true;
@@ -73,7 +99,7 @@ public class GM : MonoBehaviour
                 child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
             }
         }
-        else if (chance == 1)
+        else if (chance == 0)
         {
             startTurn(player2);
             player1.GetComponent<player>().isTurn = false;
@@ -86,47 +112,6 @@ public class GM : MonoBehaviour
             foreach (Transform child in playerHandCitadel.transform)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = clear;
-            }
-        }
-
-    }
-
-    public void endTurn()
-    {
-
-        ///// FIX THE SECOND ONE SO IT IS HAS STARTED GOING
-
-        // Toggles to Player 2 turn if Player 1 pressed the button
-        if (player1.GetComponent<player>().isTurn)
-        {
-            startTurn(player2);
-            player1.GetComponent<player>().isTurn = false;
-            player2.GetComponent<player>().isTurn = true;
-
-            foreach (Transform child in playerHandTemple.transform)
-            {
-                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
-            }
-            foreach (Transform child in playerHandCitadel.transform)
-            {
-                child.Find("Card Back").GetComponent<Image>().sprite = clear;
-            }
-        }
-
-        // Toggles to player 1 turn if Player 2 pressed the button
-        else if (player2.GetComponent<player>().isTurn)
-        {
-            startTurn(player1);
-            player1.GetComponent<player>().isTurn = true;
-            player2.GetComponent<player>().isTurn = false;
-
-            foreach (Transform child in playerHandTemple.transform)
-            {
-                child.Find("Card Back").GetComponent<Image>().sprite = clear;
-            }
-            foreach (Transform child in playerHandCitadel.transform)
-            {
-                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
             }
         }
     }
@@ -137,6 +122,9 @@ public class GM : MonoBehaviour
         // Update mana every frame **** CAUSE WHY NOT? ****
         player1Mana.text = player1.GetComponent<player>().currentMana.ToString();
         player2Mana.text = player2.GetComponent<player>().currentMana.ToString();
+
+        player1VP.text = player1.GetComponent<player>().victoryPoints.ToString();
+        player2VP.text = player2.GetComponent<player>().victoryPoints.ToString();
 
         // Toggle "End Turn" buttons based on player turn
         if (player1.GetComponent<player>().isTurn)
@@ -157,18 +145,12 @@ public class GM : MonoBehaviour
 
         if (player1.GetComponent<player>().isTurn)
         {
-            
+
         }
 
     }
 
-    // The method called when the game is ended
-    public void endGame(player winner)
-    {
-        Debug.Log(winner.name + " wins!");
-    }
-
-    // Turn that sets up a player's turn
+    // Method that runs at the start of a player's turn
     public void startTurn(GameObject player)
     {
         if (player.GetComponent<player>().manaMax < 13)
@@ -178,6 +160,60 @@ public class GM : MonoBehaviour
         player.GetComponent<player>().currentMana = player.GetComponent<player>().manaMax;
 
         drawCard(player);
+    }
+
+    // What happens when a player ends their turn
+    public void endTurn()
+    {
+
+        // Toggles to Player 2 turn if Player 1 pressed the button
+        if (player1.GetComponent<player>().isTurn)
+        {
+
+            // Set the Player 1's card back to enabled, and Player 2's card back to clear
+            foreach (Transform child in playerHandTemple.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
+            }
+            foreach (Transform child in playerHandCitadel.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = clear;
+            }
+
+            if (bottomLeft1.transform.FindChild("cardSmall") != null) 
+            {
+                player1.GetComponent<player>().victoryPoints++;
+            }
+
+            // Start Player 2's turn
+            startTurn(player2);
+            player1.GetComponent<player>().isTurn = false;
+            player2.GetComponent<player>().isTurn = true;
+
+        }
+
+        // Toggles to player 1 turn if Player 2 pressed the button
+        else if (player2.GetComponent<player>().isTurn)
+        {
+            startTurn(player1);
+            player1.GetComponent<player>().isTurn = true;
+            player2.GetComponent<player>().isTurn = false;
+
+            foreach (Transform child in playerHandTemple.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = clear;
+            }
+            foreach (Transform child in playerHandCitadel.transform)
+            {
+                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
+            }
+        }
+    }
+
+    // The method called when the game is ended
+    public void endGame(player winner)
+    {
+        Debug.Log(winner.name + " wins!");
     }
 
     // Combat method for cards
@@ -220,22 +256,10 @@ public class GM : MonoBehaviour
     // Draw a card method for the player
     public void drawCard(GameObject player)
     {
-
-        String deckPath = Application.dataPath + "/scripts/xml/cards.xml";
-
-        DeckReader reader = new DeckReader();
-
-        List<Card> deck = new List<Card>();
-        List<Card> archiveDeck = reader.load(deckPath);
-
-        for (int i = 0; i < archiveDeck.Count; i++)
-        {
-            deck.Add(archiveDeck[i]);
-        }
         
-        instantiateCard(player, deck[cardnum]);
-        cardnum++;
-        player.GetComponent<player>().currentDrawCard++;
+
+        instantiateCard(player, player.GetComponent<player>().deck.poll());
+
     }
 
     // Creates a card a position based on player side and card value
@@ -375,12 +399,47 @@ public class GM : MonoBehaviour
         //    player1EndTurnButton.interactable = true;
         //}
 
-    */
+                /*List<Card> deck = new List<Card>();
+
+        deckPath = Application.dataPath + "/scripts/xml/cards.xml";
+
+        DeckReader reader = new DeckReader();
+
+        List<Card> archiveDeck = reader.load(deckPath);
+
+        Debug.Log(archiveDeck.Count);
+
+        for (int i = 0; i < archiveDeck.Count; i++)
+        {
+            deck.Add(archiveDeck[i]);
+
+            if (i == 26)
+            {
+                Debug.Log("End of the line");
+                Debug.Log(deck[10].name);
+            }
+        }
+
+        ///// UPDATE USING THE DECK THAT IS IN THE PLAYER OBJECT - MAKE SURE THE PLAYER DECK IS LOADED IN START!
+
+        
+    String deckPath = Application.dataPath + "/scripts/xml/cards.xml";
+
+    DeckReader reader = new DeckReader();
+
+    List<Card> deck = new List<Card>();
+    List<Card> archiveDeck = reader.load(deckPath);
+
+        for (int i = 0; i<archiveDeck.Count; i++)
+        {
+            deck.Add(archiveDeck[i]);
+        }
+*/
 
     //should create cards for each one in a deck and then instanstiate them in the game
     public void generateDeck(GameObject player)
     {
-
+        string path;
         path = Application.dataPath + player.GetComponent<player>().deckPath;
 
         List<Card> cards = new List<Card>();
@@ -411,7 +470,8 @@ public class GM : MonoBehaviour
     //should create one single card from a list of cards, given player object
     public void generateCard(GameObject player)
     {
-
+        string path;
+        int card = 0;
         //string path, int cardLocation
         //a list that will hold all the cards
         List<Card> cards = new List<Card>();
