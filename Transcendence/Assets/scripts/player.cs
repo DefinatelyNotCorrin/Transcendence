@@ -30,8 +30,6 @@ public class player : MonoBehaviour {
 
         List<Card> stock = reader.load(deckPath);
 
-        Debug.Log(stock.Count);
-
         foreach (Card c in stock)
         {
             deck.archiveDeck.Add(c);
@@ -39,8 +37,5 @@ public class player : MonoBehaviour {
 
         deck.resetActive();
         deck.shuffle();
-
-        Debug.Log(deck.archiveDeck.Count);
-        Debug.Log(deck.activeDeck.Count);
     }
 }

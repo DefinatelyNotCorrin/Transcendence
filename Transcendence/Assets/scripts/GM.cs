@@ -21,7 +21,8 @@ public class GM : MonoBehaviour
     public Text player2Mana;
     public Text player1VP;
     public Text player2VP;
-    public Sprite cardBack;
+    public Sprite cardBackTemple;
+    public Sprite cardBackCitadel;
     public Sprite clear;
     public GameObject PrefabCard;
     public GameObject player1;
@@ -29,23 +30,6 @@ public class GM : MonoBehaviour
     public GameObject canvas;
     public GameObject playerHandTemple;
     public GameObject playerHandCitadel;
-    public RectTransform cardSpawnTemple;
-    public RectTransform cardSpawnCitadel;
-
-    /// <summary>
-    /// The following are all of the individual card spaces on the field, labled from the perspective of Player 1 (side 0)
-    /// </summary>
-    
-    public GameObject topLeft1;
-    public GameObject topLeft2;
-    public GameObject topLeft3;
-    public GameObject topMiddle1;
-    public GameObject topMiddle2;
-    public GameObject topMiddle3;
-    public GameObject topRight1;
-    public GameObject topRight2;
-    public GameObject topRight3;
-
     public GameObject bottomLeft1;
     public GameObject bottomLeft2;
     public GameObject bottomLeft3;
@@ -55,6 +39,18 @@ public class GM : MonoBehaviour
     public GameObject bottomRight1;
     public GameObject bottomRight2;
     public GameObject bottomRight3;
+    public GameObject topLeft1;
+    public GameObject topLeft2;
+    public GameObject topLeft3;
+    public GameObject topMiddle1;
+    public GameObject topMiddle2;
+    public GameObject topMiddle3;
+    public GameObject topRight1;
+    public GameObject topRight2;
+    public GameObject topRight3;
+    public RectTransform cardSpawnTemple;
+    public RectTransform cardSpawnCitadel;
+
 
     public void Start()
     {
@@ -96,7 +92,7 @@ public class GM : MonoBehaviour
             }
             foreach (Transform child in playerHandCitadel.transform)
             {
-                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
+                child.Find("Card Back").GetComponent<Image>().sprite = cardBackCitadel;
             }
         }
         else if (chance == 0)
@@ -107,7 +103,7 @@ public class GM : MonoBehaviour
 
             foreach (Transform child in playerHandTemple.transform)
             {
-                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
+                child.Find("Card Back").GetComponent<Image>().sprite = cardBackTemple;
             }
             foreach (Transform child in playerHandCitadel.transform)
             {
@@ -139,15 +135,6 @@ public class GM : MonoBehaviour
             player2EndTurnButton.interactable = true;
 
         }
-
-        // Check to see if a player has won
-        //if (player2.)
-
-        if (player1.GetComponent<player>().isTurn)
-        {
-
-        }
-
     }
 
     // Method that runs at the start of a player's turn
@@ -173,17 +160,15 @@ public class GM : MonoBehaviour
             // Set the Player 1's card back to enabled, and Player 2's card back to clear
             foreach (Transform child in playerHandTemple.transform)
             {
-                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
+                child.Find("Card Back").GetComponent<Image>().sprite = cardBackTemple;
             }
             foreach (Transform child in playerHandCitadel.transform)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = clear;
             }
 
-            if (bottomLeft1.transform.FindChild("cardSmall") != null) 
-            {
-                player1.GetComponent<player>().victoryPoints++;
-            }
+            // Give Player 1 all earned VP
+            VPTally(player1);
 
             // Start Player 2's turn
             startTurn(player2);
@@ -195,18 +180,21 @@ public class GM : MonoBehaviour
         // Toggles to player 1 turn if Player 2 pressed the button
         else if (player2.GetComponent<player>().isTurn)
         {
-            startTurn(player1);
-            player1.GetComponent<player>().isTurn = true;
-            player2.GetComponent<player>().isTurn = false;
-
+            
             foreach (Transform child in playerHandTemple.transform)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = clear;
             }
             foreach (Transform child in playerHandCitadel.transform)
             {
-                child.Find("Card Back").GetComponent<Image>().sprite = cardBack;
+                child.Find("Card Back").GetComponent<Image>().sprite = cardBackCitadel;
             }
+
+            VPTally(player2);
+
+            startTurn(player1);
+            player1.GetComponent<player>().isTurn = true;
+            player2.GetComponent<player>().isTurn = false;
         }
     }
 
@@ -255,10 +243,52 @@ public class GM : MonoBehaviour
 
     // Draw a card method for the player
     public void drawCard(GameObject player)
-    {
-        
-
+    {        
         instantiateCard(player, player.GetComponent<player>().deck.poll());
+    }
+
+    //Tally a player's VP at the end of their turn
+    public void VPTally(GameObject player)
+    {
+        // Logic for Player 1
+        if (player.GetComponent<player>().playerSide == 0)
+        {
+            
+            if (bottomLeft1.transform.childCount == 1 || bottomLeft2.transform.childCount == 1 || bottomLeft3.transform.childCount == 1)
+            {
+                player1.GetComponent<player>().victoryPoints++;
+            }
+
+            if (bottomMiddle1.transform.childCount == 1 || bottomMiddle2.transform.childCount == 1 || bottomMiddle3.transform.childCount == 1)
+            {
+                player1.GetComponent<player>().victoryPoints++;
+            }
+
+            if (bottomRight1.transform.childCount == 1 || bottomRight2.transform.childCount == 1 || bottomRight3.transform.childCount == 1)
+            {
+                player1.GetComponent<player>().victoryPoints++;
+            }
+        }
+
+        // Logic for Player 2
+        if (player.GetComponent<player>().playerSide == 0)
+        {
+
+            if (topLeft1.transform.childCount == 1 || topLeft2.transform.childCount == 1 || topLeft3.transform.childCount == 1)
+            {
+                player2.GetComponent<player>().victoryPoints++;
+            }
+
+            if (topMiddle1.transform.childCount == 1 || topMiddle2.transform.childCount == 1 || topMiddle3.transform.childCount == 1)
+            {
+                player2.GetComponent<player>().victoryPoints++;
+            }
+
+            if (topRight1.transform.childCount == 1 || topRight2.transform.childCount == 1 || topRight3.transform.childCount == 1)
+            {
+                player2.GetComponent<player>().victoryPoints++;
+            }
+        }
 
     }
 
