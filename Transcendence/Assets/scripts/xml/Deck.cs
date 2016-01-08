@@ -8,6 +8,7 @@ public class Deck : MonoBehaviour
 {
 
     public string name;
+    public string path;
     public List<Card> archiveDeck;
     public List<Card> activeDeck;
     public List<Card> discard;
@@ -25,8 +26,13 @@ public class Deck : MonoBehaviour
 
     }
 
-    public Deck(String name)
+    public Deck(String path, String name)
     {
+        activeDeck = new List<Card>();
+        archiveDeck = new List<Card>();
+        discard = new List<Card>();
+        this.name = name;
+        this.path = path;
 
     }
 

@@ -12,6 +12,7 @@ TagManager:
   - Player 2
   - Player 1 Mana
   - Player 2 Mana
+  - Hand
   layers:
   - Default
   - TransparentFX

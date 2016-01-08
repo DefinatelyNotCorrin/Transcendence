@@ -21,11 +21,18 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         //saves the current parent of the object
         parentToReturnTo = this.transform.parent;
         //sets the objects parent up one level (resetting the grid)
-        this.transform.SetParent(this.transform.parent.parent);
-        GetComponent<CanvasGroup>().blocksRaycasts = false;
+        if (this.transform.parent.CompareTag("Hand"))
+        {
+            this.transform.SetParent(this.transform.parent.parent);
+        }
 
+        if (this.transform.parent.CompareTag("Field"))
+        {
+            this.transform.SetParent(this.transform.parent.parent.parent);
+        }
 
         
+        GetComponent<CanvasGroup>().blocksRaycasts = false;       
         
     }
 

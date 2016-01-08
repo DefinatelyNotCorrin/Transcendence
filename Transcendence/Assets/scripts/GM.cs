@@ -14,7 +14,6 @@ public class GM : MonoBehaviour
 
     // Prefabs, locations, players, buttons, and readouts 
 
-    public bool hasEndedTurn;
     public Button player1EndTurnButton;
     public Button player2EndTurnButton;
     public Text player1Mana;
@@ -24,6 +23,7 @@ public class GM : MonoBehaviour
     public Sprite cardBackTemple;
     public Sprite cardBackCitadel;
     public Sprite clear;
+    public Canvas switchPlayerMenu;
     public GameObject PrefabCard;
     public GameObject player1;
     public GameObject player2;
@@ -55,6 +55,8 @@ public class GM : MonoBehaviour
     public void Start()
     {
 
+        switchPlayerMenu.enabled = false;
+
         // The initial mulligan
         player1.GetComponent<player>().loadDeck();
         player2.GetComponent<player>().loadDeck();
@@ -72,8 +74,6 @@ public class GM : MonoBehaviour
         drawCard(player2);
 
         int chance = UnityEngine.Random.Range(0, 2);
-
-        Debug.Log(chance);
 
         // Set player starting mana cap
         player1.GetComponent<player>().manaMax = 2;
@@ -94,6 +94,12 @@ public class GM : MonoBehaviour
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = cardBackCitadel;
             }
+
+            togglePlayerChangeMenu();
+            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "Get 20 VP to win.";
+            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Player 1 goes first!";
+            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
+            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
         }
         else if (chance == 0)
         {
@@ -109,6 +115,12 @@ public class GM : MonoBehaviour
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = clear;
             }
+
+            togglePlayerChangeMenu();
+            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "Get 20 VP to win.";
+            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Player 2 goes first!";
+            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
+            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
         }
     }
 
@@ -133,9 +145,19 @@ public class GM : MonoBehaviour
         {
             player1EndTurnButton.interactable = false;
             player2EndTurnButton.interactable = true;
+        }
 
+        if (player1.GetComponent<player>().victoryPoints == 20)
+        {
+            endGame(player1);
+        }
+
+        if (player2.GetComponent<player>().victoryPoints == 20)
+        {
+            endGame(player2);
         }
     }
+
 
     // Method that runs at the start of a player's turn
     public void startTurn(GameObject player)
@@ -175,6 +197,14 @@ public class GM : MonoBehaviour
             player1.GetComponent<player>().isTurn = false;
             player2.GetComponent<player>().isTurn = true;
 
+            togglePlayerChangeMenu();
+            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "It is now Player 2's turn";
+            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Current Scores:";
+            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<player>().victoryPoints + " VP!";
+            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<player>().victoryPoints + " VP!";
+
+
+
         }
 
         // Toggles to player 1 turn if Player 2 pressed the button
@@ -195,13 +225,36 @@ public class GM : MonoBehaviour
             startTurn(player1);
             player1.GetComponent<player>().isTurn = true;
             player2.GetComponent<player>().isTurn = false;
+
+            togglePlayerChangeMenu();
+            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "It is now Player 1's turn";
+            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Current Scores:";
+            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<player>().victoryPoints + " VP!";
+            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<player>().victoryPoints + " VP!";
+
         }
     }
 
     // The method called when the game is ended
-    public void endGame(player winner)
+    public void endGame(GameObject winner)
     {
-        Debug.Log(winner.name + " wins!");
+        switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "";
+        switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
+        switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
+        switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = winner.GetComponent<player>().name + " Wins!";
+    }
+
+    // The method that enables/disables the switching player menu
+    public void togglePlayerChangeMenu()
+    {
+        if (switchPlayerMenu.enabled == false)
+        {
+            switchPlayerMenu.enabled = true;
+        }
+        else if (switchPlayerMenu.enabled == true)
+        {
+            switchPlayerMenu.enabled = false;
+        }
     }
 
     // Combat method for cards
@@ -271,7 +324,7 @@ public class GM : MonoBehaviour
         }
 
         // Logic for Player 2
-        if (player.GetComponent<player>().playerSide == 0)
+        if (player.GetComponent<player>().playerSide == 1)
         {
 
             if (topLeft1.transform.childCount == 1 || topLeft2.transform.childCount == 1 || topLeft3.transform.childCount == 1)
