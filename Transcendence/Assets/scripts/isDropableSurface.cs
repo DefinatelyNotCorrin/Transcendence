@@ -11,6 +11,7 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
     use findTag to get the GameObject of the card that is dragging to make sure that combat conditions and 
     */
     public GM gm = new GM();
+    public effectDatabase ef = new effectDatabase();
 
     public void OnDrop(PointerEventData data)
     {
@@ -85,6 +86,16 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
             {
                 GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
             }
+
+        }
+
+        else if (data.pointerCurrentRaycast.gameObject.CompareTag("Card")
+            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().isExhausted == false)
+            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().type.Equals("Spell")))
+        {
+            string effectname = GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect;
+
+            ef.fireball(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
 
         }
         // If combat is not valid, make the card a card again

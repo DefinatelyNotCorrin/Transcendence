@@ -102,7 +102,7 @@ public class MatchStartScript : MonoBehaviour {
 	public void StartMatch() {
 		menuAudio.PlayOneShot(heavyClickSound, 0.7F);
 		if (p1IsLocked && p2IsLocked) { //are both players locked?
-		Application.LoadLevel (1); //Level 1 should be the match scene
+		Application.LoadLevel (2); //Level 1 should be the match scene
 		}
 		else {
 			helperPrompt.enabled = true;

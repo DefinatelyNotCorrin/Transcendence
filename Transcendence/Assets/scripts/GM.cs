@@ -56,6 +56,8 @@ public class GM : MonoBehaviour
     {
 
         switchPlayerMenu.enabled = false;
+        player1.GetComponent<player>().deckPath = GameObject.Find("Player1StartData").GetComponent<player>().deckPath;
+        player2.GetComponent<player>().deckPath = GameObject.Find("Player2StartData").GetComponent<player>().deckPath;
 
         // The initial mulligan
         player1.GetComponent<player>().loadDeck();

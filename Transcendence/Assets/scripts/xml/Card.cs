@@ -16,6 +16,7 @@ using System;
     public string defense;
     public string range;
     public string target;
+    public string effect;
 
     //values for combat 
     public int currentID;

@@ -18,7 +18,6 @@ public class player : MonoBehaviour {
     {
         victoryPoints = 0;
         currentHP = baseHP;
-        deckPath = Application.dataPath + "/scripts/xml/cards.xml";
     }
 
     // 
