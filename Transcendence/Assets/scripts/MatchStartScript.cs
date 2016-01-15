@@ -42,7 +42,9 @@ public class MatchStartScript : MonoBehaviour {
 
         paths.Add("/scripts/xml/cards.xml");
         paths.Add("/scripts/xml/2cards.xml");
-        paths.Add("/scripts/xml/3cards.xml"); 
+        paths.Add("/scripts/xml/3cards.xml");
+        paths.Add("/scripts/xml/neutralsAndSpells2.xml");
+
 
         foreach (string p in paths)
         {
