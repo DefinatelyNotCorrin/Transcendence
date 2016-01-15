@@ -20,7 +20,9 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
         isDraggable d = data.pointerDrag.GetComponent<isDraggable>();
 
         // Checks to see if the card is a card and the thing below it is a field
-        if (data.pointerCurrentRaycast.gameObject.CompareTag("Field") && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().hasBeenPlaced == false )
+        if (data.pointerCurrentRaycast.gameObject.CompareTag("Field") 
+            && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().hasBeenPlaced == false 
+            && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().type.Equals("Creature"))
         {
             // Runs card placement for player 1
             if ((data.pointerCurrentRaycast.gameObject.GetComponent<Field>().side.Equals("Player 1")) && gm.player1.GetComponent<player>().isTurn == true 
@@ -66,7 +68,8 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
         else if (data.pointerCurrentRaycast.gameObject.CompareTag("Card") 
             && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().isExhausted == false) 
             && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().hasBeenPlaced == true) 
-            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().ownerTag.Equals(data.pointerCurrentRaycast.gameObject.GetComponent<Card>().ownerTag) == false))    
+            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().ownerTag.Equals(data.pointerCurrentRaycast.gameObject.GetComponent<Card>().ownerTag) == false)
+            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().type.Equals("Creature")))    
         {
 
             // Checks to see if it is the player's turn and they own the card
@@ -93,9 +96,25 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
             && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().isExhausted == false)
             && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().type.Equals("Spell")))
         {
-            string effectname = GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect;
+            if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("fireball"))
+            {
+                ef.fireball(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
+            }
 
-            ef.fireball(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
+            if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("heal"))
+            {
+                ef.heal(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
+            }
+
+            if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("zoneDamage"))
+            {
+                ef.zoneDamage(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
+            }
+
+            if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("draw"))
+            {
+                ef.draw(GameObject.FindGameObjectWithTag("Dragging"));
+            }
 
         }
         // If combat is not valid, make the card a card again

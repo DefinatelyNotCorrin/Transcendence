@@ -382,6 +382,7 @@ public class GM : MonoBehaviour
             card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
             card.GetComponent<Card>().currentRange = currentCard.currentRange;
             card.GetComponent<Card>().ownerTag = "Player 1";
+            card.GetComponent<Card>().effect = currentCard.effect;
             
 
             //moves the card into the canvas
@@ -430,6 +431,7 @@ public class GM : MonoBehaviour
             card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
             card.GetComponent<Card>().currentRange = currentCard.currentRange;
             card.GetComponent<Card>().ownerTag = "Player 2";
+            card.GetComponent<Card>().effect = currentCard.effect;
 
             //moves the card into the canvas
             card.transform.SetParent(cardSpawnCitadel);

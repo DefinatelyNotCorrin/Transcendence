@@ -41,6 +41,8 @@ public class DeckReader: MonoBehaviour {
                     card.range = reader.GetAttribute("range");
                     card.target = reader.GetAttribute("target");
                     card.health = reader.GetAttribute("health");
+                    Debug.Log(reader.GetAttribute("effect"));
+                    card.effect = reader.GetAttribute("effect");
                     
 
                 //stores that new card in the DeckReader array list
