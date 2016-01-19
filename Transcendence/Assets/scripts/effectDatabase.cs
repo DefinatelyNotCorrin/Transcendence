@@ -24,6 +24,11 @@ public class effectDatabase : MonoBehaviour {
         DestroyObject(spellCard);
 
         targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().currentHealth.ToString();
+
+        if (targetedCard.GetComponent<Card>().currentHealth >= 0)
+        {
+            DestroyObject(targetedCard);
+        }
     }
 
     public void heal(GameObject targetedCard, GameObject spellCard)
@@ -123,22 +128,22 @@ public class effectDatabase : MonoBehaviour {
         }
         if (targtedCard.transform.parent.transform.parent.name.Equals("middleCitadelPlayingSpaces"))
         {
-            if (GameObject.Find("top Middle1").transform.Find("cardSmall") != null)
+            if (GameObject.Find("topMiddle1").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("top Middle1").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("top Middle1").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("top Middle1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle1").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topMiddle1").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("top Middle1").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
+                GameObject.Find("to Middle1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle1").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
 
             }
-            if (GameObject.Find("top Middle2").transform.Find("cardSmall") != null)
+            if (GameObject.Find("topMiddle2").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("top Middle2").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("top Middle2").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("top Middle2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle2").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topMiddle2").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("top Middle2").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
+                GameObject.Find("topMiddle2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle2").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
 
             }
-            if (GameObject.Find("top Middle3").transform.Find("cardSmall") != null)
+            if (GameObject.Find("topMiddle3").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("top Middle3").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("top Middle3").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("top Middle3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle3").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topMiddle3").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("top Middle3").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
+                GameObject.Find("topMiddle3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle3").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
 
             }
         }
