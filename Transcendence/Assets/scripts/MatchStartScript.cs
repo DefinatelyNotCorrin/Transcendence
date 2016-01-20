@@ -90,7 +90,7 @@ public class MatchStartScript : MonoBehaviour {
 	//return to title menu and exit match menu
 	public void ExitPress(){
 		menuAudio.PlayOneShot(clickSound, 0.7F);
-		Application.LoadLevel(1);
+		Application.LoadLevel(0);
 	}
 
 	//disables the exit match menu prompt, reenables buttons

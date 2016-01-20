@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using System.Collections.Generic;
 
 public class menuScript : MonoBehaviour {
 
@@ -20,7 +21,7 @@ public class menuScript : MonoBehaviour {
 		deckButton = deckButton.GetComponent<Button> ();
 		playButton = playButton.GetComponent<Button> ();
 		exitButton = exitButton.GetComponent<Button> ();
-        deckButton.interactable = false;
+        //deckButton.interactable = false;
         exitMenu.enabled = false;
 	}
 

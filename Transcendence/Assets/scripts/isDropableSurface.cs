@@ -93,17 +93,31 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
         }
 
         else if (data.pointerCurrentRaycast.gameObject.CompareTag("Card")
-            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().isExhausted == false)
             && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().type.Equals("Spell")))
         {
+
             if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("fireball"))
             {
-                ef.fireball(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
+                if (!data.pointerCurrentRaycast.gameObject.Equals(null))
+                {
+                    ef.fireball(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
+                }
+                else
+                {
+                    GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
+                }
             }
 
             if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("heal"))
             {
-                ef.heal(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
+                if (!data.pointerCurrentRaycast.gameObject.Equals(null))
+                {
+                    ef.heal(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
+                }
+                else
+                {
+                    GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
+                }
             }
 
         }

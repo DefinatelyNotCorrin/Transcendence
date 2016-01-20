@@ -353,7 +353,7 @@ public class GM : MonoBehaviour
         //instantiates for cards on temple side
         if (player.GetComponent<player>().playerSide == 0)
         {
-            if (cardSpawnTemple.transform.childCount < 7)
+            if (cardSpawnTemple.transform.childCount < 6) //if at hand limit, throw out card
             {
                 GameObject card = (GameObject)Instantiate(PrefabCard, cardSpawnTemple.transform.position, cardSpawnTemple.rotation);
 
@@ -405,7 +405,7 @@ public class GM : MonoBehaviour
         //instantiates for players on citadel side
         if (player.GetComponent<player>().playerSide == 1)
         {
-            if (cardSpawnCitadel.transform.childCount < 7 ) {
+            if (cardSpawnCitadel.transform.childCount < 6) { //if at hand limit, throw out card
                 GameObject card = (GameObject)Instantiate(PrefabCard, cardSpawnCitadel.transform.position, cardSpawnCitadel.rotation);
 
                 card.transform.SetParent(cardSpawnCitadel.transform.parent);
