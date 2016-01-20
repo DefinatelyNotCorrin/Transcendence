@@ -353,100 +353,104 @@ public class GM : MonoBehaviour
         //instantiates for cards on temple side
         if (player.GetComponent<player>().playerSide == 0)
         {
+            if (cardSpawnTemple.transform.childCount < 7)
+            {
+                GameObject card = (GameObject)Instantiate(PrefabCard, cardSpawnTemple.transform.position, cardSpawnTemple.rotation);
 
-            GameObject card = (GameObject)Instantiate(PrefabCard, cardSpawnTemple.transform.position, cardSpawnTemple.rotation);
+                card.transform.SetParent(cardSpawnTemple.transform.parent);
 
-            card.transform.SetParent(cardSpawnTemple.transform.parent);
+                card.GetComponentInChildren<Text>().text = currentCard.name;
 
-            card.GetComponentInChildren<Text>().text = currentCard.name;
+                currentCard.setCurrents();
 
-            currentCard.setCurrents();
+                //passes the Card card values into the Gameobject card
+                card.GetComponent<Card>().name = currentCard.name;
+                card.GetComponent<Card>().ID = currentCard.ID;
+                card.GetComponent<Card>().image = currentCard.image;
+                card.GetComponent<Card>().description = currentCard.description;
+                card.GetComponent<Card>().alliance = currentCard.alliance;
+                card.GetComponent<Card>().type = currentCard.type;
+                card.GetComponent<Card>().cost = currentCard.cost;
+                card.GetComponent<Card>().attack = currentCard.attack;
+                card.GetComponent<Card>().health = currentCard.health;
+                card.GetComponent<Card>().defense = currentCard.defense;
+                card.GetComponent<Card>().range = currentCard.range;
+                card.GetComponent<Card>().target = currentCard.target;
+                card.GetComponent<Card>().currentID = currentCard.currentID;
+                card.GetComponent<Card>().currentCost = currentCard.currentCost;
+                card.GetComponent<Card>().currentAttack = currentCard.currentAttack;
+                card.GetComponent<Card>().currentHealth = currentCard.currentHealth;
+                card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
+                card.GetComponent<Card>().currentRange = currentCard.currentRange;
+                card.GetComponent<Card>().ownerTag = "Player 1";
+                card.GetComponent<Card>().effect = currentCard.effect;
 
-            //passes the Card card values into the Gameobject card
-            card.GetComponent<Card>().name = currentCard.name;
-            card.GetComponent<Card>().ID = currentCard.ID;
-            card.GetComponent<Card>().image = currentCard.image;
-            card.GetComponent<Card>().description = currentCard.description;
-            card.GetComponent<Card>().alliance = currentCard.alliance;
-            card.GetComponent<Card>().type = currentCard.type;
-            card.GetComponent<Card>().cost = currentCard.cost;
-            card.GetComponent<Card>().attack = currentCard.attack;
-            card.GetComponent<Card>().health = currentCard.health;
-            card.GetComponent<Card>().defense = currentCard.defense;
-            card.GetComponent<Card>().range = currentCard.range;
-            card.GetComponent<Card>().target = currentCard.target;
-            card.GetComponent<Card>().currentID = currentCard.currentID;
-            card.GetComponent<Card>().currentCost = currentCard.currentCost;
-            card.GetComponent<Card>().currentAttack = currentCard.currentAttack;
-            card.GetComponent<Card>().currentHealth = currentCard.currentHealth;
-            card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
-            card.GetComponent<Card>().currentRange = currentCard.currentRange;
-            card.GetComponent<Card>().ownerTag = "Player 1";
-            card.GetComponent<Card>().effect = currentCard.effect;
-            
 
-            //moves the card into the canvas
-            card.transform.SetParent(cardSpawnTemple);
-            //moves the card to the spawn
-            card.GetComponent<isDraggable>().parentToReturnTo = cardSpawnTemple;
+                //moves the card into the canvas
+                card.transform.SetParent(cardSpawnTemple);
+                //moves the card to the spawn
+                card.GetComponent<isDraggable>().parentToReturnTo = cardSpawnTemple;
 
-            //sets the visible attributes of the card game object to those stored in it's card script parameters
-            card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().name;
-            card.transform.Find("Description").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().description;
-            card.transform.Find("Attack").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().attack;
-            card.transform.Find("Defense").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().defense;
-            card.transform.Find("Health").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().health;
-            card.transform.Find("Range").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().range;
-            card.transform.Find("Cost").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cost;
+                //sets the visible attributes of the card game object to those stored in it's card script parameters
+                card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().name;
+                card.transform.Find("Description").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().description;
+                card.transform.Find("Attack").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().attack;
+                card.transform.Find("Defense").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().defense;
+                card.transform.Find("Health").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().health;
+                card.transform.Find("Range").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().range;
+                card.transform.Find("Cost").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cost;
+            }
         }
 
         //instantiates for players on citadel side
         if (player.GetComponent<player>().playerSide == 1)
         {
-            GameObject card = (GameObject)Instantiate(PrefabCard, cardSpawnCitadel.transform.position, cardSpawnCitadel.rotation);
+            if (cardSpawnCitadel.transform.childCount < 7 ) {
+                GameObject card = (GameObject)Instantiate(PrefabCard, cardSpawnCitadel.transform.position, cardSpawnCitadel.rotation);
 
-            card.transform.SetParent(cardSpawnCitadel.transform.parent);
+                card.transform.SetParent(cardSpawnCitadel.transform.parent);
 
-            card.GetComponentInChildren<Text>().text = currentCard.name;
+                card.GetComponentInChildren<Text>().text = currentCard.name;
 
-            currentCard.setCurrents();
+                currentCard.setCurrents();
 
-            //passes the Card card values into the Gameobject card
-            card.GetComponent<Card>().name = currentCard.name;
-            card.GetComponent<Card>().ID = currentCard.ID;
-            card.GetComponent<Card>().image = currentCard.image;
-            card.GetComponent<Card>().description = currentCard.description;
-            card.GetComponent<Card>().alliance = currentCard.alliance;
-            card.GetComponent<Card>().type = currentCard.type;
-            card.GetComponent<Card>().cost = currentCard.cost;
-            card.GetComponent<Card>().attack = currentCard.attack;
-            card.GetComponent<Card>().health = currentCard.health;
-            card.GetComponent<Card>().defense = currentCard.defense;
-            card.GetComponent<Card>().range = currentCard.range;
-            card.GetComponent<Card>().target = currentCard.target;
-            card.GetComponent<Card>().currentID = currentCard.currentID;
-            card.GetComponent<Card>().currentCost = currentCard.currentCost;
-            card.GetComponent<Card>().currentAttack = currentCard.currentAttack;
-            card.GetComponent<Card>().currentHealth = currentCard.currentHealth;
-            card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
-            card.GetComponent<Card>().currentRange = currentCard.currentRange;
-            card.GetComponent<Card>().ownerTag = "Player 2";
-            card.GetComponent<Card>().effect = currentCard.effect;
+                //passes the Card card values into the Gameobject card
+                card.GetComponent<Card>().name = currentCard.name;
+                card.GetComponent<Card>().ID = currentCard.ID;
+                card.GetComponent<Card>().image = currentCard.image;
+                card.GetComponent<Card>().description = currentCard.description;
+                card.GetComponent<Card>().alliance = currentCard.alliance;
+                card.GetComponent<Card>().type = currentCard.type;
+                card.GetComponent<Card>().cost = currentCard.cost;
+                card.GetComponent<Card>().attack = currentCard.attack;
+                card.GetComponent<Card>().health = currentCard.health;
+                card.GetComponent<Card>().defense = currentCard.defense;
+                card.GetComponent<Card>().range = currentCard.range;
+                card.GetComponent<Card>().target = currentCard.target;
+                card.GetComponent<Card>().currentID = currentCard.currentID;
+                card.GetComponent<Card>().currentCost = currentCard.currentCost;
+                card.GetComponent<Card>().currentAttack = currentCard.currentAttack;
+                card.GetComponent<Card>().currentHealth = currentCard.currentHealth;
+                card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
+                card.GetComponent<Card>().currentRange = currentCard.currentRange;
+                card.GetComponent<Card>().ownerTag = "Player 2";
+                card.GetComponent<Card>().effect = currentCard.effect;
 
-            //moves the card into the canvas
-            card.transform.SetParent(cardSpawnCitadel);
-            //moves the card to the spawn
-            card.GetComponent<isDraggable>().parentToReturnTo = cardSpawnCitadel;
+                //moves the card into the canvas
+                card.transform.SetParent(cardSpawnCitadel);
+                //moves the card to the spawn
+                card.GetComponent<isDraggable>().parentToReturnTo = cardSpawnCitadel;
 
-            //sets the visible attributes of the card game object to those stored in it's card script parameters
-            card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().name;
-            card.transform.Find("Description").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().description;
-            card.transform.Find("Attack").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().attack;
-            card.transform.Find("Defense").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().defense;
-            card.transform.Find("Health").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().health;
-            card.transform.Find("Range").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().range;
-            card.transform.Find("Cost").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cost;
-        }
+                //sets the visible attributes of the card game object to those stored in it's card script parameters
+                card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().name;
+                card.transform.Find("Description").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().description;
+                card.transform.Find("Attack").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().attack;
+                card.transform.Find("Defense").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().defense;
+                card.transform.Find("Health").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().health;
+                card.transform.Find("Range").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().range;
+                card.transform.Find("Cost").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cost;
+            }
+         }
     }
 
     /*
