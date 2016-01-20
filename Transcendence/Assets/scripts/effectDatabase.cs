@@ -28,6 +28,7 @@ public class effectDatabase : MonoBehaviour {
         if (targetedCard.GetComponent<Card>().currentHealth >= 0)
         {
             DestroyObject(targetedCard);
+            Debug.Log("the card has died to a fireball!");
         }
     }
 

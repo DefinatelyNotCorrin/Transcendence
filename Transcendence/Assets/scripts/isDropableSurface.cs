@@ -106,32 +106,6 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
                 ef.heal(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
             }
 
-            if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("zoneDamage"))
-            {
-                ef.zoneDamage(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
-            }
-
-            if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("draw"))
-            {
-                ef.draw(GameObject.FindGameObjectWithTag("Dragging"));
-            }
-
-        }
-        else if (data.pointerCurrentRaycast.gameObject.CompareTag("Field")
-            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().isExhausted == false)
-            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().type.Equals("Spell")))
-            {
-
-            if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("zoneDamage"))
-            {
-                ef.zoneDamage(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging").gameObject);
-            }
-
-            if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("draw"))
-            {
-                ef.draw(GameObject.FindGameObjectWithTag("Dragging").gameObject);
-            }
-
         }
         // If combat is not valid, make the card a card again
         else

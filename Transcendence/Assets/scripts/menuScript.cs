@@ -16,10 +16,12 @@ public class menuScript : MonoBehaviour {
 	void Start () {
 		exitMenu = exitMenu.GetComponent<Canvas> ();
 		menuAudio = GetComponent<AudioSource>();
+        DontDestroyOnLoad(GameObject.Find("Music"));
 		deckButton = deckButton.GetComponent<Button> ();
 		playButton = playButton.GetComponent<Button> ();
 		exitButton = exitButton.GetComponent<Button> ();
-		exitMenu.enabled = false;
+        deckButton.interactable = false;
+        exitMenu.enabled = false;
 	}
 
 	public void ExitPress(){
