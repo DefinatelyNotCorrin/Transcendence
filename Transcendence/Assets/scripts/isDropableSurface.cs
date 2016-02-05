@@ -10,13 +10,16 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
     use a tag for the dragging card, set when the card starts dragging
     use findTag to get the GameObject of the card that is dragging to make sure that combat conditions and 
     */
-    public GM gm = new GM();
-    public effectDatabase ef = new effectDatabase();
+    private GM gm = new GM();
+    private dropManager dm;
 
     public void OnDrop(PointerEventData data)
     {
+
+
+        /*
         // The location data of the thing underneath the card when it drops
-        
+        dm = GameObject.Find("GM").GetComponent<dropManager>();
         isDraggable d = data.pointerDrag.GetComponent<isDraggable>();
 
         // Checks to see if the card is a card and the thing below it is a field
@@ -24,6 +27,7 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
             && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().hasBeenPlaced == false 
             && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().type.Equals("Creature"))
         {
+
             // Runs card placement for player 1
             if ((data.pointerCurrentRaycast.gameObject.GetComponent<Field>().side.Equals("Player 1")) && gm.player1.GetComponent<player>().isTurn == true 
                 && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().ownerTag.Equals("Player 1")) 
@@ -100,7 +104,7 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
             {
                 if (!data.pointerCurrentRaycast.gameObject.Equals(null))
                 {
-                    ef.fireball(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
+
                 }
                 else
                 {
@@ -112,7 +116,6 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
             {
                 if (!data.pointerCurrentRaycast.gameObject.Equals(null))
                 {
-                    ef.heal(data.pointerCurrentRaycast.gameObject, GameObject.FindGameObjectWithTag("Dragging"));
                 }
                 else
                 {
@@ -126,6 +129,7 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
         {
             GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
         }
+        */
 
     }
 	public void OnPointerEnter(PointerEventData data)

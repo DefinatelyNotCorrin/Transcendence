@@ -51,7 +51,6 @@ public class GM : MonoBehaviour
     public RectTransform cardSpawnTemple;
     public RectTransform cardSpawnCitadel;
 
-
     public void Start()
     {
 
