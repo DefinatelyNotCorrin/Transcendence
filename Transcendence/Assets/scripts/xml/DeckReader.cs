@@ -29,7 +29,7 @@ public class DeckReader: MonoBehaviour {
                 Card card = new Card();
 
                     //set values of new card Object from xml attributes
-                    card.name = reader.GetAttribute("name");
+                    card.cardName = reader.GetAttribute("name");
                     card.ID = reader.GetAttribute("ID");
                     //card.image = reader.GetAttribute("image");
                     card.description = reader.GetAttribute("description");
@@ -41,7 +41,6 @@ public class DeckReader: MonoBehaviour {
                     card.range = reader.GetAttribute("range");
                     card.target = reader.GetAttribute("target");
                     card.health = reader.GetAttribute("health");
-                    Debug.Log(reader.GetAttribute("effect"));
                     card.effect = reader.GetAttribute("effect");
                     
 

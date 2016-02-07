@@ -4,7 +4,7 @@ using System;
 	public class Card : MonoBehaviour {
 
     //base values
-    public string name;
+    public string cardName;
     public string ID;
     public string image;
     public string description;

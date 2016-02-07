@@ -5,131 +5,169 @@ using UnityEngine.EventSystems;
 
 public class dropManager : MonoBehaviour {
 
+    // Variables needed for game logic
     public GM gm;
+    isDraggable d;
+    private dropManager dm;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
-
-    public void drop(PointerEventData data, GameObject draggingCard)
+    // Sorts the objects 
+    public void drop(PointerEventData data, GameObject draggingCard, string pointerObjectName)
     {
-        isDraggable d = data.pointerDrag.GetComponent<isDraggable>();
+        Debug.Log("drop was called");
+        GameObject pointerObject = GameObject.Find(pointerObjectName);
+
+        d = data.pointerDrag.GetComponent<isDraggable>();
+
+        Field targetField;
+
+        Card actionCard = draggingCard.GetComponent<Card>();
 
         // Checks to see if the card is a card and the thing below it is a field
-        if (data.pointerCurrentRaycast.gameObject.CompareTag("Field")
-            && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().hasBeenPlaced == false
-            && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().type.Equals("Creature"))
+        if(pointerObject.CompareTag("Field") && !actionCard.hasBeenPlaced && actionCard.type.Equals("Creature"))
         {
-            // Runs card placement for player 1
-            if ((data.pointerCurrentRaycast.gameObject.GetComponent<Field>().side.Equals("Player 1")) && gm.player1.GetComponent<player>().isTurn == true
-                && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().ownerTag.Equals("Player 1"))
-                && (gm.player1.GetComponent<player>().currentMana - GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().currentCost >= 0))
-            {
-                // Send card to its new field
-
-                d.parentToReturnTo = this.transform;
-
-                gm.player1.GetComponent<player>().currentMana = gm.player1.GetComponent<player>().currentMana - GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().currentCost;
-
-                GameObject.FindGameObjectWithTag("Player 1 Mana").gameObject.transform.FindChild("Text").GetComponent<Text>().text = gm.player1.GetComponent<player>().currentMana.ToString();
-
-                // Set the card tag back to "card" 
-                GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().hasBeenPlaced = true;
-                GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
-            }
-            // Runs card placement for player 2
-            else if ((data.pointerCurrentRaycast.gameObject.GetComponent<Field>().side.Equals("Player 2")) && gm.player2.GetComponent<player>().isTurn == true && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().ownerTag.Equals("Player 2")) && (gm.player2.GetComponent<player>().currentMana - GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().currentCost >= 0))
-            {
-                // Send card to its new field
-
-                d.parentToReturnTo = this.transform;
-
-                gm.player2.GetComponent<player>().currentMana = gm.player2.GetComponent<player>().currentMana - GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().currentCost;
-
-                GameObject.FindGameObjectWithTag("Player 2 Mana").gameObject.transform.FindChild("Text").GetComponent<Text>().text = gm.player2.GetComponent<player>().currentMana.ToString();
-
-                // Set the card tag back to "card" 
-                GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().hasBeenPlaced = true;
-                GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
-            }
-            // If neither is valid, card is set back to a card
-            else
-            {
-                Debug.Log("Invalid move!");
-                GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
-            }
+            // Run the logic for a card over a field
+            Debug.Log("creatureAndCard called");
+            creatureAndField(draggingCard, actionCard, pointerObject);
         }
 
         // Checks to see if the card is a card and the thing below it is a card
-        else if (data.pointerCurrentRaycast.gameObject.CompareTag("Card")
-            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().isExhausted == false)
-            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().hasBeenPlaced == true)
-            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().ownerTag.Equals(data.pointerCurrentRaycast.gameObject.GetComponent<Card>().ownerTag) == false)
-            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().type.Equals("Creature")))
+        else if (pointerObject.CompareTag("Card")
+            && !actionCard.isExhausted
+            && actionCard.hasBeenPlaced
+            && !actionCard.ownerTag.Equals(pointerObject.GetComponent<Card>().ownerTag)
+            && actionCard.type.Equals("Creature"))
         {
-
-            // Checks to see if it is the player's turn and they own the card
-            if (gm.player1.GetComponent<player>().isTurn && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().ownerTag.Equals("Player 1"))
-            {
-                // Runs combat for the cards
-                GM.combat(GameObject.FindGameObjectWithTag("Dragging"), data.pointerCurrentRaycast.gameObject);
-            }
-            // Checks to see if it is the player's turn and they own the card
-            else if (gm.player2.GetComponent<player>().isTurn && GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().ownerTag.Equals("Player 2"))
-            {
-                // Runs combat for the cards
-                GM.combat(GameObject.FindGameObjectWithTag("Dragging"), data.pointerCurrentRaycast.gameObject);
-            }
-            // If combat is not valid, make the card a card again
-            else
-            {
-                GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
-            }
-
+            creatureAndCard(draggingCard, actionCard, pointerObject);
         }
 
-        else if (data.pointerCurrentRaycast.gameObject.CompareTag("Card")
-            && (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().type.Equals("Spell")))
+        // 
+        else if (pointerObject.CompareTag("Card") 
+            && actionCard.type.Equals("Spell"))
         {
-
-            if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("fireball"))
-            {
-                if (!data.pointerCurrentRaycast.gameObject.Equals(null))
-                {
-
-                }
-                else
-                {
-                    GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
-                }
-            }
-
-            if (GameObject.FindGameObjectWithTag("Dragging").GetComponent<Card>().effect.Equals("heal"))
-            {
-                if (!data.pointerCurrentRaycast.gameObject.Equals(null))
-                {
-                }
-                else
-                {
-                    GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
-                }
-            }
-
+            Debug.Log("spellAndCard called");
+            spellAndCard(draggingCard, actionCard, pointerObject);
         }
         // If combat is not valid, make the card a card again
         else
         {
-            GameObject.FindGameObjectWithTag("Dragging").tag = "Card";
+            draggingCard.tag = "Card";
         }
     }
 
-    
+    // Logic for a creature card with a field below it
+    public void creatureAndField(GameObject draggingCard, Card actionCard, GameObject pointerObject)
+    {
+        // Runs card placement for player 1
+        if (pointerObject.GetComponent<Field>().side.Equals("Player 1")
+            && gm.player1.GetComponent<player>().isTurn
+            && actionCard.ownerTag.Equals("Player 1")
+            && (gm.player1.GetComponent<player>().currentMana - actionCard.currentCost >= 0)
+            )
+        {
+            // Send card to its new field
+
+            d.parentToReturnTo = pointerObject.GetComponent<Field>().transform;
+
+            gm.player1.GetComponent<player>().currentMana = gm.player1.GetComponent<player>().currentMana - actionCard.currentCost;
+
+            GameObject.FindGameObjectWithTag("Player 1 Mana").gameObject.transform.FindChild("Text").GetComponent<Text>().text = gm.player1.GetComponent<player>().currentMana.ToString();
+
+            // Set the card tag back to "card" 
+            actionCard.hasBeenPlaced = true;
+            draggingCard.tag = "Card";
+        }
+        // Runs card placement for player 2
+        else if (pointerObject.GetComponent<Field>().side.Equals("Player 2")
+            && gm.player2.GetComponent<player>().isTurn
+            && actionCard.ownerTag.Equals("Player 2")
+            && (gm.player2.GetComponent<player>().currentMana - actionCard.currentCost >= 0)
+            )
+        {
+            // Send card to its new field
+
+            d.parentToReturnTo = pointerObject.GetComponent<Field>().transform;
+
+            gm.player2.GetComponent<player>().currentMana = gm.player2.GetComponent<player>().currentMana - actionCard.currentCost;
+
+            GameObject.FindGameObjectWithTag("Player 2 Mana").gameObject.transform.FindChild("Text").GetComponent<Text>().text = gm.player2.GetComponent<player>().currentMana.ToString();
+
+            // Set the card tag back to "card" 
+            actionCard.hasBeenPlaced = true;
+            draggingCard.tag = "Card";
+        }
+        // If neither is valid, card is set back to a card
+        else
+        {
+            Debug.Log("Invalid move!");
+            draggingCard.tag = "Card";
+        }
+    }
+
+    // Logic for a creature with a card below it
+    public void creatureAndCard(GameObject draggingCard, Card actionCard, GameObject pointerObject)
+    {
+        // Checks to see if it is the player's turn and they own the card
+        if (gm.player1.GetComponent<player>().isTurn && actionCard.ownerTag.Equals("Player 1"))
+        {
+            Debug.Log("Combat conditions met");
+            // Runs combat for the cards
+            GM.combat(draggingCard, pointerObject);
+        }
+        // Checks to see if it is the player's turn and they own the card
+        else if (gm.player2.GetComponent<player>().isTurn && actionCard.ownerTag.Equals("Player 2"))
+        {
+            Debug.Log("Combat conditions met");
+            // Runs combat for the cards
+            GM.combat(draggingCard, pointerObject);
+        }
+        // If combat is not valid, make the card a card again
+        else
+        {
+            draggingCard.tag = "Card";
+        }
+    }
+
+    // Logic for a spell with a card below it
+    public void spellAndCard(GameObject draggingCard, Card actionCard, GameObject pointerObject)
+    {
+        // if the spell is owned by the current player, and it does not exceed that player's mana, then
+        if (actionCard.ownerTag.Equals(gm.currentPlayer.tag)
+            && (gm.currentPlayer.GetComponent<player>().currentMana - actionCard.currentCost >= 0))
+        {
+            // Subtract mana cost of the spell from the current player's mana
+            gm.currentPlayer.GetComponent<player>().currentMana -= actionCard.currentCost;
+
+            if (actionCard.effect.Equals("fireball"))
+            {
+                Debug.Log("Fireball conditions met");
+                fireball(pointerObject, draggingCard);
+            }
+            else if (actionCard.effect.Equals("heal"))
+            {
+                Debug.Log("Heal conditions met");
+                heal(pointerObject, draggingCard);
+            }
+            else
+            {
+                draggingCard.tag = "Card";
+            }
+        }
+        else
+        {
+            draggingCard.tag = "Card";
+        }    
+    }
+
+    // Logic for a card with something random below it
+    public void spellAndWhatever(GameObject draggingCard, Card actionCard, GameObject pointerObject)
+    {
+
+    }
+
+    /*
+    * Spell methods to be used for droping interactions
+    */
+
     // Basic fireball method. Does damage based on the attack of the spell card played. 
     public void fireball(GameObject targetedCard, GameObject spellCard)
     {

@@ -9,14 +9,22 @@ public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandl
     /*
     use a tag for the dragging card, set when the card starts dragging
     use findTag to get the GameObject of the card that is dragging to make sure that combat conditions and 
+    all logic in this class has been moved to drop manager, and isDraggable (more appropriate places)
     */
-    private GM gm = new GM();
-    private dropManager dm;
+
+    //private GM gm;
+    //private dropManager dm;
 
     public void OnDrop(PointerEventData data)
     {
+        /*
+        dm = GameObject.Find("GM").GetComponent<dropManager>();
 
+        GameObject draggingCard = GameObject.FindGameObjectWithTag("Dragging");
+        GameObject pointerObject = data.pointerCurrentRaycast.gameObject;
 
+        dm.drop(data, draggingCard, pointerObject.name);
+        */
         /*
         // The location data of the thing underneath the card when it drops
         dm = GameObject.Find("GM").GetComponent<dropManager>();

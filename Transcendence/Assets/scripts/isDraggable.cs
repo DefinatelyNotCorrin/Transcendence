@@ -5,6 +5,7 @@ using UnityEngine.EventSystems;
 public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
     public bool isDragging = false;
+    private dropManager dm;
 
     //original location of a card before it is dragged
     public Transform parentToReturnTo = null;
@@ -50,6 +51,12 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		//Debug.Log ("on end drag");
         isDragging = false;
 
+        dm = GameObject.Find("GM").GetComponent<dropManager>();
+
+        GameObject draggingCard = GameObject.FindGameObjectWithTag("Dragging");
+        GameObject pointerObject = data.pointerCurrentRaycast.gameObject;
+
+        dm.drop(data, draggingCard, pointerObject.name);
         //
         this.transform.SetParent(parentToReturnTo);
         GetComponent<CanvasGroup>().blocksRaycasts = true;

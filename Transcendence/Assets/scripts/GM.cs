@@ -27,6 +27,7 @@ public class GM : MonoBehaviour
     public GameObject PrefabCard;
     public GameObject player1;
     public GameObject player2;
+    public GameObject currentPlayer;
     public GameObject canvas;
     public GameObject playerHandTemple;
     public GameObject playerHandCitadel;
@@ -84,6 +85,7 @@ public class GM : MonoBehaviour
         if (chance == 1)
         {
             startTurn(player1);
+            currentPlayer = player1;
             player1.GetComponent<player>().isTurn = true;
             player2.GetComponent<player>().isTurn = false;
 
@@ -104,6 +106,7 @@ public class GM : MonoBehaviour
         }
         else if (chance == 0)
         {
+            currentPlayer = player2;
             startTurn(player2);
             player1.GetComponent<player>().isTurn = false;
             player2.GetComponent<player>().isTurn = true;
@@ -135,7 +138,7 @@ public class GM : MonoBehaviour
         player1VP.text = player1.GetComponent<player>().victoryPoints.ToString();
         player2VP.text = player2.GetComponent<player>().victoryPoints.ToString();
 
-        // Toggle "End Turn" buttons based on player turn
+        // Set interactability of "End Turn" buttons based on player turn
         if (player1.GetComponent<player>().isTurn)
         {
             player1EndTurnButton.interactable = true;
@@ -179,8 +182,7 @@ public class GM : MonoBehaviour
         // Toggles to Player 2 turn if Player 1 pressed the button
         if (player1.GetComponent<player>().isTurn)
         {
-
-            // Set the Player 1's card back to enabled, and Player 2's card back to clear
+            // Set Player 1's card back to enabled, and Player 2's card back to clear
             foreach (Transform child in playerHandTemple.transform)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = cardBackTemple;
@@ -204,8 +206,7 @@ public class GM : MonoBehaviour
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<player>().victoryPoints + " VP!";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<player>().victoryPoints + " VP!";
 
-
-
+            currentPlayer = player2;
         }
 
         // Toggles to player 1 turn if Player 2 pressed the button
@@ -233,6 +234,7 @@ public class GM : MonoBehaviour
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<player>().victoryPoints + " VP!";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<player>().victoryPoints + " VP!";
 
+            currentPlayer = player1;
         }
     }
 
@@ -358,12 +360,17 @@ public class GM : MonoBehaviour
 
                 card.transform.SetParent(cardSpawnTemple.transform.parent);
 
-                card.GetComponentInChildren<Text>().text = currentCard.name;
+                card.GetComponentInChildren<Text>().text = currentCard.cardName;
 
                 currentCard.setCurrents();
 
                 //passes the Card card values into the Gameobject card
-                card.GetComponent<Card>().name = currentCard.name;
+                card.GetComponent<Card>().cardName = currentCard.cardName;
+                if (currentCard.cardName == null)
+                {
+                    Debug.Log("NULL NAME");
+                }
+                card.name = currentCard.cardName;
                 card.GetComponent<Card>().ID = currentCard.ID;
                 card.GetComponent<Card>().image = currentCard.image;
                 card.GetComponent<Card>().description = currentCard.description;
@@ -391,7 +398,7 @@ public class GM : MonoBehaviour
                 card.GetComponent<isDraggable>().parentToReturnTo = cardSpawnTemple;
 
                 //sets the visible attributes of the card game object to those stored in it's card script parameters
-                card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().name;
+                card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cardName;
                 card.transform.Find("Description").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().description;
                 card.transform.Find("Attack").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().attack;
                 card.transform.Find("Defense").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().defense;
@@ -409,12 +416,13 @@ public class GM : MonoBehaviour
 
                 card.transform.SetParent(cardSpawnCitadel.transform.parent);
 
-                card.GetComponentInChildren<Text>().text = currentCard.name;
+                card.GetComponentInChildren<Text>().text = currentCard.cardName;
 
                 currentCard.setCurrents();
 
                 //passes the Card card values into the Gameobject card
-                card.GetComponent<Card>().name = currentCard.name;
+                card.GetComponent<Card>().cardName = currentCard.cardName;
+                card.name = currentCard.cardName;
                 card.GetComponent<Card>().ID = currentCard.ID;
                 card.GetComponent<Card>().image = currentCard.image;
                 card.GetComponent<Card>().description = currentCard.description;
@@ -441,7 +449,7 @@ public class GM : MonoBehaviour
                 card.GetComponent<isDraggable>().parentToReturnTo = cardSpawnCitadel;
 
                 //sets the visible attributes of the card game object to those stored in it's card script parameters
-                card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().name;
+                card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cardName;
                 card.transform.Find("Description").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().description;
                 card.transform.Find("Attack").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().attack;
                 card.transform.Find("Defense").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().defense;
@@ -506,7 +514,7 @@ public class GM : MonoBehaviour
             if (i == 26)
             {
                 Debug.Log("End of the line");
-                Debug.Log(deck[10].name);
+                Debug.Log(deck[10].cardName);
             }
         }
 

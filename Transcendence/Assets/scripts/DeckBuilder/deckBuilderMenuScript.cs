@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 //using UnityEditor;
 
 public class deckBuilderMenuScript : MonoBehaviour
@@ -53,7 +54,6 @@ public class deckBuilderMenuScript : MonoBehaviour
     {
         //menuAudio.PlayOneShot(heavyClickSound, 0.7F);
        //Level number should be the main menu
-        Application.LoadLevel(0);
-
+        SceneManager.LoadScene(0);
     }
 }

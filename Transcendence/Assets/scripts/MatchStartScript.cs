@@ -4,6 +4,7 @@ using UnityEngine.Events;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using UnityEngine.SceneManagement;
 
 public class MatchStartScript : MonoBehaviour {
 	public Canvas exitMenu;
@@ -69,10 +70,10 @@ public class MatchStartScript : MonoBehaviour {
 
         foreach (Deck d in deckPool)
         {
-            Dropdown.OptionData data = new Dropdown.OptionData(d.name);
+            Dropdown.OptionData data = new Dropdown.OptionData(d.deckName);
             p1Selector.options.Add(data);
             p2Selector.options.Add(data);
-            Debug.Log("Option added of name " + d.name);
+            Debug.Log("Option added of deckName " + d.deckName);
         }
     }
 	
@@ -90,7 +91,7 @@ public class MatchStartScript : MonoBehaviour {
 	//return to title menu and exit match menu
 	public void ExitPress(){
 		menuAudio.PlayOneShot(clickSound, 0.7F);
-		Application.LoadLevel(0);
+        SceneManager.LoadScene(0);
 	}
 
 	//disables the exit match menu prompt, reenables buttons
@@ -104,7 +105,7 @@ public class MatchStartScript : MonoBehaviour {
 	public void StartMatch() {
 		menuAudio.PlayOneShot(heavyClickSound, 0.7F);
 		if (p1IsLocked && p2IsLocked) { //are both players locked?
-		Application.LoadLevel (2); //Level 1 should be the match scene
+            SceneManager.LoadScene(2); //Level 1 should be the match scene
 		}
 		else {
 			helperPrompt.enabled = true;
@@ -126,7 +127,7 @@ public class MatchStartScript : MonoBehaviour {
 
         foreach (Deck d in deckPool)
         {
-            if (d.name.Equals(tempName))
+            if (d.deckName.Equals(tempName))
             {
                 Player1Data.GetComponent<player>().deckPath = d.path;
             }
@@ -140,7 +141,7 @@ public class MatchStartScript : MonoBehaviour {
 
         foreach (Deck d in deckPool)
         {
-            if (d.name.Equals(tempName))
+            if (d.deckName.Equals(tempName))
             {
                 Player2Data.GetComponent<player>().deckPath = d.path;
             }

@@ -7,7 +7,7 @@ using System.Collections;
 public class Deck : MonoBehaviour
 {
 
-    public string name;
+    public string deckName;
     public string path;
     public List<Card> archiveDeck;
     public List<Card> activeDeck;
@@ -31,9 +31,8 @@ public class Deck : MonoBehaviour
         activeDeck = new List<Card>();
         archiveDeck = new List<Card>();
         discard = new List<Card>();
-        this.name = name;
+        this.deckName = name;
         this.path = path;
-
     }
 
     public Deck()
@@ -114,7 +113,6 @@ public class Deck : MonoBehaviour
 				activeDeck[i] = activeDeck[r];
 				activeDeck[r] = tmp;
 		}
-        
     }
 
     public List<Card> filterName(string name)
@@ -122,7 +120,7 @@ public class Deck : MonoBehaviour
         List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.name.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+            if (c.cardName.Equals(name, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }

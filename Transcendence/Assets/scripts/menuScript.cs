@@ -2,6 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.SceneManagement;
 
 public class menuScript : MonoBehaviour {
 
@@ -43,12 +44,12 @@ public class menuScript : MonoBehaviour {
 
 	public void StartMatch() {
 		menuAudio.PlayOneShot(heavyClickSound, 0.7F);
-		Application.LoadLevel (1); //Level 1 should be the match scene
+        SceneManager.LoadScene(1); //Level 1 should be the match scene
 	}
 
 	public void StartDeckBuilder() {
 		menuAudio.PlayOneShot(clickSound, 0.7F);
-		Application.LoadLevel (3); //Level 3 should be the deck builder scene
+        SceneManager.LoadScene(3); //Level 3 should be the deck builder scene
 	}
 
 	public void ExitGame() {
