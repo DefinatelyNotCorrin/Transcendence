@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class player : MonoBehaviour {
+public class Player : MonoBehaviour {
 
     public int playerSide = 0;
     public int baseHP = 30;

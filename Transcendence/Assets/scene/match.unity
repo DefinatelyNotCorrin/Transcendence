@@ -95,7 +95,7 @@ GameObject:
   - 224: {fileID: 1480527}
   - 222: {fileID: 1480529}
   - 114: {fileID: 1480528}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -165,7 +165,7 @@ GameObject:
   - 114: {fileID: 32360778}
   - 114: {fileID: 32360781}
   - 114: {fileID: 32360782}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: topMiddle1
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -273,7 +273,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 36845963}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: leftTemplePlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -310,7 +310,7 @@ GameObject:
   - 224: {fileID: 78833133}
   - 222: {fileID: 78833135}
   - 114: {fileID: 78833134}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -383,7 +383,7 @@ GameObject:
   - 224: {fileID: 172755593}
   - 222: {fileID: 172755595}
   - 114: {fileID: 172755594}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Player 2 Mana
   m_TagString: Player 2 Mana
   m_Icon: {fileID: 0}
@@ -459,7 +459,7 @@ GameObject:
   - 224: {fileID: 207903273}
   - 222: {fileID: 207903275}
   - 114: {fileID: 207903274}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -532,7 +532,7 @@ GameObject:
   - 224: {fileID: 263101206}
   - 222: {fileID: 263101208}
   - 114: {fileID: 263101207}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -651,7 +651,7 @@ GameObject:
   - 223: {fileID: 339648026}
   - 114: {fileID: 339648025}
   - 114: {fileID: 339648024}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -755,7 +755,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 361879280}
   - 222: {fileID: 361879281}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Player 1 VP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -801,7 +801,7 @@ GameObject:
   - 114: {fileID: 382698895}
   - 114: {fileID: 382698894}
   - 114: {fileID: 382698893}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: bottomRight1
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -911,7 +911,7 @@ GameObject:
   - 224: {fileID: 403056963}
   - 222: {fileID: 403056965}
   - 114: {fileID: 403056964}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -984,7 +984,7 @@ GameObject:
   - 224: {fileID: 427351515}
   - 222: {fileID: 427351517}
   - 114: {fileID: 427351516}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1060,7 +1060,7 @@ GameObject:
   - 114: {fileID: 464821689}
   - 114: {fileID: 464821688}
   - 114: {fileID: 464821687}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: topRight3
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -1235,7 +1235,7 @@ GameObject:
   - 114: {fileID: 610681880}
   - 114: {fileID: 610681879}
   - 114: {fileID: 610681878}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: bottomRight2
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -1345,7 +1345,7 @@ GameObject:
   - 224: {fileID: 655104323}
   - 222: {fileID: 655104325}
   - 114: {fileID: 655104324}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1470,7 +1470,7 @@ GameObject:
   - 224: {fileID: 684871192}
   - 222: {fileID: 684871194}
   - 114: {fileID: 684871193}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Title
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1546,7 +1546,7 @@ GameObject:
   - 114: {fileID: 784623165}
   - 114: {fileID: 784623164}
   - 114: {fileID: 784623163}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: bottomRight3
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -1657,7 +1657,7 @@ GameObject:
   - 222: {fileID: 799245364}
   - 114: {fileID: 799245363}
   - 114: {fileID: 799245362}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1777,7 +1777,7 @@ GameObject:
   - 224: {fileID: 843796194}
   - 222: {fileID: 843796196}
   - 114: {fileID: 843796195}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1850,7 +1850,7 @@ GameObject:
   - 224: {fileID: 907888700}
   - 222: {fileID: 907888702}
   - 114: {fileID: 907888701}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1921,7 +1921,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 1019867125}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: middleCitadelPlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1958,7 +1958,7 @@ GameObject:
   - 224: {fileID: 1082201590}
   - 222: {fileID: 1082201592}
   - 114: {fileID: 1082201591}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2023,7 +2023,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 1090235497}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: rightCitadelPlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2060,7 +2060,7 @@ GameObject:
   - 224: {fileID: 1108817628}
   - 222: {fileID: 1108817630}
   - 114: {fileID: 1108817629}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2133,7 +2133,7 @@ GameObject:
   - 224: {fileID: 1141391658}
   - 222: {fileID: 1141391660}
   - 114: {fileID: 1141391659}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Player1Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2206,7 +2206,7 @@ GameObject:
   - 224: {fileID: 1191379146}
   - 222: {fileID: 1191379148}
   - 114: {fileID: 1191379147}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Playing Field Background
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2275,7 +2275,7 @@ GameObject:
   - 114: {fileID: 1205832564}
   - 114: {fileID: 1205832563}
   - 114: {fileID: 1205832566}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: cardSpawnTemple
   m_TagString: Hand
   m_Icon: {fileID: 0}
@@ -2376,7 +2376,7 @@ GameObject:
   - 114: {fileID: 1232063692}
   - 114: {fileID: 1232063691}
   - 114: {fileID: 1232063690}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: topLeft3
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -2486,7 +2486,7 @@ GameObject:
   - 224: {fileID: 1296804089}
   - 222: {fileID: 1296804091}
   - 114: {fileID: 1296804090}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2551,7 +2551,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 1300491856}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: rightTemplePlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2590,7 +2590,7 @@ GameObject:
   - 114: {fileID: 1359086773}
   - 114: {fileID: 1359086772}
   - 114: {fileID: 1359086775}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: cardSpawnCitadel
   m_TagString: Hand
   m_Icon: {fileID: 0}
@@ -2691,7 +2691,7 @@ GameObject:
   - 114: {fileID: 1387072181}
   - 114: {fileID: 1387072180}
   - 114: {fileID: 1387072179}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: bottomCenter1
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -2800,7 +2800,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1443193557}
   - 222: {fileID: 1443193559}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Player 1 Mana
   m_TagString: Player 1 Mana
   m_Icon: {fileID: 0}
@@ -2843,7 +2843,7 @@ GameObject:
   - 224: {fileID: 1462170157}
   - 222: {fileID: 1462170159}
   - 114: {fileID: 1462170158}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Player2Score
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -2944,9 +2944,11 @@ MonoBehaviour:
   cardBackCitadel: {fileID: 21300000, guid: 16a2ac29e63ade846b5c1f60d8f332f7, type: 3}
   clear: {fileID: 10917, guid: 0000000000000000f000000000000000, type: 0}
   switchPlayerMenu: {fileID: 1712414641}
-  PrefabCard: {fileID: 162236, guid: 383e48603da9e054dbbb0d256f5ec51a, type: 2}
+  PrefabCreatureCard: {fileID: 162236, guid: 383e48603da9e054dbbb0d256f5ec51a, type: 2}
+  PrefabSpellCard: {fileID: 162236, guid: 038fea5dca086bd48af09ed689ab72a3, type: 2}
   player1: {fileID: 1698672570}
   player2: {fileID: 1863538354}
+  currentPlayer: {fileID: 0}
   canvas: {fileID: 339648023}
   playerHandTemple: {fileID: 1205832561}
   playerHandCitadel: {fileID: 1359086770}
@@ -3010,7 +3012,7 @@ GameObject:
   - 224: {fileID: 1535095878}
   - 222: {fileID: 1535095880}
   - 114: {fileID: 1535095879}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: CurrentPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3086,7 +3088,7 @@ GameObject:
   - 114: {fileID: 1569673318}
   - 114: {fileID: 1569673321}
   - 114: {fileID: 1569673322}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: topMiddle2
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -3199,7 +3201,7 @@ GameObject:
   - 114: {fileID: 1597994467}
   - 114: {fileID: 1597994466}
   - 114: {fileID: 1597994465}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: topRight1
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -3398,7 +3400,7 @@ GameObject:
   - 114: {fileID: 1602226613}
   - 114: {fileID: 1602226616}
   - 114: {fileID: 1602226617}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: bottomLeft1
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -3511,7 +3513,7 @@ GameObject:
   - 114: {fileID: 1604910565}
   - 114: {fileID: 1604910569}
   - 114: {fileID: 1604910570}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: bottomLeft2
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -3624,7 +3626,7 @@ GameObject:
   - 114: {fileID: 1661500423}
   - 114: {fileID: 1661500422}
   - 114: {fileID: 1661500421}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: bottomCenter2
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -3741,13 +3743,13 @@ GameObject:
   - 114: {fileID: 1712414639}
   - 222: {fileID: 1712414638}
   - 114: {fileID: 1712414637}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: SwitchPlayerMeby
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1712414636
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3869,7 +3871,7 @@ GameObject:
   - 224: {fileID: 1721733555}
   - 222: {fileID: 1721733557}
   - 114: {fileID: 1721733556}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: 'CurrentScore:'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3942,7 +3944,7 @@ GameObject:
   - 224: {fileID: 1757609452}
   - 222: {fileID: 1757609454}
   - 114: {fileID: 1757609453}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Image
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4012,7 +4014,7 @@ GameObject:
   - 114: {fileID: 1791437423}
   - 114: {fileID: 1791437426}
   - 114: {fileID: 1791437427}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: topMiddle3
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -4120,7 +4122,7 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 1799376142}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: leftCitadelPlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4160,7 +4162,7 @@ GameObject:
   - 114: {fileID: 1844118987}
   - 114: {fileID: 1844118986}
   - 114: {fileID: 1844118985}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: topRight2
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -4270,7 +4272,7 @@ GameObject:
   - 224: {fileID: 1858835460}
   - 222: {fileID: 1858835462}
   - 114: {fileID: 1858835461}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Player 2 VP
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4350,7 +4352,7 @@ GameObject:
   - 224: {fileID: 1891634014}
   - 222: {fileID: 1891634016}
   - 114: {fileID: 1891634015}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4426,7 +4428,7 @@ GameObject:
   - 114: {fileID: 1919257735}
   - 114: {fileID: 1919257734}
   - 114: {fileID: 1919257733}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: topLeft1
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -4539,7 +4541,7 @@ GameObject:
   - 114: {fileID: 1984243525}
   - 114: {fileID: 1984243524}
   - 114: {fileID: 1984243523}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: topLeft2
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -4649,7 +4651,7 @@ GameObject:
   - 224: {fileID: 1998344659}
   - 222: {fileID: 1998344661}
   - 114: {fileID: 1998344660}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4720,13 +4722,13 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 224: {fileID: 2050612805}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: middleTemplePlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2050612805
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4832,7 +4834,7 @@ GameObject:
   - 222: {fileID: 2083037410}
   - 114: {fileID: 2083037409}
   - 114: {fileID: 2083037408}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: EndTurnPlayer2
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4953,7 +4955,7 @@ GameObject:
   - 222: {fileID: 2090334602}
   - 114: {fileID: 2090334601}
   - 114: {fileID: 2090334600}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: EndTurnPlayer1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -5076,7 +5078,7 @@ GameObject:
   - 114: {fileID: 2096106688}
   - 114: {fileID: 2096106687}
   - 114: {fileID: 2096106686}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: bottomCenter3
   m_TagString: Field
   m_Icon: {fileID: 0}
@@ -5189,7 +5191,7 @@ GameObject:
   - 114: {fileID: 2108624446}
   - 114: {fileID: 2108624449}
   - 114: {fileID: 2108624450}
-  m_Layer: 5
+  m_Layer: 0
   m_Name: bottomLeft3
   m_TagString: Field
   m_Icon: {fileID: 0}

@@ -3,7 +3,7 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using System.Collections;
 
-public class isDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler {
+public class IsDropableSurface : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPointerExitHandler {
 
     // Use this for initialization
     /*

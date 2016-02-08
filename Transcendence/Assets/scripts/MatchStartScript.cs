@@ -129,7 +129,7 @@ public class MatchStartScript : MonoBehaviour {
         {
             if (d.deckName.Equals(tempName))
             {
-                Player1Data.GetComponent<player>().deckPath = d.path;
+                Player1Data.GetComponent<Player>().deckPath = d.path;
             }
         }
 	}
@@ -143,7 +143,7 @@ public class MatchStartScript : MonoBehaviour {
         {
             if (d.deckName.Equals(tempName))
             {
-                Player2Data.GetComponent<player>().deckPath = d.path;
+                Player2Data.GetComponent<Player>().deckPath = d.path;
             }
         }
     }

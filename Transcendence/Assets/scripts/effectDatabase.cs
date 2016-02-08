@@ -2,7 +2,7 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class effectDatabase : MonoBehaviour {
+public class EffectDatabase : MonoBehaviour {
 
     public GM gm;
 

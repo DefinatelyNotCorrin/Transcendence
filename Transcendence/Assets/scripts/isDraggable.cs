@@ -2,10 +2,10 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 
-public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class IsDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
     public bool isDragging = false;
-    private dropManager dm;
+    private DropManager dm;
 
     //original location of a card before it is dragged
     public Transform parentToReturnTo = null;
@@ -51,7 +51,7 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 		//Debug.Log ("on end drag");
         isDragging = false;
 
-        dm = GameObject.Find("GM").GetComponent<dropManager>();
+        dm = GameObject.Find("GM").GetComponent<DropManager>();
 
         GameObject draggingCard = GameObject.FindGameObjectWithTag("Dragging");
         GameObject pointerObject = data.pointerCurrentRaycast.gameObject;
