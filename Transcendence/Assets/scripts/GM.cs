@@ -52,6 +52,7 @@ public class GM : MonoBehaviour
     public GameObject topRight3;
     public RectTransform cardSpawnTemple;
     public RectTransform cardSpawnCitadel;
+    public Sprite[] spriteSheet;
 
     public void Start()
     {
@@ -59,6 +60,8 @@ public class GM : MonoBehaviour
         switchPlayerMenu.enabled = false;
         player1.GetComponent<Player>().deckPath = GameObject.Find("Player1StartData").GetComponent<Player>().deckPath;
         player2.GetComponent<Player>().deckPath = GameObject.Find("Player2StartData").GetComponent<Player>().deckPath;
+
+        spriteSheet = (Sprite[])Resources.LoadAll<Sprite>("");
 
         // The initial mulligan
         player1.GetComponent<Player>().loadDeck();
@@ -368,6 +371,7 @@ public class GM : MonoBehaviour
                 else
                 {
                     card = (GameObject)Instantiate(PrefabSpellCard, cardSpawnTemple.transform.position, cardSpawnTemple.rotation);
+                    card.transform.FindChild("SplashImage").gameObject.GetComponent<Image>().sprite = spriteSheet[0];
                 }
 
                 card.transform.SetParent(cardSpawnTemple.transform.parent);
@@ -434,6 +438,7 @@ public class GM : MonoBehaviour
                 else
                 {
                     card = (GameObject)Instantiate(PrefabSpellCard, cardSpawnCitadel.transform.position, cardSpawnCitadel.rotation);
+                    card.transform.FindChild("SplashImage").gameObject.GetComponent<Image>().sprite = spriteSheet[0];
                 }
 
                 card.transform.SetParent(cardSpawnCitadel.transform.parent);
