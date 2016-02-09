@@ -1097,13 +1097,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1862120e18f6a7843b86dcf15bee8b74, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentTrack: {fileID: 8300000, guid: 0dccd2f926fe94ca9bf6ebb93ecfa99a, type: 3}
-  menuTrack: {fileID: 8300000, guid: 0dccd2f926fe94ca9bf6ebb93ecfa99a, type: 3}
-  matchDayTrack: {fileID: 8300000, guid: 0dccd2f926fe94ca9bf6ebb93ecfa99a, type: 3}
-  matchNightTrack: {fileID: 8300000, guid: 0dccd2f926fe94ca9bf6ebb93ecfa99a, type: 3}
-  matchVictoryTrack: {fileID: 8300000, guid: 0dccd2f926fe94ca9bf6ebb93ecfa99a, type: 3}
-  matchLossTrack: {fileID: 8300000, guid: 0dccd2f926fe94ca9bf6ebb93ecfa99a, type: 3}
-  musicAudio: {fileID: 0}
 --- !u!1 &1144150423
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,13 +1202,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa5d13654ac34044ca8c545856532db0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  exitMenu: {fileID: 728097980}
-  deckButton: {fileID: 681663414}
-  playButton: {fileID: 769925091}
-  exitButton: {fileID: 632405682}
-  clickSound: {fileID: 8300000, guid: a765109e0e9954bbfbec6ff4a77c527b, type: 3}
-  heavyClickSound: {fileID: 8300000, guid: 726df1fa114b64773ad65856d81b7c12, type: 3}
-  menuAudio: {fileID: 1086269018}
 --- !u!82 &1144150429
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1769,7 +1755,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: d49f25520bc0c1c4a9a95e0bff7a4e94, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 975c9a7525d34594d96ef1e17c3d660c, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

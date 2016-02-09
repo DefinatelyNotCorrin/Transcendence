@@ -1373,7 +1373,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: 766082214f90f94489b9d71b9a87cce2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 66c2977d45a27224fa018694d5e59f9e, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1431,15 +1431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764090301b04d0443a2228609e10d3aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSide: 0
-  baseHP: 30
-  currentHP: 0
-  manaMax: 0
-  currentMana: 0
-  victoryPoints: 0
-  deck: {fileID: 0}
-  isTurn: 0
-  deckPath: 
 --- !u!1 &777958532
 GameObject:
   m_ObjectHideFlags: 0
@@ -3404,15 +3395,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 764090301b04d0443a2228609e10d3aa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerSide: 0
-  baseHP: 30
-  currentHP: 0
-  manaMax: 0
-  currentMana: 0
-  victoryPoints: 0
-  deck: {fileID: 0}
-  isTurn: 0
-  deckPath: 
 --- !u!1 &1613873932
 GameObject:
   m_ObjectHideFlags: 0
