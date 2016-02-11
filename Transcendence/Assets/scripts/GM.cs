@@ -14,12 +14,17 @@ public class GM : MonoBehaviour
 
     // Prefabs, locations, players, buttons, and readouts 
 
+    // Player interaction 
     public Button player1EndTurnButton;
     public Button player2EndTurnButton;
+
+    // Player stats
     public Text player1Mana;
     public Text player2Mana;
     public Text player1VP;
     public Text player2VP;
+
+    // Important locations
     public Sprite cardBackTemple;
     public Sprite cardBackCitadel;
     public Sprite clear;
@@ -367,11 +372,12 @@ public class GM : MonoBehaviour
                 if (currentCard.type.Equals("Creature"))
                 {
                     card = (GameObject)Instantiate(PrefabCreatureCard, cardSpawnTemple.transform.position, cardSpawnTemple.rotation);
+                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
                 }
                 else
                 {
                     card = (GameObject)Instantiate(PrefabSpellCard, cardSpawnTemple.transform.position, cardSpawnTemple.rotation);
-                    card.transform.FindChild("SplashImage").gameObject.GetComponent<Image>().sprite = spriteSheet[0];
+                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0,8)];
                 }
 
                 card.transform.SetParent(cardSpawnTemple.transform.parent);
@@ -434,11 +440,12 @@ public class GM : MonoBehaviour
                 if (currentCard.type.Equals("Creature"))
                 {
                     card = (GameObject)Instantiate(PrefabCreatureCard, cardSpawnCitadel.transform.position, cardSpawnCitadel.rotation);
+                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
                 }
                 else
                 {
                     card = (GameObject)Instantiate(PrefabSpellCard, cardSpawnCitadel.transform.position, cardSpawnCitadel.rotation);
-                    card.transform.FindChild("SplashImage").gameObject.GetComponent<Image>().sprite = spriteSheet[0];
+                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
                 }
 
                 card.transform.SetParent(cardSpawnCitadel.transform.parent);

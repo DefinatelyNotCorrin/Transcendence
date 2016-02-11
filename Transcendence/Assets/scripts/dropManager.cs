@@ -11,17 +11,31 @@ public class DropManager : MonoBehaviour {
     private DropManager dm;
 
     // Sorts the objects 
-    public void drop(PointerEventData data, GameObject draggingCard, string pointerObjectName)
+    public void drop(PointerEventData data, GameObject draggingCard, Transform pointerObjectName)
     {
         Debug.Log("Drop method called.");
-        GameObject pointerObject = GameObject.Find(pointerObjectName);
+        GameObject pointerObject = pointerObjectName.gameObject;
 
         d = data.pointerDrag.GetComponent<IsDraggable>();
 
         Card actionCard = draggingCard.GetComponent<Card>();
 
+        Debug.Log("Dragging card is a " + draggingCard.GetComponent<Card>().type);
+        if (pointerObject.GetComponent<Card>() != null)
+        {
+            Debug.Log("Pointer object is a " + pointerObject.GetComponent<Card>().type);
+        }
+        else if (pointerObject.CompareTag("Field"))
+        {
+            Debug.Log("Pointer object is a field");
+        }
+        else
+        {
+            Debug.Log("Pointer object is this tag: " + pointerObject.tag);
+        }
+
         // Checks to see if the card is a card and the thing below it is a field
-        if(pointerObject.CompareTag("Field") && !actionCard.hasBeenPlaced && actionCard.type.Equals("Creature"))
+        if (pointerObject.CompareTag("Field") && !actionCard.hasBeenPlaced && actionCard.type.Equals("Creature"))
         {
             // Run the logic for a card over a field
             Debug.Log("Creature and Field conditions met.");
@@ -41,7 +55,7 @@ public class DropManager : MonoBehaviour {
         }
 
         // 
-        else if (pointerObject.CompareTag("Card") 
+        else if (pointerObject.CompareTag("Card")
             && actionCard.type.Equals("Spell"))
         {
             Debug.Log("Spell and Card conditions met.");
@@ -132,8 +146,8 @@ public class DropManager : MonoBehaviour {
     public void spellAndCard(GameObject draggingCard, Card actionCard, GameObject pointerObject)
     {
         // if the spell is owned by the current player, and it does not exceed that player's mana, then
-        if (actionCard.ownerTag.Equals(gm.currentPlayer.tag)
-            && (gm.currentPlayer.GetComponent<Player>().currentMana - actionCard.currentCost >= 0))
+        //actionCard.ownerTag.Equals(gm.currentPlayer.tag)
+        if ((gm.currentPlayer.GetComponent<Player>().currentMana - actionCard.currentCost >= 0))
         {
             // Subtract mana cost of the spell from the current player's mana
             gm.currentPlayer.GetComponent<Player>().currentMana -= actionCard.currentCost;
@@ -155,6 +169,7 @@ public class DropManager : MonoBehaviour {
         }
         else
         {
+            Debug.Log("No spell conditions were met");
             draggingCard.tag = "Card";
         }    
     }
@@ -178,7 +193,7 @@ public class DropManager : MonoBehaviour {
 
         targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().currentHealth.ToString();
 
-        if (targetedCard.GetComponent<Card>().currentHealth >= 0)
+        if (targetedCard.GetComponent<Card>().currentHealth <= 0)
         {
             DestroyObject(targetedCard);
             Debug.Log("the card has died to a fireball!");

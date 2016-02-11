@@ -2972,7 +2972,7 @@ MonoBehaviour:
   topRight3: {fileID: 464821685}
   cardSpawnTemple: {fileID: 1205832562}
   cardSpawnCitadel: {fileID: 1359086771}
-  testSprite: {fileID: 21300000, guid: 6044315fc62d5ca49af113087d52602b, type: 3}
+  spriteSheet: []
 --- !u!224 &1504950336
 RectTransform:
   m_ObjectHideFlags: 0
@@ -3750,7 +3750,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1712414636
 RectTransform:
   m_ObjectHideFlags: 0

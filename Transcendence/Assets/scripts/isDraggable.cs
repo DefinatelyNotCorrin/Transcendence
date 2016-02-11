@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.EventSystems;
+using UnityEngine.UI;
 
 public class IsDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
 
@@ -32,8 +33,9 @@ public class IsDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
             this.transform.SetParent(this.transform.parent.parent.parent);
         }
 
-        
-        GetComponent<CanvasGroup>().blocksRaycasts = false;       
+        this.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().raycastTarget = false;
+        GetComponent<CanvasGroup>().blocksRaycasts = false;
+        this.GetComponent<Image>().raycastTarget = false;    
         
     }
 
@@ -56,9 +58,11 @@ public class IsDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         GameObject draggingCard = GameObject.FindGameObjectWithTag("Dragging");
         GameObject pointerObject = data.pointerCurrentRaycast.gameObject;
 
-        dm.drop(data, draggingCard, pointerObject.name);
+        dm.drop(data, draggingCard, pointerObject.transform);
         //
         this.transform.SetParent(parentToReturnTo);
+
         GetComponent<CanvasGroup>().blocksRaycasts = true;
+        this.GetComponent<Image>().raycastTarget = true;
     }
 }
