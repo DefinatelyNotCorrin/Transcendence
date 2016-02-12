@@ -494,6 +494,23 @@ public class GM : MonoBehaviour
          }
     }
 
+    public void exitMenuPress()
+    {
+        if (GameObject.Find("ExitMeby").GetComponent<Canvas>().enabled)
+        {
+            GameObject.Find("ExitMeby").GetComponent<Canvas>().enabled = false;
+        }
+        else
+        {
+            GameObject.Find("ExitMeby").GetComponent<Canvas>().enabled = true;
+        }
+    }
+
+    public void exitMenu()
+    {
+        Application.LoadLevel(1);
+    }
+
     /*
     The following methods are for testing purposes only, and are cut down versions of what will be in game logic
     */
