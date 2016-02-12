@@ -105,6 +105,16 @@ public class Deck : MonoBehaviour
         }
     }
 
+    public void vacate() //clears Deck active and archive completely
+    {
+        activeDeck.Clear();
+        archiveDeck.Clear();
+        discard.Clear();
+        deckName = null;
+        path = null;
+
+    }
+
     public void shuffle()
     { 
 			for (int i = activeDeck.Count - 1; i > 0; i--) {

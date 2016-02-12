@@ -31,10 +31,6 @@ public class MatchStartScript : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
-		exitMenu = exitMenu.GetComponent<Canvas> ();
-		helperPrompt = helperPrompt.GetComponent<Canvas> ();
-		menuAudio = GetComponent<AudioSource>();
-
 		exitMenu.enabled = false;
 		helperPrompt.enabled = false;
 
