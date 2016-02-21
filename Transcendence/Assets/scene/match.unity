@@ -274,7 +274,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 36845963}
   m_Layer: 0
-  m_Name: leftTemplePlayingSpaces
+  m_Name: LeftTemplePlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2282,7 +2282,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1019867125}
   m_Layer: 0
-  m_Name: middleCitadelPlayingSpaces
+  m_Name: MiddleCitadelPlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2384,7 +2384,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1090235497}
   m_Layer: 0
-  m_Name: rightCitadelPlayingSpaces
+  m_Name: RightCitadelPlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2568,7 +2568,7 @@ GameObject:
   - 114: {fileID: 1158299000}
   - 114: {fileID: 1158298999}
   m_Layer: 0
-  m_Name: Button
+  m_Name: Exit Match Button
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3033,7 +3033,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1300491856}
   m_Layer: 0
-  m_Name: rightTemplePlayingSpaces
+  m_Name: RightTemplePlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4655,7 +4655,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 1799376142}
   m_Layer: 0
-  m_Name: leftCitadelPlayingSpaces
+  m_Name: LeftCitadelPlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5449,7 +5449,7 @@ GameObject:
   m_Component:
   - 224: {fileID: 2050612805}
   m_Layer: 0
-  m_Name: middleTemplePlayingSpaces
+  m_Name: MiddleTemplePlayingSpaces
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
