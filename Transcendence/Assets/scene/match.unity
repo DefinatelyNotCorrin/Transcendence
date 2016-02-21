@@ -166,7 +166,7 @@ GameObject:
   - 114: {fileID: 32360781}
   - 114: {fileID: 32360782}
   m_Layer: 0
-  m_Name: topMiddle1
+  m_Name: TopCenter1
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -696,7 +696,7 @@ GameObject:
   - 224: {fileID: 294230386}
   - 114: {fileID: 294230387}
   m_Layer: 5
-  m_Name: EffectDatabase
+  m_Name: Location Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -727,10 +727,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 294230385}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bc5cf3eee55217b438bedcb41146ce9a, type: 3}
+  m_Script: {fileID: 11500000, guid: e83f794f77f1d4644b2feb6fcaae9ab1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  gm: {fileID: 0}
 --- !u!1 &339648023
 GameObject:
   m_ObjectHideFlags: 0
@@ -894,7 +893,7 @@ GameObject:
   - 114: {fileID: 382698894}
   - 114: {fileID: 382698893}
   m_Layer: 0
-  m_Name: bottomRight1
+  m_Name: BottomRight1
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1153,7 +1152,7 @@ GameObject:
   - 114: {fileID: 464821688}
   - 114: {fileID: 464821687}
   m_Layer: 0
-  m_Name: topRight3
+  m_Name: TopRight3
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1522,7 +1521,7 @@ GameObject:
   - 114: {fileID: 610681879}
   - 114: {fileID: 610681878}
   m_Layer: 0
-  m_Name: bottomRight2
+  m_Name: BottomRight2
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1908,7 +1907,7 @@ GameObject:
   - 114: {fileID: 784623164}
   - 114: {fileID: 784623163}
   m_Layer: 0
-  m_Name: bottomRight3
+  m_Name: BottomRight3
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2758,7 +2757,7 @@ GameObject:
   - 114: {fileID: 1205832563}
   - 114: {fileID: 1205832566}
   m_Layer: 0
-  m_Name: cardSpawnTemple
+  m_Name: Player1Hand
   m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2859,7 +2858,7 @@ GameObject:
   - 114: {fileID: 1232063691}
   - 114: {fileID: 1232063690}
   m_Layer: 0
-  m_Name: topLeft3
+  m_Name: TopLeft3
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3073,7 +3072,7 @@ GameObject:
   - 114: {fileID: 1359086772}
   - 114: {fileID: 1359086775}
   m_Layer: 0
-  m_Name: cardSpawnCitadel
+  m_Name: Player2Hand
   m_TagString: Hand
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3174,7 +3173,7 @@ GameObject:
   - 114: {fileID: 1387072180}
   - 114: {fileID: 1387072179}
   m_Layer: 0
-  m_Name: bottomCenter1
+  m_Name: BottomCenter1
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3434,26 +3433,8 @@ MonoBehaviour:
   canvas: {fileID: 339648023}
   playerHandTemple: {fileID: 1205832561}
   playerHandCitadel: {fileID: 1359086770}
-  bottomLeft1: {fileID: 1602226611}
-  bottomLeft2: {fileID: 1604910564}
-  bottomLeft3: {fileID: 2108624444}
-  bottomMiddle1: {fileID: 1387072177}
-  bottomMiddle2: {fileID: 1661500419}
-  bottomMiddle3: {fileID: 2096106684}
-  bottomRight1: {fileID: 382698891}
-  bottomRight2: {fileID: 610681876}
-  bottomRight3: {fileID: 784623161}
-  topLeft1: {fileID: 1919257731}
-  topLeft2: {fileID: 1984243521}
-  topLeft3: {fileID: 1232063688}
-  topMiddle1: {fileID: 32360776}
-  topMiddle2: {fileID: 1569673316}
-  topMiddle3: {fileID: 1791437421}
-  topRight1: {fileID: 1597994463}
-  topRight2: {fileID: 1844118983}
-  topRight3: {fileID: 464821685}
-  cardSpawnTemple: {fileID: 1205832562}
-  cardSpawnCitadel: {fileID: 1359086771}
+  Player1Hand: {fileID: 1205832562}
+  Player2Hand: {fileID: 1359086771}
   spriteSheet: []
 --- !u!224 &1504950336
 RectTransform:
@@ -3640,7 +3621,7 @@ GameObject:
   - 114: {fileID: 1569673321}
   - 114: {fileID: 1569673322}
   m_Layer: 0
-  m_Name: topMiddle2
+  m_Name: TopCenter2
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3753,7 +3734,7 @@ GameObject:
   - 114: {fileID: 1597994466}
   - 114: {fileID: 1597994465}
   m_Layer: 0
-  m_Name: topRight1
+  m_Name: TopRight1
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3952,7 +3933,7 @@ GameObject:
   - 114: {fileID: 1602226616}
   - 114: {fileID: 1602226617}
   m_Layer: 0
-  m_Name: bottomLeft1
+  m_Name: BottomLeft1
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4065,7 +4046,7 @@ GameObject:
   - 114: {fileID: 1604910569}
   - 114: {fileID: 1604910570}
   m_Layer: 0
-  m_Name: bottomLeft2
+  m_Name: BottomLeft2
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4178,7 +4159,7 @@ GameObject:
   - 114: {fileID: 1661500422}
   - 114: {fileID: 1661500421}
   m_Layer: 0
-  m_Name: bottomCenter2
+  m_Name: BottomCenter2
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4566,7 +4547,7 @@ GameObject:
   - 114: {fileID: 1791437426}
   - 114: {fileID: 1791437427}
   m_Layer: 0
-  m_Name: topMiddle3
+  m_Name: TopCenter3
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4714,7 +4695,7 @@ GameObject:
   - 114: {fileID: 1844118986}
   - 114: {fileID: 1844118985}
   m_Layer: 0
-  m_Name: topRight2
+  m_Name: TopRight2
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5053,7 +5034,7 @@ GameObject:
   - 114: {fileID: 1919257734}
   - 114: {fileID: 1919257733}
   m_Layer: 0
-  m_Name: topLeft1
+  m_Name: TopLeft1
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5287,7 +5268,7 @@ GameObject:
   - 114: {fileID: 1984243524}
   - 114: {fileID: 1984243523}
   m_Layer: 0
-  m_Name: topLeft2
+  m_Name: TopLeft2
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5937,7 +5918,7 @@ GameObject:
   - 114: {fileID: 2108624449}
   - 114: {fileID: 2108624450}
   m_Layer: 0
-  m_Name: bottomLeft3
+  m_Name: BottomLeft3
   m_TagString: Field
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

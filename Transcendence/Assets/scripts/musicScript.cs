@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class MusicScript : MonoBehaviour {
+public class musicScript : MonoBehaviour {
 
 	public AudioClip currentTrack;
 	public AudioClip menuTrack, matchDayTrack, matchNightTrack, matchVictoryTrack, matchLossTrack;

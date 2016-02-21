@@ -4,7 +4,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.SceneManagement;
 
-public class MenuScript : MonoBehaviour {
+public class menuScript : MonoBehaviour {
 
 	public Canvas exitMenu;
 	public Button deckButton;

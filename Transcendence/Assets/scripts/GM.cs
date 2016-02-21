@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 
+
 public class GM : MonoBehaviour
 {
     /*
@@ -11,8 +12,6 @@ public class GM : MonoBehaviour
     Temple is 0, Citadel is 1
     Player 1 is side 0, Player 2 is side 1
     */
-
-    // Prefabs, locations, players, buttons, and readouts 
 
     // Player interaction 
     public Button player1EndTurnButton;
@@ -37,40 +36,29 @@ public class GM : MonoBehaviour
     public GameObject canvas;
     public GameObject playerHandTemple;
     public GameObject playerHandCitadel;
-    public GameObject bottomLeft1;
-    public GameObject bottomLeft2;
-    public GameObject bottomLeft3;
-    public GameObject bottomMiddle1;
-    public GameObject bottomMiddle2;
-    public GameObject bottomMiddle3;
-    public GameObject bottomRight1;
-    public GameObject bottomRight2;
-    public GameObject bottomRight3;
-    public GameObject topLeft1;
-    public GameObject topLeft2;
-    public GameObject topLeft3;
-    public GameObject topMiddle1;
-    public GameObject topMiddle2;
-    public GameObject topMiddle3;
-    public GameObject topRight1;
-    public GameObject topRight2;
-    public GameObject topRight3;
-    public RectTransform cardSpawnTemple;
-    public RectTransform cardSpawnCitadel;
+
+    // Player's hands
+    public RectTransform Player1Hand;
+    public RectTransform Player2Hand;
     public Sprite[] spriteSheet;
+
+    private LocationManager locations;
 
     public void Start()
     {
 
         switchPlayerMenu.enabled = false;
-        player1.GetComponent<Player>().deckPath = GameObject.Find("Player1StartData").GetComponent<Player>().deckPath;
-        player2.GetComponent<Player>().deckPath = GameObject.Find("Player2StartData").GetComponent<Player>().deckPath;
+
+        player1.GetComponent<player>().deckPath = GameObject.Find("Player1StartData").GetComponent<player>().deckPath;
+        player2.GetComponent<player>().deckPath = GameObject.Find("Player2StartData").GetComponent<player>().deckPath;
 
         spriteSheet = (Sprite[])Resources.LoadAll<Sprite>("");
 
+        this.locations = GameObject.Find("Location Manager").GetComponent<LocationManager>();
+
         // The initial mulligan
-        player1.GetComponent<Player>().loadDeck();
-        player2.GetComponent<Player>().loadDeck();
+        player1.GetComponent<player>().loadDeck();
+        player2.GetComponent<player>().loadDeck();
 
         drawCard(player1);
         drawCard(player2);
@@ -87,16 +75,16 @@ public class GM : MonoBehaviour
         int chance = UnityEngine.Random.Range(0, 2);
 
         // Set player starting mana cap
-        player1.GetComponent<Player>().manaMax = 2;
-        player2.GetComponent<Player>().manaMax = 2;
+        player1.GetComponent<player>().manaMax = 2;
+        player2.GetComponent<player>().manaMax = 2;
 
         // Determine who goes first, and start that player's turn
         if (chance == 1)
         {
             startTurn(player1);
             currentPlayer = player1;
-            player1.GetComponent<Player>().isTurn = true;
-            player2.GetComponent<Player>().isTurn = false;
+            player1.GetComponent<player>().isTurn = true;
+            player2.GetComponent<player>().isTurn = false;
 
             foreach (Transform child in playerHandTemple.transform)
             {
@@ -117,8 +105,8 @@ public class GM : MonoBehaviour
         {
             currentPlayer = player2;
             startTurn(player2);
-            player1.GetComponent<Player>().isTurn = false;
-            player2.GetComponent<Player>().isTurn = true;
+            player1.GetComponent<player>().isTurn = false;
+            player2.GetComponent<player>().isTurn = true;
 
             foreach (Transform child in playerHandTemple.transform)
             {
@@ -141,31 +129,31 @@ public class GM : MonoBehaviour
     {
 
         // Update mana every frame **** CAUSE WHY NOT? ****
-        player1Mana.text = player1.GetComponent<Player>().currentMana.ToString();
-        player2Mana.text = player2.GetComponent<Player>().currentMana.ToString();
+        player1Mana.text = player1.GetComponent<player>().currentMana.ToString();
+        player2Mana.text = player2.GetComponent<player>().currentMana.ToString();
 
-        player1VP.text = player1.GetComponent<Player>().victoryPoints.ToString();
-        player2VP.text = player2.GetComponent<Player>().victoryPoints.ToString();
+        player1VP.text = player1.GetComponent<player>().victoryPoints.ToString();
+        player2VP.text = player2.GetComponent<player>().victoryPoints.ToString();
 
         // Set interactability of "End Turn" buttons based on player turn
-        if (player1.GetComponent<Player>().isTurn)
+        if (player1.GetComponent<player>().isTurn)
         {
             player1EndTurnButton.interactable = true;
             player2EndTurnButton.interactable = false;
         }
 
-        if (player2.GetComponent<Player>().isTurn)
+        if (player2.GetComponent<player>().isTurn)
         {
             player1EndTurnButton.interactable = false;
             player2EndTurnButton.interactable = true;
         }
 
-        if (player1.GetComponent<Player>().victoryPoints == 20)
+        if (player1.GetComponent<player>().victoryPoints == 20)
         {
             endGame(player1);
         }
 
-        if (player2.GetComponent<Player>().victoryPoints == 20)
+        if (player2.GetComponent<player>().victoryPoints == 20)
         {
             endGame(player2);
         }
@@ -175,11 +163,11 @@ public class GM : MonoBehaviour
     // Method that runs at the start of a player's turn
     public void startTurn(GameObject player)
     {
-        if (player.GetComponent<Player>().manaMax < 13)
+        if (player.GetComponent<player>().manaMax < 13)
         {
-            player.GetComponent<Player>().manaMax++;
+            player.GetComponent<player>().manaMax++;
         }
-        player.GetComponent<Player>().currentMana = player.GetComponent<Player>().manaMax;
+        player.GetComponent<player>().currentMana = player.GetComponent<player>().manaMax;
 
         drawCard(player);
     }
@@ -189,7 +177,7 @@ public class GM : MonoBehaviour
     {
 
         // Toggles to Player 2 turn if Player 1 pressed the button
-        if (player1.GetComponent<Player>().isTurn)
+        if (player1.GetComponent<player>().isTurn)
         {
             // Set Player 1's card back to enabled, and Player 2's card back to clear
             foreach (Transform child in playerHandTemple.transform)
@@ -206,20 +194,20 @@ public class GM : MonoBehaviour
 
             // Start Player 2's turn
             startTurn(player2);
-            player1.GetComponent<Player>().isTurn = false;
-            player2.GetComponent<Player>().isTurn = true;
+            player1.GetComponent<player>().isTurn = false;
+            player2.GetComponent<player>().isTurn = true;
 
             togglePlayerChangeMenu();
             switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "It is now Player 2's turn";
             switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Current Scores:";
-            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<Player>().victoryPoints + " VP!";
-            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<Player>().victoryPoints + " VP!";
+            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<player>().victoryPoints + " VP!";
+            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<player>().victoryPoints + " VP!";
 
             currentPlayer = player2;
         }
 
         // Toggles to player 1 turn if Player 2 pressed the button
-        else if (player2.GetComponent<Player>().isTurn)
+        else if (player2.GetComponent<player>().isTurn)
         {
             
             foreach (Transform child in playerHandTemple.transform)
@@ -234,14 +222,14 @@ public class GM : MonoBehaviour
             VPTally(player2);
 
             startTurn(player1);
-            player1.GetComponent<Player>().isTurn = true;
-            player2.GetComponent<Player>().isTurn = false;
+            player1.GetComponent<player>().isTurn = true;
+            player2.GetComponent<player>().isTurn = false;
 
             togglePlayerChangeMenu();
             switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "It is now Player 1's turn";
             switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Current Scores:";
-            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<Player>().victoryPoints + " VP!";
-            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<Player>().victoryPoints + " VP!";
+            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<player>().victoryPoints + " VP!";
+            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<player>().victoryPoints + " VP!";
 
             currentPlayer = player1;
         }
@@ -255,7 +243,7 @@ public class GM : MonoBehaviour
         switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "";
         switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
         switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
-        switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = winner.GetComponent<Player>().name + " Wins!";
+        switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = winner.GetComponent<player>().name + " Wins!";
     }
 
     // The method that enables/disables the switching player menu
@@ -311,76 +299,85 @@ public class GM : MonoBehaviour
     // Draw a card method for the player
     public void drawCard(GameObject player)
     {        
-        instantiateCard(player, player.GetComponent<Player>().deck.poll());
+        instantiateCard(player, player.GetComponent<player>().deck.poll());
     }
 
     // Tally a player's VP at the end of their turn
     public void VPTally(GameObject player)
     {
         // Logic for Player 1
-        if (player.GetComponent<Player>().playerSide == 0)
+        if (player.GetComponent<player>().playerSide == 0)
         {
-            
-            if (bottomLeft1.transform.childCount == 1 || bottomLeft2.transform.childCount == 1 || bottomLeft3.transform.childCount == 1)
+            if (locations.getLocationTransform(Location.BottomLeft1).childCount == 1 
+                || locations.getLocationTransform(Location.BottomLeft2).childCount == 1 
+                || locations.getLocationTransform(Location.BottomLeft3).childCount == 1)
             {
-                player1.GetComponent<Player>().victoryPoints++;
+                player1.GetComponent<player>().victoryPoints++;
             }
 
-            if (bottomMiddle1.transform.childCount == 1 || bottomMiddle2.transform.childCount == 1 || bottomMiddle3.transform.childCount == 1)
+            if (locations.getLocationTransform(Location.BottomCenter1).childCount == 1 
+                || locations.getLocationTransform(Location.BottomCenter2).childCount == 1 
+                || locations.getLocationTransform(Location.BottomCenter3).childCount == 1)
             {
-                player1.GetComponent<Player>().victoryPoints++;
+                player1.GetComponent<player>().victoryPoints++;
             }
 
-            if (bottomRight1.transform.childCount == 1 || bottomRight2.transform.childCount == 1 || bottomRight3.transform.childCount == 1)
+            if (locations.getLocationTransform(Location.BottomRight1).childCount == 1
+                || locations.getLocationTransform(Location.BottomRight2).childCount == 1
+                || locations.getLocationTransform(Location.BottomRight3).childCount == 1)
             {
-                player1.GetComponent<Player>().victoryPoints++;
+                player1.GetComponent<player>().victoryPoints++;
             }
         }
 
         // Logic for Player 2
-        if (player.GetComponent<Player>().playerSide == 1)
+        if (player.GetComponent<player>().playerSide == 1)
         {
-
-            if (topLeft1.transform.childCount == 1 || topLeft2.transform.childCount == 1 || topLeft3.transform.childCount == 1)
+            if (locations.getLocationTransform(Location.TopLeft1).childCount == 1
+                || locations.getLocationTransform(Location.TopLeft2).childCount == 1
+                || locations.getLocationTransform(Location.TopLeft3).childCount == 1)
             {
-                player2.GetComponent<Player>().victoryPoints++;
+                player2.GetComponent<player>().victoryPoints++;
             }
 
-            if (topMiddle1.transform.childCount == 1 || topMiddle2.transform.childCount == 1 || topMiddle3.transform.childCount == 1)
+            if (locations.getLocationTransform(Location.TopCenter1).childCount == 1
+                || locations.getLocationTransform(Location.TopCenter2).childCount == 1
+                || locations.getLocationTransform(Location.TopCenter3).childCount == 1)
             {
-                player2.GetComponent<Player>().victoryPoints++;
+                player2.GetComponent<player>().victoryPoints++;
             }
 
-            if (topRight1.transform.childCount == 1 || topRight2.transform.childCount == 1 || topRight3.transform.childCount == 1)
+            if (locations.getLocationTransform(Location.TopRight1).childCount == 1
+                || locations.getLocationTransform(Location.TopRight2).childCount == 1
+                || locations.getLocationTransform(Location.TopRight3).childCount == 1)
             {
-                player2.GetComponent<Player>().victoryPoints++;
+                player2.GetComponent<player>().victoryPoints++;
             }
         }
-
     }
 
     // Creates a card a position based on player side and card value
     public void instantiateCard(GameObject player, Card currentCard)
     {
         // Instantiates for cards on temple side
-        if (player.GetComponent<Player>().playerSide == 0)
+        if (player.GetComponent<player>().playerSide == 0)
         {
-            if (cardSpawnTemple.transform.childCount < 6) //if at hand limit, throw out card
+            if (Player1Hand.transform.childCount < 6) //if at hand limit, throw out card
             {
                 GameObject card;
 
                 if (currentCard.type.Equals("Creature"))
                 {
-                    card = (GameObject)Instantiate(PrefabCreatureCard, cardSpawnTemple.transform.position, cardSpawnTemple.rotation);
+                    card = (GameObject)Instantiate(PrefabCreatureCard, Player1Hand.transform.position, Player1Hand.rotation);
                     card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
                 }
                 else
                 {
-                    card = (GameObject)Instantiate(PrefabSpellCard, cardSpawnTemple.transform.position, cardSpawnTemple.rotation);
+                    card = (GameObject)Instantiate(PrefabSpellCard, Player1Hand.transform.position, Player1Hand.rotation);
                     card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0,8)];
                 }
 
-                card.transform.SetParent(cardSpawnTemple.transform.parent);
+                card.transform.SetParent(Player1Hand.transform.parent);
 
                 card.GetComponentInChildren<Text>().text = currentCard.cardName;
 
@@ -415,9 +412,9 @@ public class GM : MonoBehaviour
 
 
                 //moves the card into the canvas
-                card.transform.SetParent(cardSpawnTemple);
+                card.transform.SetParent(Player1Hand);
                 //moves the card to the spawn
-                card.GetComponent<IsDraggable>().parentToReturnTo = cardSpawnTemple;
+                card.GetComponent<isDraggable>().parentToReturnTo = Player1Hand;
 
                 //sets the visible attributes of the card game object to those stored in it's card script parameters
                 card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cardName;
@@ -431,24 +428,24 @@ public class GM : MonoBehaviour
         }
 
         //instantiates for players on citadel side
-        if (player.GetComponent<Player>().playerSide == 1)
+        if (player.GetComponent<player>().playerSide == 1)
         {
-            if (cardSpawnCitadel.transform.childCount < 6) { //if at hand limit, throw out card
+            if (Player2Hand.transform.childCount < 6) { //if at hand limit, throw out card
 
                 GameObject card;
 
                 if (currentCard.type.Equals("Creature"))
                 {
-                    card = (GameObject)Instantiate(PrefabCreatureCard, cardSpawnCitadel.transform.position, cardSpawnCitadel.rotation);
+                    card = (GameObject)Instantiate(PrefabCreatureCard, Player2Hand.transform.position, Player2Hand.rotation);
                     card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
                 }
                 else
                 {
-                    card = (GameObject)Instantiate(PrefabSpellCard, cardSpawnCitadel.transform.position, cardSpawnCitadel.rotation);
+                    card = (GameObject)Instantiate(PrefabSpellCard, Player2Hand.transform.position, Player2Hand.rotation);
                     card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
                 }
 
-                card.transform.SetParent(cardSpawnCitadel.transform.parent);
+                card.transform.SetParent(Player2Hand.transform.parent);
 
                 card.GetComponentInChildren<Text>().text = currentCard.cardName;
 
@@ -478,9 +475,9 @@ public class GM : MonoBehaviour
                 card.GetComponent<Card>().effect = currentCard.effect;
 
                 //moves the card into the canvas
-                card.transform.SetParent(cardSpawnCitadel);
+                card.transform.SetParent(Player2Hand);
                 //moves the card to the spawn
-                card.GetComponent<IsDraggable>().parentToReturnTo = cardSpawnCitadel;
+                card.GetComponent<isDraggable>().parentToReturnTo = Player2Hand;
 
                 //sets the visible attributes of the card game object to those stored in it's card script parameters
                 card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cardName;
@@ -589,7 +586,7 @@ public class GM : MonoBehaviour
     public void generateDeck(GameObject player)
     {
         string path;
-        path = Application.dataPath + player.GetComponent<Player>().deckPath;
+        path = Application.dataPath + player.GetComponent<player>().deckPath;
 
         List<Card> cards = new List<Card>();
         DeckReader reader = new DeckReader();
@@ -630,7 +627,7 @@ public class GM : MonoBehaviour
         //loads the cards into the list from an XML file
         DeckReader reader = new DeckReader();
 
-        path = Application.dataPath + player.GetComponent<Player>().deckPath;
+        path = Application.dataPath + player.GetComponent<player>().deckPath;
 
         if (path.Equals(Application.dataPath + ""))
         {
