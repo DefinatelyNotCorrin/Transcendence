@@ -1,17 +1,29 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System;
 
 public class Field : MonoBehaviour {
 
     public string side;
 
-	// Use this for initialization
-	void Start () {
-	
+    // Location of the object
+    public Location location;
+
+	// Set the enum for this field based on its name
+	void Start ()
+    {
+	    foreach (Location location in Enum.GetValues(typeof(Location)))
+        {
+            if (location.ToString().Equals(this.gameObject.name))
+            {
+                this.location = location;
+            }
+        }
 	}
-	
-	// Update is called once per frame
-	void Update () {
-	
-	}
+
+    // Return the location of this object
+    public Location getLocation()
+    {
+        return this.location;
+    }
 }

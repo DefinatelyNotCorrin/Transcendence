@@ -23,7 +23,7 @@ public class GM : MonoBehaviour
     public Text player1VP;
     public Text player2VP;
 
-    // Important locations
+    // Important sprites, objects, and prefabs
     public Sprite cardBackTemple;
     public Sprite cardBackCitadel;
     public Sprite clear;
@@ -34,14 +34,13 @@ public class GM : MonoBehaviour
     public GameObject player2;
     public GameObject currentPlayer;
     public GameObject canvas;
-    public GameObject playerHandTemple;
-    public GameObject playerHandCitadel;
 
-    // Player's hands
-    public RectTransform Player1Hand;
     public RectTransform Player2Hand;
+
+    // All of the sprites for cards
     public Sprite[] spriteSheet;
 
+    // Locations
     private LocationManager locations;
 
     public void Start()
@@ -79,18 +78,20 @@ public class GM : MonoBehaviour
         player2.GetComponent<player>().manaMax = 2;
 
         // Determine who goes first, and start that player's turn
-        if (chance == 1)
+        if (chance == 0)
         {
+            Transform hand = locations.getLocationTransform(Location.Player1Hand);
+
             startTurn(player1);
             currentPlayer = player1;
             player1.GetComponent<player>().isTurn = true;
             player2.GetComponent<player>().isTurn = false;
 
-            foreach (Transform child in playerHandTemple.transform)
+            foreach (Transform child in hand)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = clear;
             }
-            foreach (Transform child in playerHandCitadel.transform)
+            foreach (Transform child in hand)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = cardBackCitadel;
             }
@@ -101,18 +102,20 @@ public class GM : MonoBehaviour
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
         }
-        else if (chance == 0)
+        else if (chance == 1)
         {
+            Transform hand = locations.getLocationTransform(Location.Player2Hand);
+
             currentPlayer = player2;
             startTurn(player2);
             player1.GetComponent<player>().isTurn = false;
             player2.GetComponent<player>().isTurn = true;
 
-            foreach (Transform child in playerHandTemple.transform)
+            foreach (Transform child in hand)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = cardBackTemple;
             }
-            foreach (Transform child in playerHandCitadel.transform)
+            foreach (Transform child in hand)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = clear;
             }
@@ -362,22 +365,25 @@ public class GM : MonoBehaviour
         // Instantiates for cards on temple side
         if (player.GetComponent<player>().playerSide == 0)
         {
-            if (Player1Hand.transform.childCount < 6) //if at hand limit, throw out card
+            Transform hand = locations.getLocationTransform(Location.Player1Hand);
+
+            if (hand.childCount < 6) //if at hand limit, throw out card
             {
                 GameObject card;
 
                 if (currentCard.type.Equals("Creature"))
                 {
-                    card = (GameObject)Instantiate(PrefabCreatureCard, Player1Hand.transform.position, Player1Hand.rotation);
+                    card = (GameObject)Instantiate(PrefabCreatureCard, hand.position, hand.rotation);
+
                     card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
                 }
                 else
                 {
-                    card = (GameObject)Instantiate(PrefabSpellCard, Player1Hand.transform.position, Player1Hand.rotation);
+                    card = (GameObject)Instantiate(PrefabSpellCard, hand.position, hand.rotation);
                     card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0,8)];
                 }
 
-                card.transform.SetParent(Player1Hand.transform.parent);
+                //card.transform.SetParent(hand.parent);
 
                 card.GetComponentInChildren<Text>().text = currentCard.cardName;
 
@@ -412,9 +418,9 @@ public class GM : MonoBehaviour
 
 
                 //moves the card into the canvas
-                card.transform.SetParent(Player1Hand);
+                card.transform.SetParent(hand);
                 //moves the card to the spawn
-                card.GetComponent<isDraggable>().parentToReturnTo = Player1Hand;
+                card.GetComponent<isDraggable>().parentToReturnTo = hand;
 
                 //sets the visible attributes of the card game object to those stored in it's card script parameters
                 card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cardName;

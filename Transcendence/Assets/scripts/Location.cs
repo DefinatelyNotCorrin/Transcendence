@@ -19,5 +19,7 @@ public enum Location {
     TopCenter3,
     TopRight1,
     TopRight2,
-    TopRight3
+    TopRight3,
+    Player1Hand,
+    Player2Hand
 }
