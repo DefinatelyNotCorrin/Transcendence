@@ -209,6 +209,7 @@ public class dropManager : MonoBehaviour {
         targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().currentHealth.ToString();
     }
 
+    
     public void zoneDamage(GameObject targtedCard, GameObject spellCard)
     {
         if (targtedCard.transform.parent.transform.parent.name.Equals("leftTemplePlayingSpaces"))

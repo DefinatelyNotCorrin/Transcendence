@@ -2,18 +2,13 @@
 using UnityEngine.UI;
 using System.Collections;
 
-public class EffectDatabase : MonoBehaviour {
+public class EffectManager : MonoBehaviour {
 
-    public GM gm;
+    private GM gm;
 
-	// Use this for initialization
-	void Start () {
-	
-	}
-	
-	// Update is called once per frame
-	void Update () {
-	
+	void Start ()
+    {
+        this.gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GM>();
 	}
     
     // Basic fireball method. Does damage based on the attack of the spell card played. 

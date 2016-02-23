@@ -3,7 +3,7 @@ using UnityEngine.UI;
 //using UnityEditor;
 using System.Collections.Generic;
 using System;
-
+using UnityEngine.SceneManagement;
 
 public class GM : MonoBehaviour
 {
@@ -520,7 +520,7 @@ public class GM : MonoBehaviour
 
     public void exitMenu()
     {
-        Application.LoadLevel(1);
+        SceneManager.LoadScene(1);
     }
 
     /*

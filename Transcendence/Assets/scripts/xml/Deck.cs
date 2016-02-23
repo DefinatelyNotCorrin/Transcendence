@@ -12,6 +12,8 @@ public class Deck : MonoBehaviour
     public List<Card> archiveDeck;
     public List<Card> activeDeck;
     public List<Card> discard;
+
+    #pragma warning disable
     private static System.Random rng = new System.Random();
 
     // Use this for initialization
