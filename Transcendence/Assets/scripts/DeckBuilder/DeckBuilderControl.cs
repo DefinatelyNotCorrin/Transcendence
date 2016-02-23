@@ -124,8 +124,9 @@ public class DeckBuilderControl : MonoBehaviour {
     public void ExitPress()
     {
         GameObject exitPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
-        exitPrompt.transform.FindChild("Canvas").transform.FindChild("Description").GetComponent<Text>().text = "meep";
-        SceneManager.LoadScene(0);
+        exitPrompt.GetComponent<PromptMenuScript>().setDescription("Exit to menu?");
+        exitPrompt.GetComponent<PromptMenuScript>().setLeftButtonText("Exit");
+        exitPrompt.GetComponent<PromptMenuScript>().setRightButtonText("Cancel");
     }
 
 }

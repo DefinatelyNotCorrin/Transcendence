@@ -3,6 +3,7 @@ using System.Collections;
 using UnityEngine.UI;
 
 public class PromptMenuScript : MonoBehaviour {
+    public Canvas canvas;
     public string promptName;
     public Button button1;
     public Button button2;
@@ -11,8 +12,7 @@ public class PromptMenuScript : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        setLeftButtonText("test1");
-        setRightButtonText("test2");
+        moveToCenter();
     }
 	
 	// Update is called once per frame
@@ -20,19 +20,29 @@ public class PromptMenuScript : MonoBehaviour {
     {
 	
 	}
-
-    void setLeftButtonText(string str)
+    public void setName(string name)
+    {
+        this.name = name;
+    }
+    public void setDescription(string str)
+    {
+        description.text = str;
+    }
+    public void setLeftButtonText(string str)
     {
         button1.transform.FindChild("Text").GetComponent<Text>().text = str;
     }
-    void setRightButtonText(string str)
+    public void setRightButtonText(string str)
     {
         button2.transform.FindChild("Text").GetComponent<Text>().text = str;
     }
-    void isVisible(bool state)
+    public void isVisible(bool state)
     {
-        this.enabled = state;
+        canvas.enabled = state;
     }
-
+    public void moveToCenter()
+    {
+        canvas.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
+    }
 
 }
