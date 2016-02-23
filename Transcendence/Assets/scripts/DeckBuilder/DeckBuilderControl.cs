@@ -123,10 +123,16 @@ public class DeckBuilderControl : MonoBehaviour {
     //return to title menu and exit deckbuilder
     public void ExitPress()
     {
-        GameObject exitPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
-        exitPrompt.GetComponent<PromptMenuScript>().setDescription("Exit to menu?");
-        exitPrompt.GetComponent<PromptMenuScript>().setLeftButtonText("Exit");
-        exitPrompt.GetComponent<PromptMenuScript>().setRightButtonText("Cancel");
+        helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
+        helperPrompt.GetComponent<PromptMenuScript>().setDescription("Exit to menu?");
+        helperPrompt.GetComponent<PromptMenuScript>().setLeftButtonText("Exit");
+        helperPrompt.GetComponent<PromptMenuScript>().setRightButtonText("Cancel");
+        helperPrompt.transform.FindChild("Canvas").transform.FindChild("Description").transform.FindChild("Button1").GetComponent<Button>().onClick.AddListener(delegate () { OnClickExit(); });
+    }
+
+    public void OnClickExit()
+    {
+        helperPrompt.GetComponent<PromptMenuScript>().setDescription("DETECTED EXIT CLICK");
     }
 
 }
