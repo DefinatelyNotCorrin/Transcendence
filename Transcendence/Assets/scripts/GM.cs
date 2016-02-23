@@ -183,11 +183,16 @@ public class GM : MonoBehaviour
         if (player1.GetComponent<player>().isTurn)
         {
             // Set Player 1's card back to enabled, and Player 2's card back to clear
-            foreach (Transform child in playerHandTemple.transform)
+            Transform hand1 = locations.getLocationTransform(Location.Player1Hand);
+
+            foreach (Transform child in hand1)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = cardBackTemple;
             }
-            foreach (Transform child in playerHandCitadel.transform)
+
+            Transform hand2 = locations.getLocationTransform(Location.Player2Hand);
+
+            foreach (Transform child in hand2)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = clear;
             }
@@ -212,12 +217,16 @@ public class GM : MonoBehaviour
         // Toggles to player 1 turn if Player 2 pressed the button
         else if (player2.GetComponent<player>().isTurn)
         {
-            
-            foreach (Transform child in playerHandTemple.transform)
+            Transform hand1 = locations.getLocationTransform(Location.Player1Hand);
+
+            foreach (Transform child in hand1)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = clear;
             }
-            foreach (Transform child in playerHandCitadel.transform)
+
+            Transform hand2 = locations.getLocationTransform(Location.Player2Hand);
+
+            foreach (Transform child in hand2)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = cardBackCitadel;
             }
