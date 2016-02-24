@@ -379,6 +379,7 @@ public class GM : MonoBehaviour
             if (hand.childCount < 6) //if at hand limit, throw out card
             {
                 GameObject card;
+                Card cardsScript;
 
                 if (currentCard.type.Equals("Creature"))
                 {
@@ -391,6 +392,8 @@ public class GM : MonoBehaviour
                     card = (GameObject)Instantiate(PrefabSpellCard, hand.position, hand.rotation);
                     card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0,8)];
                 }
+
+                cardsScript = card.GetComponent<Card>();
 
                 //card.transform.SetParent(hand.parent);
 
@@ -405,25 +408,25 @@ public class GM : MonoBehaviour
                     Debug.Log("NULL NAME");
                 }
                 card.name = currentCard.cardName;
-                card.GetComponent<Card>().ID = currentCard.ID;
-                card.GetComponent<Card>().image = currentCard.image;
-                card.GetComponent<Card>().description = currentCard.description;
-                card.GetComponent<Card>().alliance = currentCard.alliance;
-                card.GetComponent<Card>().type = currentCard.type;
-                card.GetComponent<Card>().cost = currentCard.cost;
-                card.GetComponent<Card>().attack = currentCard.attack;
-                card.GetComponent<Card>().health = currentCard.health;
-                card.GetComponent<Card>().defense = currentCard.defense;
-                card.GetComponent<Card>().range = currentCard.range;
-                card.GetComponent<Card>().target = currentCard.target;
-                card.GetComponent<Card>().currentID = currentCard.currentID;
-                card.GetComponent<Card>().currentCost = currentCard.currentCost;
-                card.GetComponent<Card>().currentAttack = currentCard.currentAttack;
-                card.GetComponent<Card>().currentHealth = currentCard.currentHealth;
-                card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
-                card.GetComponent<Card>().currentRange = currentCard.currentRange;
-                card.GetComponent<Card>().ownerTag = "Player 1";
-                card.GetComponent<Card>().effect = currentCard.effect;
+                cardsScript.ID = currentCard.ID;
+                cardsScript.image = currentCard.image;
+                cardsScript.description = currentCard.description;
+                cardsScript.alliance = currentCard.alliance;
+                cardsScript.type = currentCard.type;
+                cardsScript.cost = currentCard.cost;
+                cardsScript.attack = currentCard.attack;
+                cardsScript.health = currentCard.health;
+                cardsScript.defense = currentCard.defense;
+                cardsScript.range = currentCard.range;
+                cardsScript.target = currentCard.target;
+                cardsScript.currentID = currentCard.currentID;
+                cardsScript.currentCost = currentCard.currentCost;
+                cardsScript.currentAttack = currentCard.currentAttack;
+                cardsScript.currentHealth = currentCard.currentHealth;
+                cardsScript.currentDefense = currentCard.currentDefense;
+                cardsScript.currentRange = currentCard.currentRange;
+                cardsScript.ownerTag = "Player 1";
+                cardsScript.effect = currentCard.effect;
 
 
                 //moves the card into the canvas
@@ -432,13 +435,13 @@ public class GM : MonoBehaviour
                 card.GetComponent<isDraggable>().parentToReturnTo = hand;
 
                 //sets the visible attributes of the card game object to those stored in it's card script parameters
-                card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cardName;
-                card.transform.Find("Description").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().description;
-                card.transform.Find("Attack").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().attack;
-                card.transform.Find("Defense").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().defense;
-                card.transform.Find("Health").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().health;
-                card.transform.Find("Range").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().range;
-                card.transform.Find("Cost").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cost;
+                card.transform.Find("Title").gameObject.GetComponent<Text>().text = cardsScript.cardName;
+                card.transform.Find("Description").gameObject.GetComponent<Text>().text = cardsScript.description;
+                card.transform.Find("Attack").gameObject.GetComponent<Text>().text = cardsScript.attack;
+                card.transform.Find("Defense").gameObject.GetComponent<Text>().text = cardsScript.defense;
+                card.transform.Find("Health").gameObject.GetComponent<Text>().text = cardsScript.health;
+                card.transform.Find("Range").gameObject.GetComponent<Text>().text = cardsScript.range;
+                card.transform.Find("Cost").gameObject.GetComponent<Text>().text = cardsScript.cost;
             }
         }
 
@@ -448,6 +451,7 @@ public class GM : MonoBehaviour
             if (Player2Hand.transform.childCount < 6) { //if at hand limit, throw out card
 
                 GameObject card;
+                Card cardsScript;
 
                 if (currentCard.type.Equals("Creature"))
                 {
@@ -466,28 +470,30 @@ public class GM : MonoBehaviour
 
                 currentCard.setCurrents();
 
+                cardsScript = card.GetComponent<Card>();
+
                 //passes the Card card values into the Gameobject card
-                card.GetComponent<Card>().cardName = currentCard.cardName;
+                cardsScript.cardName = currentCard.cardName;
                 card.name = currentCard.cardName;
-                card.GetComponent<Card>().ID = currentCard.ID;
-                card.GetComponent<Card>().image = currentCard.image;
-                card.GetComponent<Card>().description = currentCard.description;
-                card.GetComponent<Card>().alliance = currentCard.alliance;
-                card.GetComponent<Card>().type = currentCard.type;
-                card.GetComponent<Card>().cost = currentCard.cost;
-                card.GetComponent<Card>().attack = currentCard.attack;
-                card.GetComponent<Card>().health = currentCard.health;
-                card.GetComponent<Card>().defense = currentCard.defense;
-                card.GetComponent<Card>().range = currentCard.range;
-                card.GetComponent<Card>().target = currentCard.target;
-                card.GetComponent<Card>().currentID = currentCard.currentID;
-                card.GetComponent<Card>().currentCost = currentCard.currentCost;
-                card.GetComponent<Card>().currentAttack = currentCard.currentAttack;
-                card.GetComponent<Card>().currentHealth = currentCard.currentHealth;
-                card.GetComponent<Card>().currentDefense = currentCard.currentDefense;
-                card.GetComponent<Card>().currentRange = currentCard.currentRange;
-                card.GetComponent<Card>().ownerTag = "Player 2";
-                card.GetComponent<Card>().effect = currentCard.effect;
+                cardsScript.ID = currentCard.ID;
+                cardsScript.image = currentCard.image;
+                cardsScript.description = currentCard.description;
+                cardsScript.alliance = currentCard.alliance;
+                cardsScript.type = currentCard.type;
+                cardsScript.cost = currentCard.cost;
+                cardsScript.attack = currentCard.attack;
+                cardsScript.health = currentCard.health;
+                cardsScript.defense = currentCard.defense;
+                cardsScript.range = currentCard.range;
+                cardsScript.target = currentCard.target;
+                cardsScript.currentID = currentCard.currentID;
+                cardsScript.currentCost = currentCard.currentCost;
+                cardsScript.currentAttack = currentCard.currentAttack;
+                cardsScript.currentHealth = currentCard.currentHealth;
+                cardsScript.currentDefense = currentCard.currentDefense;
+                cardsScript.currentRange = currentCard.currentRange;
+                cardsScript.ownerTag = "Player 2";
+                cardsScript.effect = currentCard.effect;
 
                 //moves the card into the canvas
                 card.transform.SetParent(Player2Hand);
@@ -495,13 +501,13 @@ public class GM : MonoBehaviour
                 card.GetComponent<isDraggable>().parentToReturnTo = Player2Hand;
 
                 //sets the visible attributes of the card game object to those stored in it's card script parameters
-                card.transform.Find("Title").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cardName;
-                card.transform.Find("Description").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().description;
-                card.transform.Find("Attack").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().attack;
-                card.transform.Find("Defense").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().defense;
-                card.transform.Find("Health").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().health;
-                card.transform.Find("Range").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().range;
-                card.transform.Find("Cost").gameObject.GetComponent<Text>().text = card.GetComponent<Card>().cost;
+                card.transform.Find("Title").gameObject.GetComponent<Text>().text = cardsScript.cardName;
+                card.transform.Find("Description").gameObject.GetComponent<Text>().text = cardsScript.description;
+                card.transform.Find("Attack").gameObject.GetComponent<Text>().text = cardsScript.attack;
+                card.transform.Find("Defense").gameObject.GetComponent<Text>().text = cardsScript.defense;
+                card.transform.Find("Health").gameObject.GetComponent<Text>().text = cardsScript.health;
+                card.transform.Find("Range").gameObject.GetComponent<Text>().text = cardsScript.range;
+                card.transform.Find("Cost").gameObject.GetComponent<Text>().text = cardsScript.cost;
             }
          }
     }

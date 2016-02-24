@@ -26,6 +26,7 @@ public class DeckReader: MonoBehaviour {
             if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "card"))
              {
                 //generates new empty card object
+                #pragma warning disable
                 Card card = new Card();
 
                     //set values of new card Object from xml attributes

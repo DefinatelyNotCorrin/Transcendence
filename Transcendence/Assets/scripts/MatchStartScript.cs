@@ -28,7 +28,11 @@ public class MatchStartScript : MonoBehaviour {
     public List<string> paths;
     int i = 0;
 
-	// Use this for initialization
+	/// <remarks>
+    /// This class should create some dummy decks for the user to select and load them into the player data object,
+    /// and manage all of the button functions for the menu. 
+    /// </remarks>
+
 	void Start () {
 
 		exitMenu.enabled = false;
@@ -41,7 +45,8 @@ public class MatchStartScript : MonoBehaviour {
         paths.Add("/scripts/xml/2cards.xml");
         paths.Add("/scripts/xml/3cards.xml");
         paths.Add("/scripts/xml/neutralsAndSpellsBASIC.xml");
-
+        // The newest spells that you can buy!
+        paths.Add("/scripts/xml/spellsWithModifiers.xml");
 
         foreach (string p in paths)
         {

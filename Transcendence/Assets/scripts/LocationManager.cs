@@ -35,7 +35,7 @@ public class LocationManager : MonoBehaviour {
         this.locationMap.Add(Location.TopRight3, GameObject.Find("TopRight3"));
 
         this.locationMap.Add(Location.Player1Hand, GameObject.Find("Player1Hand"));
-        this.locationMap.Add(Location.Player1Hand, GameObject.Find("Player2Hand"));
+        this.locationMap.Add(Location.Player2Hand, GameObject.Find("Player2Hand"));
     }
 	
     public GameObject getLocationGameobject(Location location)
