@@ -42,7 +42,7 @@ public class DeckReader: MonoBehaviour {
                     card.range = reader.GetAttribute("range");
                     card.target = reader.GetAttribute("target");
                     card.health = reader.GetAttribute("health");
-                    card.effect = reader.GetAttribute("effect");
+                    card.effectName = reader.GetAttribute("effectName");
                     
 
                 //stores that new card in the DeckReader array list

@@ -3,7 +3,7 @@ using System;
 
 	public class Card : MonoBehaviour {
 
-    //base values
+    // Base values
     public string cardName;
     public string ID;
     public string image;
@@ -16,9 +16,10 @@ using System;
     public string defense;
     public string range;
     public string target;
-    public string effect;
+    public string effectName;
+    //public string effect;
 
-    //values for combat 
+    // Values for combat 
     public int currentID;
     public int currentCost;
     public double currentAttack;
@@ -29,13 +30,9 @@ using System;
     public bool isExhausted;
     public bool hasBeenPlaced;
     public string ownerTag;
-    
 
-    void Start()
-
-    {  
-
-    }
+    // Spell information
+    public Effect effect;
 
 	public void setCurrents() {
 

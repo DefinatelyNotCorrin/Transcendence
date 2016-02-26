@@ -9,13 +9,10 @@ public enum Effect {
     Firestorm,
 
     // Player Effects
+    Draw,
 
     // Ranges
     Single,
     Zone,
     All,
-
-    // Strengh
-
-
 }

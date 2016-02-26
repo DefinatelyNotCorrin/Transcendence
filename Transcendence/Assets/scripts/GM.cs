@@ -5,6 +5,7 @@ using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
 
+// TODO refactor several methods with the current player object
 public class GM : MonoBehaviour
 {
     /*
@@ -43,6 +44,9 @@ public class GM : MonoBehaviour
     // Locations
     private LocationManager locations;
 
+    /// <summary>
+    /// Set basic information for each player, load their decks, and give them their mulliagns. Then pick a player to go first, and start his/her turn. 
+    /// </summary>
     public void Start()
     {
 
@@ -128,6 +132,9 @@ public class GM : MonoBehaviour
         }
     }
 
+    /// <summary>
+    /// Updates player mana and VP, checks for win conditions, and makes sure that the correct buttons are enabled. 
+    /// </summary>
     public void Update()
     {
 
@@ -163,7 +170,10 @@ public class GM : MonoBehaviour
     }
 
 
-    // Method that runs at the start of a player's turn
+    /// <summary>
+    /// Starts the turn of a player by giving him/her mana and a card. 
+    /// </summary>
+    /// <param name="player"></param> The player whose turn is being started. 
     public void startTurn(GameObject player)
     {
         if (player.GetComponent<player>().manaMax < 13)
@@ -175,7 +185,9 @@ public class GM : MonoBehaviour
         drawCard(player);
     }
 
-    // What happens when a player ends their turn
+    /// <summary>
+    /// Ends the turn of the current player, tallies the VP of both players, and then starts the turn of the other player.
+    /// </summary>
     public void endTurn()
     {
 
@@ -249,7 +261,10 @@ public class GM : MonoBehaviour
         Debug.Log("The current player is " + currentPlayer.name);
     }
 
-    // The method called when the game is ended
+    /// <summary>
+    /// Displays the victory screen. 
+    /// </summary>
+    /// <param name="winner"></param> The player who has won. 
     public void endGame(GameObject winner)
     {
         switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "";
@@ -258,7 +273,9 @@ public class GM : MonoBehaviour
         switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = winner.GetComponent<player>().name + " Wins!";
     }
 
-    // The method that enables/disables the switching player menu
+    /// <summary>
+    /// Toggle the meby that displays between players' turns. 
+    /// </summary>
     public void togglePlayerChangeMenu()
     {
         if (switchPlayerMenu.enabled == false)
@@ -271,7 +288,11 @@ public class GM : MonoBehaviour
         }
     }
 
-    // Combat method for cards
+    /// <summary>
+    /// Runs combat between two cards.
+    /// </summary>
+    /// <param name="attackingCard"></param> The card attacking.
+    /// <param name="defendingCard"></param> The card being attacked. 
     public static void combat(GameObject attackingCard, GameObject defendingCard)
     {
 
@@ -314,7 +335,11 @@ public class GM : MonoBehaviour
         instantiateCard(player, player.GetComponent<player>().deck.poll());
     }
 
-    // Tally a player's VP at the end of their turn
+
+    /// <summary>
+    /// Tally a player's VP at the end of their turn
+    /// </summary>
+    /// <param name="player"></param> The player whose turn it currently is. 
     public void VPTally(GameObject player)
     {
         // Logic for Player 1
@@ -368,10 +393,14 @@ public class GM : MonoBehaviour
         }
     }
 
-    // Creates a card a position based on player side and card value
+    /// <summary>
+    /// Create a card gameobject in the hand of a player.
+    /// </summary>
+    /// <param name="player"></param> The player to whom the card will be given.
+    /// <param name="currentCard"></param> The next card that shall be drawn in that player's deck. 
     public void instantiateCard(GameObject player, Card currentCard)
     {
-        // Instantiates for cards on temple side
+        // Instantiate card for player 1
         if (player.GetComponent<player>().playerSide == 0)
         {
             Transform hand = locations.getLocationTransform(Location.Player1Hand);
@@ -393,21 +422,21 @@ public class GM : MonoBehaviour
                     card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0,8)];
                 }
 
+                // Set the reference to the new card's script
                 cardsScript = card.GetComponent<Card>();
 
-                //card.transform.SetParent(hand.parent);
+                // Set the card's transform to that of its player's hand
+                card.transform.SetParent(Player2Hand.transform.parent);
 
-                card.GetComponentInChildren<Text>().text = currentCard.cardName;
-
+                // Initialize the card's current values
                 currentCard.setCurrents();
 
-                //passes the Card card values into the GameObject card
-                card.GetComponent<Card>().cardName = currentCard.cardName;
-                if (currentCard.cardName == null)
-                {
-                    Debug.Log("NULL NAME");
-                }
+                // Set the card's name
+                card.GetComponentInChildren<Text>().text = currentCard.cardName;
+                cardsScript.cardName = currentCard.cardName;
                 card.name = currentCard.cardName;
+
+                // Set all of the remaining information for the card
                 cardsScript.ID = currentCard.ID;
                 cardsScript.image = currentCard.image;
                 cardsScript.description = currentCard.description;
@@ -426,15 +455,27 @@ public class GM : MonoBehaviour
                 cardsScript.currentDefense = currentCard.currentDefense;
                 cardsScript.currentRange = currentCard.currentRange;
                 cardsScript.ownerTag = "Player 1";
-                cardsScript.effect = currentCard.effect;
+                cardsScript.effectName = currentCard.effectName;
 
+                foreach (Effect effect in Enum.GetValues(typeof(Effect)))
+                {
+                    if (effect.ToString().Equals(currentCard.effectName))
+                    {
+                        cardsScript.effect = effect;
+                        Debug.Log(effect.ToString());
+                    }
+                    else if (!effect.ToString().Equals(currentCard.effectName) && cardsScript.type.Equals("Spell"))
+                    {
+                        Debug.LogError("No effect found.");
+                    }
+                }
 
-                //moves the card into the canvas
+                // Move the card onto the canvas
                 card.transform.SetParent(hand);
-                //moves the card to the spawn
+                // Set the parentToReturnTo for the card
                 card.GetComponent<isDraggable>().parentToReturnTo = hand;
 
-                //sets the visible attributes of the card game object to those stored in it's card script parameters
+                // Set the visible attributes of the card game object to those stored in it's card script parameters
                 card.transform.Find("Title").gameObject.GetComponent<Text>().text = cardsScript.cardName;
                 card.transform.Find("Description").gameObject.GetComponent<Text>().text = cardsScript.description;
                 card.transform.Find("Attack").gameObject.GetComponent<Text>().text = cardsScript.attack;
@@ -445,36 +486,43 @@ public class GM : MonoBehaviour
             }
         }
 
-        //instantiates for players on citadel side
+        // Instanstiate card for player 2
         if (player.GetComponent<player>().playerSide == 1)
         {
             if (Player2Hand.transform.childCount < 6) { //if at hand limit, throw out card
 
+                // The new card, and its script
                 GameObject card;
                 Card cardsScript;
 
+                // Create the card with the creature prefab
                 if (currentCard.type.Equals("Creature"))
                 {
                     card = (GameObject)Instantiate(PrefabCreatureCard, Player2Hand.transform.position, Player2Hand.rotation);
                     card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
                 }
+                // Or create it with the spell prefab
                 else
                 {
                     card = (GameObject)Instantiate(PrefabSpellCard, Player2Hand.transform.position, Player2Hand.rotation);
                     card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
                 }
 
-                card.transform.SetParent(Player2Hand.transform.parent);
-
-                card.GetComponentInChildren<Text>().text = currentCard.cardName;
-
-                currentCard.setCurrents();
-
+                // Set the reference to the new card's script
                 cardsScript = card.GetComponent<Card>();
 
-                //passes the Card card values into the Gameobject card
+                // Set the card's transform to that of its player's hand
+                card.transform.SetParent(Player2Hand.transform.parent);
+
+                // Initialize the card's current values
+                currentCard.setCurrents();
+
+                // Set the card's name
+                card.GetComponentInChildren<Text>().text = currentCard.cardName;
                 cardsScript.cardName = currentCard.cardName;
                 card.name = currentCard.cardName;
+
+                // Set all of the remaining information for the card
                 cardsScript.ID = currentCard.ID;
                 cardsScript.image = currentCard.image;
                 cardsScript.description = currentCard.description;
@@ -493,14 +541,14 @@ public class GM : MonoBehaviour
                 cardsScript.currentDefense = currentCard.currentDefense;
                 cardsScript.currentRange = currentCard.currentRange;
                 cardsScript.ownerTag = "Player 2";
-                cardsScript.effect = currentCard.effect;
+                //cardsScript.effect = currentCard.effect;
 
-                //moves the card into the canvas
+                // Move the card onto the canvas
                 card.transform.SetParent(Player2Hand);
-                //moves the card to the spawn
+                // Set the parentToReturnTo for the card
                 card.GetComponent<isDraggable>().parentToReturnTo = Player2Hand;
 
-                //sets the visible attributes of the card game object to those stored in it's card script parameters
+                // Set the visible attributes of the card game object to those stored in it's card script parameters
                 card.transform.Find("Title").gameObject.GetComponent<Text>().text = cardsScript.cardName;
                 card.transform.Find("Description").gameObject.GetComponent<Text>().text = cardsScript.description;
                 card.transform.Find("Attack").gameObject.GetComponent<Text>().text = cardsScript.attack;
