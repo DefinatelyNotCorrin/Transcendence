@@ -3704,7 +3704,7 @@ MonoBehaviour:
   cardAddCancelSound: {fileID: 0}
   clickSound: {fileID: 0}
   heavyClickSound: {fileID: 0}
-  helperPrompt: {fileID: 195756, guid: f684bd7c91cd5ac40b6358bad1610798, type: 2}
+  helperPrompt: {fileID: 125668, guid: f684bd7c91cd5ac40b6358bad1610798, type: 2}
 --- !u!1 &1743024340
 GameObject:
   m_ObjectHideFlags: 0

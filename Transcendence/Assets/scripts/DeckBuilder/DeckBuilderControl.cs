@@ -123,16 +123,36 @@ public class DeckBuilderControl : MonoBehaviour {
     //return to title menu and exit deckbuilder
     public void ExitPress()
     {
-        helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
-        helperPrompt.GetComponent<PromptMenuScript>().setDescription("Exit to menu?");
-        helperPrompt.GetComponent<PromptMenuScript>().setLeftButtonText("Exit");
-        helperPrompt.GetComponent<PromptMenuScript>().setRightButtonText("Cancel");
-        helperPrompt.transform.FindChild("Canvas").transform.FindChild("Description").transform.FindChild("Button1").GetComponent<Button>().onClick.AddListener(delegate () { OnClickExit(); });
+        if (!GameObject.Find("PromptMenu(Clone)")) //changed sought object from PromptMenu(Clone) to align with "exit" namechange
+            //if the exit prompt object does not exist yet
+        {
+            helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
+        }
+        if (!helperPrompt.name.Equals("exit"))
+            //if the 
+        {
+                helperPrompt.GetComponent<PromptMenuScript>().moveToCenter();
+                helperPrompt.GetComponent<PromptMenuScript>().setMutation("exit");
+                helperPrompt.GetComponent<PromptMenuScript>().setDescription("Exit to menu?");
+                helperPrompt.GetComponent<PromptMenuScript>().setLeftButtonText("Exit");
+                helperPrompt.GetComponent<PromptMenuScript>().setRightButtonText("Cancel");
+                helperPrompt.transform.FindChild("Canvas").transform.FindChild("Button1").GetComponent<Button>().onClick.AddListener(delegate () { OnClickExit(); });
+                helperPrompt.transform.FindChild("Canvas").transform.FindChild("Button2").GetComponent<Button>().onClick.AddListener(delegate () { OnClickCancel(); });
+         }
+        helperPrompt.GetComponent<PromptMenuScript>().isVisible(true);
     }
 
     public void OnClickExit()
     {
-        helperPrompt.GetComponent<PromptMenuScript>().setDescription("DETECTED EXIT CLICK");
+        bookAudio.PlayOneShot(clickSound, 0.7F);
+        SceneManager.LoadScene(0);
+    }
+
+    public void OnClickCancel()
+    {
+        Debug.Log("cancel click");
+        bookAudio.PlayOneShot(clickSound, 0.7F);
+        helperPrompt.GetComponent<PromptMenuScript>().isVisible(false);
     }
 
 }
