@@ -53,6 +53,8 @@ public class DeckBuilderControl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
+        helperPrompt.GetComponent<PromptMenuScript>().isVisible(false);
     }
 	
 	// Update is called once per frame
@@ -117,19 +119,26 @@ public class DeckBuilderControl : MonoBehaviour {
         //load previously saved deck, prompt for save first (call save press)
     }
     public void SavePress()
+    //save current
     {
-        //save current
-    }
-    //return to title menu and exit deckbuilder
-    public void ExitPress()
-    {
-        if (!GameObject.Find("PromptMenu(Clone)")) //changed sought object from PromptMenu(Clone) to align with "exit" namechange
-            //if the exit prompt object does not exist yet
+        if (!helperPrompt.GetComponent<PromptMenuScript>().mutation.Equals("save"))
+        //if the current mutation is not already exit, set all values to those needed for an exit prompt
         {
-            helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
+            helperPrompt.GetComponent<PromptMenuScript>().moveToCenter();
+            helperPrompt.GetComponent<PromptMenuScript>().setMutation("save");
+            helperPrompt.GetComponent<PromptMenuScript>().setDescription("Save current deck?");
+            helperPrompt.GetComponent<PromptMenuScript>().setLeftButtonText("Save");
+            helperPrompt.GetComponent<PromptMenuScript>().setRightButtonText("Cancel");
+            //helperPrompt.transform.FindChild("Canvas").transform.FindChild("Button1").GetComponent<Button>().onClick.AddListener(delegate () { OnClickExit(); });
+            //helperPrompt.transform.FindChild("Canvas").transform.FindChild("Button2").GetComponent<Button>().onClick.AddListener(delegate () { OnClickCancel(); });
         }
-        if (!helperPrompt.name.Equals("exit"))
-            //if the 
+        helperPrompt.GetComponent<PromptMenuScript>().isVisible(true);
+    }
+    public void ExitPress()
+    //return to title menu
+    {
+        if (!helperPrompt.GetComponent<PromptMenuScript>().mutation.Equals("exit"))
+            //if the current mutation is not already exit, set all values to those needed for an exit prompt
         {
                 helperPrompt.GetComponent<PromptMenuScript>().moveToCenter();
                 helperPrompt.GetComponent<PromptMenuScript>().setMutation("exit");
@@ -150,9 +159,10 @@ public class DeckBuilderControl : MonoBehaviour {
 
     public void OnClickCancel()
     {
-        Debug.Log("cancel click");
         bookAudio.PlayOneShot(clickSound, 0.7F);
+
         helperPrompt.GetComponent<PromptMenuScript>().isVisible(false);
+
     }
 
 }

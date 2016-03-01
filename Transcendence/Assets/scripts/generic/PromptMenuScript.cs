@@ -4,11 +4,11 @@ using UnityEngine.UI;
 
 public class PromptMenuScript : MonoBehaviour {
     public Canvas canvas;
-    private string mutation;
-    private Button button1;
-    private Button button2;
-    private Button button3;
-    private Text description;
+    public string mutation;
+    public Button button1;
+    public Button button2;
+    public Button button3;
+    public Text description;
 
     // Use this for initialization
     void Start()
@@ -58,6 +58,10 @@ public class PromptMenuScript : MonoBehaviour {
     {
         button3.transform.FindChild("Text").GetComponent<Text>().text = str;
     }
+    public void makeRightCancel()
+    {
+        this.transform.FindChild("Canvas").transform.FindChild("Button2").GetComponent<Button>().onClick.AddListener(delegate () { OnClickCancel(); });
+    }
     //show or hide the entire prompt
     public void isVisible(bool state)
     {
@@ -68,5 +72,11 @@ public class PromptMenuScript : MonoBehaviour {
     {
         canvas.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
     }
+    public void setValues(string mutation, string description, string leftButton, string rightButton, delegate callback, delegate callback2);
+    public void clear() {
+        setMutation();
+
+    }
+
 
 }

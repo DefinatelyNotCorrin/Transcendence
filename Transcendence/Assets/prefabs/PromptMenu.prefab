@@ -483,7 +483,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canvas: {fileID: 22336838}
-  promptName: 
+  mutation: 
   button1: {fileID: 11433128}
   button2: {fileID: 11404742}
   button3: {fileID: 11452796}
