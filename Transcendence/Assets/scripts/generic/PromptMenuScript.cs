@@ -58,10 +58,6 @@ public class PromptMenuScript : MonoBehaviour {
     {
         button3.transform.FindChild("Text").GetComponent<Text>().text = str;
     }
-    public void makeRightCancel()
-    {
-        this.transform.FindChild("Canvas").transform.FindChild("Button2").GetComponent<Button>().onClick.AddListener(delegate () { OnClickCancel(); });
-    }
     //show or hide the entire prompt
     public void isVisible(bool state)
     {
@@ -72,10 +68,17 @@ public class PromptMenuScript : MonoBehaviour {
     {
         canvas.transform.position = new Vector2(Screen.width / 2, Screen.height / 2);
     }
-    public void setValues(string mutation, string description, string leftButton, string rightButton, delegate callback, delegate callback2);
+    //public void setValues(string mutation, string description, string leftButton, string rightButton, delegate callback, delegate callback2);
     public void clear() {
-        setMutation();
-
+        moveToCenter();
+        setMutation("blank");
+        setDescription("description");
+        setLeftButtonText("button1");
+        setRightButtonText("button2");
+        setMiddleButtonText("button3");
+        button1.onClick.RemoveAllListeners();
+        button2.onClick.RemoveAllListeners();
+        button3.onClick.RemoveAllListeners();
     }
 
 

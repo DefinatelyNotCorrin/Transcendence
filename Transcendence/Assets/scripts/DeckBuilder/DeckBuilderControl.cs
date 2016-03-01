@@ -110,15 +110,15 @@ public class DeckBuilderControl : MonoBehaviour {
         else
         {
             //this canvas.enabled = false
-            SavePress();
+            OnClickSave();
         }
     }
 
-    public void LoadPress()
-    {
+    public void OnClickLoad()
+    { 
         //load previously saved deck, prompt for save first (call save press)
     }
-    public void SavePress()
+    public void OnClickSave()
     //save current
     {
         if (!helperPrompt.GetComponent<PromptMenuScript>().mutation.Equals("save"))
@@ -152,12 +152,14 @@ public class DeckBuilderControl : MonoBehaviour {
     }
 
     public void OnClickExit()
+        //exit the scene
     {
         bookAudio.PlayOneShot(clickSound, 0.7F);
         SceneManager.LoadScene(0);
     }
 
     public void OnClickCancel()
+        //hide the helper prompt without taking action
     {
         bookAudio.PlayOneShot(clickSound, 0.7F);
 
