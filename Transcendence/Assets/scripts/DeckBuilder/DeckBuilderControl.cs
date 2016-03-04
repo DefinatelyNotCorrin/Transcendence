@@ -8,7 +8,7 @@ public class DeckBuilderControl : MonoBehaviour {
     //CardBook
     public Canvas cardBookCanvas;
         //Database
-        
+
         //Prefabs
         public GameObject creatureCardPrefab;
         public GameObject spellCardPrefab;
@@ -86,6 +86,10 @@ public class DeckBuilderControl : MonoBehaviour {
         deckName.interactable = state;
         cardInDeckPrefab.interactable = state;
     }
+
+	private void populate(){
+		
+	}
 
     public void downPagePress()
     {

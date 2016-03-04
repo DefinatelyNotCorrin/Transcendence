@@ -1,49 +1,216 @@
 ﻿using UnityEngine;
-using UnityEngine.UI;
+using System;
+using System.Collections.Generic;
 using System.Collections;
 
-public class CardBook : MonoBehaviour {
-
-    //Prefabs
-    public GameObject PrefabCreatureCard;
-    public GameObject PrefabSpellCard;
-    //Top Row
-    public Button card1;
-    public Button card2;
-    public Button card3;
-    public Button card4;
-    public Button card5;
-    //Bottom Row
-    public Button card6;
-    public Button card7;
-    public Button card8;
-    public Button card9;
-    public Button card10;
-    //Page Controls
-    public Button upPage;
-    public Button downPage;
-    //Taskbar
-    public Button newDeck;
-    public Button loadDeck;
-    public Button exit;
-    public Button save;
-    public Toggle creaturesToggle;
-    public Toggle spellsToggle;
-    public Toggle boonsToggle;
-    //Audio
-    public AudioSource bookAudio;
-    public AudioClip cardAddSound;
-    public AudioClip cardAddCancelSound;
-    public AudioClip clickSound;
-    public AudioClip heavyClickSound;
-
-    // Use this for initialization
-    void Start () {
+[System.Serializable]
+public class CardBook : MonoBehaviour
+{
 	
+	//Prefabs
+	public GameObject creatureCardPrefab;
+	public GameObject spellCardPrefab;
+	//Reader
+	private string path;
+	private List<Card> activeDatabase;
+	private List<Card> archiveDatabase;
+
+	// Use this for initialization
+	void Start()
+	{
+
 	}
-	
+
 	// Update is called once per frame
-	void Update () {
-	
+	void Update()
+	{
+
 	}
+		
+
+	public int getArchiveSize() //returns size of database
+	{
+		return archiveDatabase.Count;
+	}		
+		
+	public Card peek(int i) //returns card of index i in deck, does not remove card
+	{
+		return activeDeck[i];
+	}
+
+	public void insertCardToArchive(Card card, int index) //adds card to archive deck at specified index
+	{
+		archiveDeck.Insert(index, card);
+	}
+
+	public void insertCardToActive(Card card, int index) //adds card to active deck at specified index, deck top is 0
+	{
+		activeDeck.Insert(index, card);
+	}
+
+	public void insertCardToDiscard(Card card, int index) //adds card to discard at specified index, discard top is 0
+	{
+		discard.Insert(index, card);
+	}
+
+	public void resetActive() //clears active Deck and sets it equal to archive
+	{
+		activeDeck.Clear();
+		foreach (Card c in archiveDeck)
+		{
+			activeDeck.Add(c);
+		}
+	}
+
+	public void vacate() //clears Deck active and archive completely
+	{
+		activeDeck.Clear();
+		archiveDeck.Clear();
+		discard.Clear();
+		deckName = null;
+		path = null;
+
+	}
+
+	public void shuffle()
+	{ 
+		for (int i = activeDeck.Count - 1; i > 0; i--) {
+			int r = UnityEngine.Random.Range(0,i);
+			Card tmp = activeDeck[i];
+			activeDeck[i] = activeDeck[r];
+			activeDeck[r] = tmp;
+		}
+	}
+
+	public List<Card> filterName(string name)
+	{
+		List<Card> filtered = new List<Card>();
+		foreach (Card c in activeDeck)
+		{
+			if (c.cardName.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+			{
+				filtered.Add(c);
+			}
+		}
+		return filtered;
+	}
+
+	public List<Card> filterID(string ID)
+	{
+		List<Card> filtered = new List<Card>();
+		foreach (Card c in activeDeck)
+		{
+			if (c.ID.Equals(ID, StringComparison.InvariantCultureIgnoreCase))
+			{
+				filtered.Add(c);
+			}
+		}
+		return filtered;
+	}
+
+	public List<Card> filterAlliance(string alliance)
+	{
+		List<Card> filtered = new List<Card>();
+		foreach (Card c in activeDeck)
+		{
+			if (c.alliance.Equals(alliance, StringComparison.InvariantCultureIgnoreCase))
+			{
+				filtered.Add(c);
+			}
+		}
+		return filtered;
+	}
+
+	public List<Card> filterType(string type)
+	{
+		List<Card> filtered = new List<Card>();
+		foreach (Card c in activeDeck)
+		{
+			if (c.type.Equals(type, StringComparison.InvariantCultureIgnoreCase))
+			{
+				filtered.Add(c);
+			}
+		}
+		return filtered;
+	}
+
+	public List<Card> filterCost(string cost)
+	{
+		List<Card> filtered = new List<Card>();
+		foreach (Card c in activeDeck)
+		{
+			if (c.cost.Equals(cost, StringComparison.InvariantCultureIgnoreCase))
+			{
+				filtered.Add(c);
+			}
+		}
+		return filtered;
+	}
+
+	public List<Card> filterAttack(string attack)
+	{
+		List<Card> filtered = new List<Card>();
+		foreach (Card c in activeDeck)
+		{
+			if (c.attack.Equals(attack, StringComparison.InvariantCultureIgnoreCase))
+			{
+				filtered.Add(c);
+			}
+		}
+		return filtered;
+	}
+
+	public List<Card> filterHealth(string health)
+	{
+		List<Card> filtered = new List<Card>();
+		foreach (Card c in activeDeck)
+		{
+			if (c.health.Equals(health, StringComparison.InvariantCultureIgnoreCase))
+			{
+				filtered.Add(c);
+			}
+		}
+		return filtered;
+	}
+
+	public List<Card> filterDefense(string defense)
+	{
+		List<Card> filtered = new List<Card>();
+		foreach (Card c in activeDeck)
+		{
+			if (c.defense.Equals(defense, StringComparison.InvariantCultureIgnoreCase))
+			{
+				filtered.Add(c);
+			}
+		}
+		return filtered;
+	}
+
+	public List<Card> filterRange(string range)
+	{
+		List<Card> filtered = new List<Card>();
+		foreach (Card c in activeDeck)
+		{
+			if (c.range.Equals(range, StringComparison.InvariantCultureIgnoreCase))
+			{
+				filtered.Add(c);
+			}
+		}
+		return filtered;
+	}
+
+	public List<Card> filterTarget(string target)
+	{
+		List<Card> filtered = new List<Card>();
+		foreach (Card c in activeDeck)
+		{
+			if (c.target.Equals(target, StringComparison.InvariantCultureIgnoreCase))
+			{
+				filtered.Add(c);
+			}
+		}
+		return filtered;
+	}
+
 }
+
