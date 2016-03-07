@@ -1,18 +1,42 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using System.Collections;
+using System.Collections.Generic;
+using System;
 
+/// <summary>
+/// Class that controls all effects YO.
+/// </summary>
 public class EffectManager : MonoBehaviour {
 
     private GM gm;
+    private Dictionary<Effect, spellDelegate> effectMap;
+    private delegate void spellDelegate(GameObject targeted, GameObject targeter);
 
-	void Start ()
+    void Start()
     {
-        this.gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GM>();
-	}
+        this.gm = GameObject.Find("GM").GetComponent<GM>();
+
+        this.effectMap = new Dictionary<Effect, spellDelegate>();
+
+        this.effectMap.Add(Effect.Fireball, new spellDelegate(Fireball));
+        this.effectMap.Add(Effect.Heal, new spellDelegate(heal));
+        this.effectMap.Add(Effect.Firestorm, new spellDelegate(zoneDamage));
+        this.effectMap.Add(Effect.Draw, new spellDelegate(draw));
+    } 
+
+    /// <summary>
+    /// Run the effect of the given key. 
+    /// </summary>
+    /// <param name="key"></param> The key of the desired effect.
+    /// <param name="targeted"></param> The targeted card (type GameObject).
+    /// <param name="targeter"></param> The targeting card (type GameObject).
+    public void RunEffect(Effect key, GameObject targeted, GameObject targeter)
+    {
+        this.effectMap[key].DynamicInvoke(targeted, targeter);
+    }
     
     // Basic fireball method. Does damage based on the attack of the spell card played. 
-    public void fireball(GameObject targetedCard, GameObject spellCard)
+    private static void Fireball(GameObject targetedCard, GameObject spellCard)
     {
         targetedCard.GetComponent<Card>().currentHealth = targetedCard.GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
 
@@ -27,7 +51,7 @@ public class EffectManager : MonoBehaviour {
         }
     }
 
-    public void heal(GameObject targetedCard, GameObject spellCard)
+    private static void heal(GameObject targetedCard, GameObject spellCard)
     {
         targetedCard.GetComponent<Card>().currentHealth = targetedCard.GetComponent<Card>().currentHealth + spellCard.GetComponent<Card>().currentHealth;
 
@@ -36,7 +60,7 @@ public class EffectManager : MonoBehaviour {
         targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().currentHealth.ToString();
     }
 
-    public void zoneDamage(GameObject targtedCard, GameObject spellCard)
+    private static void zoneDamage(GameObject targtedCard, GameObject spellCard)
     {
         if (targtedCard.transform.parent.transform.parent.name.Equals("leftTemplePlayingSpaces"))
         {
@@ -167,7 +191,7 @@ public class EffectManager : MonoBehaviour {
 
     }
 
-    public void draw(GameObject spellCard)
+    private void draw(GameObject targetedCard, GameObject spellCard)
     {
        
         if (spellCard.GetComponent<Card>().battleSide == 0)

@@ -6,7 +6,7 @@ public class LocationManager : MonoBehaviour {
     private Dictionary<Location, GameObject> locationMap = new Dictionary<Location, GameObject>();
 
 	/// <summary>
-    /// Add all of the location's game objects to the dictionary.
+    /// Add all of the location's game objects to the dictionary. :)
     /// </summary>
 	void Start ()
     {

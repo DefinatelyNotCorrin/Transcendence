@@ -3,38 +3,40 @@ using System.Collections.Generic;
 
 public class player : MonoBehaviour {
 
-    public int playerSide = 0;
-    public int baseHP = 30;
-    public int currentHP;
-    public int manaMax;
-    public int currentMana;
-    public int victoryPoints;
-    public Deck deck;
-    public bool isTurn = false;
-    public string deckPath;
+    /// <summary>
+    /// The class for storing all player info
+    /// </summary>
 
-    // Use this for initialization
+    public int PlayerSide { get; set; }
+    public int CurrentHP { get; set; }
+    public int ManaMax { get; set; }
+    public int CurrentMana { get; set; }
+    public int VictoryPoints { get; set; }
+    public Deck Deck { get; set; }
+    public bool IsTurn { get; set; }
+    public string DeckPath { get; set; }
+
     void Start ()
     {
-        victoryPoints = 0;
-        currentHP = baseHP;
+        this.VictoryPoints = 0;
+        this.CurrentHP = 30;
+        //this.IsTurn = false;
     }
 
-    // 
     public void loadDeck()
     {
-        deck = new Deck();
+        Deck = new Deck();
 
         DeckReader reader = new DeckReader();
 
-        List<Card> stock = reader.load(deckPath);
+        List<Card> stock = reader.load(DeckPath);
 
         foreach (Card c in stock)
         {
-            deck.archiveDeck.Add(c);
+            Deck.archiveDeck.Add(c);
         }
 
-        deck.resetActive();
-        deck.shuffle();
+        Deck.resetActive();
+        Deck.shuffle();
     }
 }

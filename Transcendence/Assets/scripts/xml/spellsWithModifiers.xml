@@ -45,4 +45,5 @@
   <card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
   <card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
   <card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
+  <card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
 </data-set>

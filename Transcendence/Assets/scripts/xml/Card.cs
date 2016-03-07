@@ -1,6 +1,9 @@
 ﻿using UnityEngine;
 using System;
 
+/// <summary>
+/// Holds the card info.
+/// </summary>
 	public class Card : MonoBehaviour {
 
     // Base values

@@ -1,6 +1,12 @@
 ﻿using System.Collections.Generic;
 
+/// <summary>
+/// THE EFFECT ENUM
+/// </summary>
 public enum Effect {
+    // Null
+    None,
+
     // Single Target Effects
     Fireball,
     Heal,

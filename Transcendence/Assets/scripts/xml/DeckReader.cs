@@ -10,7 +10,11 @@ public class DeckReader: MonoBehaviour {
     //the path of the xml card data you want to load
     public string path;
 
-    //load the card data from the xml file, and return the database as an ArrayList of Cards
+    /// <summary>
+    /// Load the card data from the xml file, and return the database as an ArrayList of Cards
+    /// </summary>
+    /// <param name="inputPath"></param> the path of the desired deck
+    /// <returns = arr></returns> the deck returned
     public List<Card> load(string inputPath)
     {
 
