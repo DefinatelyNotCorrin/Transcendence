@@ -7,45 +7,45 @@ using System;
 	public class Card : MonoBehaviour {
 
     // Base values
-    public string cardName;
-    public string ID;
-    public string image;
-    public string description;
-    public string alliance;
-    public string type;
-    public string cost;
-    public string attack;
-    public string health;
-    public string defense;
-    public string range;
-    public string target;
-    public string effectName;
+    public string CardName { get; set; }
+    public string ID { get; set; }
+    public string Image { get; set; }
+    public string Description { get; set; }
+    public string Alliance { get; set; }
+    public string Type { get; set; }
+    public string Cost { get; set; }
+    public string Attack { get; set; }
+    public string Health { get; set; }
+    public string Defense { get; set; }
+    public string Range { get; set; }
+    public string Target { get; set; }
+    public string EffectName { get; set; }
     //public string effect;
 
     // Values for combat 
-    public int currentID;
-    public int currentCost;
-    public double currentAttack;
-    public double currentHealth;
-    public int battleSide;
-    public double currentDefense;
-    public string currentRange;
-    public bool isExhausted;
-    public bool hasBeenPlaced;
-    public string ownerTag;
+    public int CurrentID { get; set; }
+    public int CurrentCost { get; set; }
+    public double CurrentAttack { get; set; }
+    public double CurrentHealth { get; set; }
+    public int BattleSide { get; set; }
+    public double CurrentDefense { get; set; }
+    public string CurrentRange { get; set; }
+    public bool IsExhausted { get; set; }
+    public bool HasBeenPlaced { get; set; }
+    public string OwnerTag { get; set; }
 
     // Spell information
-    public Effect effect;
+    public Effect Effect { get; set; }
 
-	public void setCurrents() {
+	public void SetCurrents() {
 
 		//sets the combat values to the base as the object is initialized
-		currentID = Int32.Parse (ID);
-		currentCost = Int32.Parse (cost);
-		currentAttack = Convert.ToDouble (attack);
-		currentHealth = Convert.ToDouble (health);
-		currentDefense = Convert.ToDouble (defense);
-		currentRange = range;
+		CurrentID = Int32.Parse (ID);
+		CurrentCost = Int32.Parse (Cost);
+		CurrentAttack = Convert.ToDouble (Attack);
+		CurrentHealth = Convert.ToDouble (Health);
+		CurrentDefense = Convert.ToDouble (Defense);
+		CurrentRange = Range;
 	}
 
 }

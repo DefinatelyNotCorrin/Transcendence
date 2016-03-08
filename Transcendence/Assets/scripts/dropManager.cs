@@ -24,10 +24,10 @@ public class dropManager : MonoBehaviour {
 
         D = data.pointerDrag.GetComponent<isDraggable>();
 
-        Debug.Log("Dragging card is a " + draggingCardObject.GetComponent<Card>().type);
+        Debug.Log("Dragging card is a " + draggingCardObject.GetComponent<Card>().Type);
 
         // Checks to see if the card is a card and the thing below it is a field
-        if (pointerObject.CompareTag("Field") && !draggingCardScript.hasBeenPlaced && draggingCardScript.type.Equals("Creature"))
+        if (pointerObject.CompareTag("Field") && !draggingCardScript.HasBeenPlaced && draggingCardScript.Type.Equals("Creature"))
         {
             // Run the logic for a card over a field
             Debug.Log("Creature and Field conditions met.");
@@ -36,11 +36,11 @@ public class dropManager : MonoBehaviour {
 
         // Checks to see if the card is a card and the thing below it is a card
         else if (pointerObject.CompareTag("Card")
-            && draggingCardScript.type.Equals("Creature")
-            && !draggingCardScript.isExhausted
-            && draggingCardScript.hasBeenPlaced
-            && draggingCardScript.ownerTag.Equals(GM.currentPlayer.tag)
-            && !draggingCardScript.ownerTag.Equals(pointerObject.GetComponent<Card>().ownerTag))
+            && draggingCardScript.Type.Equals("Creature")
+            && !draggingCardScript.IsExhausted
+            && draggingCardScript.HasBeenPlaced
+            && draggingCardScript.OwnerTag.Equals(GM.currentPlayer.tag)
+            && !draggingCardScript.OwnerTag.Equals(pointerObject.GetComponent<Card>().OwnerTag))
         {
             Debug.Log("Placed Card and Enemy Card conditions met.");
             creatureAndCard(draggingCardObject, draggingCardScript, pointerObject);
@@ -48,7 +48,7 @@ public class dropManager : MonoBehaviour {
 
         // 
         else if (pointerObject.CompareTag("Card")
-            && draggingCardScript.type.Equals("Spell"))
+            && draggingCardScript.Type.Equals("Spell"))
         {
             Debug.Log("Spell and Card conditions met.");
             spellAndCard(draggingCardObject, draggingCardScript, pointerObject);
@@ -72,39 +72,39 @@ public class dropManager : MonoBehaviour {
         // Runs card placement for player 1
         if (pointerObject.GetComponent<Field>().side.Equals("Player 1")
             && GM.player1.GetComponent<player>().IsTurn
-            && draggingCardScript.ownerTag.Equals("Player 1")
-            && (GM.player1.GetComponent<player>().CurrentMana - draggingCardScript.currentCost >= 0)
+            && draggingCardScript.OwnerTag.Equals("Player 1")
+            && (GM.player1.GetComponent<player>().CurrentMana - draggingCardScript.CurrentCost >= 0)
             )
         {
             // Send card to its new field
 
             D.parentToReturnTo = pointerObject.GetComponent<Field>().transform;
 
-            GM.player1.GetComponent<player>().CurrentMana = GM.player1.GetComponent<player>().CurrentMana - draggingCardScript.currentCost;
+            GM.player1.GetComponent<player>().CurrentMana = GM.player1.GetComponent<player>().CurrentMana - draggingCardScript.CurrentCost;
 
             GameObject.FindGameObjectWithTag("Player 1 Mana").gameObject.transform.FindChild("Text").GetComponent<Text>().text = GM.player1.GetComponent<player>().CurrentMana.ToString();
 
             // Set the card tag back to "card" 
-            draggingCardScript.hasBeenPlaced = true;
+            draggingCardScript.HasBeenPlaced = true;
             draggingCardGameObject.tag = "Card";
         }
         // Runs card placement for player 2
         else if (pointerObject.GetComponent<Field>().side.Equals("Player 2")
             && GM.player2.GetComponent<player>().IsTurn
-            && draggingCardScript.ownerTag.Equals("Player 2")
-            && (GM.player2.GetComponent<player>().CurrentMana - draggingCardScript.currentCost >= 0)
+            && draggingCardScript.OwnerTag.Equals("Player 2")
+            && (GM.player2.GetComponent<player>().CurrentMana - draggingCardScript.CurrentCost >= 0)
             )
         {
             // Send card to its new field
 
             D.parentToReturnTo = pointerObject.GetComponent<Field>().transform;
 
-            GM.player2.GetComponent<player>().CurrentMana = GM.player2.GetComponent<player>().CurrentMana - draggingCardScript.currentCost;
+            GM.player2.GetComponent<player>().CurrentMana = GM.player2.GetComponent<player>().CurrentMana - draggingCardScript.CurrentCost;
 
             GameObject.FindGameObjectWithTag("Player 2 Mana").gameObject.transform.FindChild("Text").GetComponent<Text>().text = GM.player2.GetComponent<player>().CurrentMana.ToString();
 
             // Set the card tag back to "card" 
-            draggingCardScript.hasBeenPlaced = true;
+            draggingCardScript.HasBeenPlaced = true;
             draggingCardGameObject.tag = "Card";
         }
         // If neither is valid, card is set back to a card
@@ -119,18 +119,18 @@ public class dropManager : MonoBehaviour {
     public void creatureAndCard(GameObject draggingCardGameObject, Card draggingCardScript, GameObject pointerObject)
     {
         // Checks to see if it is the player's turn and they own the card
-        if (GM.player1.GetComponent<player>().IsTurn && draggingCardScript.ownerTag.Equals("Player 1"))
+        if (GM.player1.GetComponent<player>().IsTurn && draggingCardScript.OwnerTag.Equals("Player 1"))
         {
             Debug.Log("Combat conditions met");
             // Runs combat for the cards
-            GM.combat(draggingCardGameObject, pointerObject);
+            GM.Combat(draggingCardGameObject, pointerObject);
         }
         // Checks to see if it is the player's turn and they own the card
-        else if (GM.player2.GetComponent<player>().IsTurn && draggingCardScript.ownerTag.Equals("Player 2"))
+        else if (GM.player2.GetComponent<player>().IsTurn && draggingCardScript.OwnerTag.Equals("Player 2"))
         {
             Debug.Log("Combat conditions met");
             // Runs combat for the cards
-            GM.combat(draggingCardGameObject, pointerObject);
+            GM.Combat(draggingCardGameObject, pointerObject);
         }
         // If combat is not valid, make the card a card again
         else
@@ -144,14 +144,14 @@ public class dropManager : MonoBehaviour {
     {
         // if the spell is owned by the current player, and it does not exceed that player's mana, then
         //actionCard.ownerTag.Equals(gm.currentPlayer.tag)
-        if ((GM.currentPlayer.GetComponent<player>().CurrentMana - draggingCardScript.currentCost >= 0))
+        if ((GM.currentPlayer.GetComponent<player>().CurrentMana - draggingCardScript.CurrentCost >= 0))
         {
             // Subtract mana cost of the spell from the current player's mana
-            GM.currentPlayer.GetComponent<player>().CurrentMana -= draggingCardScript.currentCost;
+            GM.currentPlayer.GetComponent<player>().CurrentMana -= draggingCardScript.CurrentCost;
 
-            EF.RunEffect(draggingCardScript.effect, pointerObject, draggingCardGameObject);
+            EF.RunEffect(draggingCardScript.Effect, pointerObject, draggingCardGameObject);
 
-            if (draggingCardScript.effect == Effect.None)
+            if (draggingCardScript.Effect == Effect.None)
             {
                 draggingCardGameObject.tag = "Card";
             }

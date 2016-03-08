@@ -17,7 +17,7 @@ public class CardDisplay : MonoBehaviour {
 
             foreach (Card card in database)
             {
-                print(card.cardName + "_cost:" + card.cost + " atk:" + card.attack + " hp:" + card.health);
+                print(card.CardName + "_cost:" + card.Cost + " atk:" + card.Attack + " hp:" + card.Health);
             }
 
             Deck deck = new Deck();
@@ -29,13 +29,13 @@ public class CardDisplay : MonoBehaviour {
             }
             deck.resetActive();
             deck.shuffle();
-            Debug.Log(deck.peek().cardName + "bypass archiving and reset active");
+            Debug.Log(deck.peek().CardName + "bypass archiving and reset active");
 
 			deck.shuffle();
             Debug.Log("Post Filter");
             foreach (Card card in deck.activeDeck)
             {
-                print(card.cardName + "_cost:" + card.cost + " atk:" + card.attack + " hp:" + card.health);
+                print(card.CardName + "_cost:" + card.Cost + " atk:" + card.Attack + " hp:" + card.Health);
             }
             Debug.Log("Printed list operated upon.");
         }

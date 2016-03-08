@@ -132,7 +132,7 @@ public class Deck : MonoBehaviour
         List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.cardName.Equals(name, StringComparison.InvariantCultureIgnoreCase))
+            if (c.CardName.Equals(name, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }
@@ -158,7 +158,7 @@ public class Deck : MonoBehaviour
         List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.alliance.Equals(alliance, StringComparison.InvariantCultureIgnoreCase))
+            if (c.Alliance.Equals(alliance, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }
@@ -171,7 +171,7 @@ public class Deck : MonoBehaviour
         List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.type.Equals(type, StringComparison.InvariantCultureIgnoreCase))
+            if (c.Type.Equals(type, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }
@@ -184,7 +184,7 @@ public class Deck : MonoBehaviour
         List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.cost.Equals(cost, StringComparison.InvariantCultureIgnoreCase))
+            if (c.Cost.Equals(cost, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }
@@ -197,7 +197,7 @@ public class Deck : MonoBehaviour
         List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.attack.Equals(attack, StringComparison.InvariantCultureIgnoreCase))
+            if (c.Attack.Equals(attack, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }
@@ -210,7 +210,7 @@ public class Deck : MonoBehaviour
         List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.health.Equals(health, StringComparison.InvariantCultureIgnoreCase))
+            if (c.Health.Equals(health, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }
@@ -223,7 +223,7 @@ public class Deck : MonoBehaviour
         List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.defense.Equals(defense, StringComparison.InvariantCultureIgnoreCase))
+            if (c.Defense.Equals(defense, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }
@@ -236,7 +236,7 @@ public class Deck : MonoBehaviour
         List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.range.Equals(range, StringComparison.InvariantCultureIgnoreCase))
+            if (c.Range.Equals(range, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }
@@ -249,7 +249,7 @@ public class Deck : MonoBehaviour
         List<Card> filtered = new List<Card>();
         foreach (Card c in activeDeck)
         {
-            if (c.target.Equals(target, StringComparison.InvariantCultureIgnoreCase))
+            if (c.Target.Equals(target, StringComparison.InvariantCultureIgnoreCase))
             {
                 filtered.Add(c);
             }

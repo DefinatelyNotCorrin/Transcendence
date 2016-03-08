@@ -34,19 +34,19 @@ public class DeckReader: MonoBehaviour {
                 Card card = new Card();
 
                     //set values of new card Object from xml attributes
-                    card.cardName = reader.GetAttribute("name");
+                    card.CardName = reader.GetAttribute("name");
                     card.ID = reader.GetAttribute("ID");
                     //card.image = reader.GetAttribute("image");
-                    card.description = reader.GetAttribute("description");
-                    card.alliance = reader.GetAttribute("alliance");
-                    card.type = reader.GetAttribute("type");
-                    card.cost = reader.GetAttribute("cost");
-                    card.attack = reader.GetAttribute("attack");
-                    card.defense = reader.GetAttribute("defense");
-                    card.range = reader.GetAttribute("range");
-                    card.target = reader.GetAttribute("target");
-                    card.health = reader.GetAttribute("health");
-                    card.effectName = reader.GetAttribute("effectName");
+                    card.Description = reader.GetAttribute("description");
+                    card.Alliance = reader.GetAttribute("alliance");
+                    card.Type = reader.GetAttribute("type");
+                    card.Cost = reader.GetAttribute("cost");
+                    card.Attack = reader.GetAttribute("attack");
+                    card.Defense = reader.GetAttribute("defense");
+                    card.Range = reader.GetAttribute("range");
+                    card.Target = reader.GetAttribute("target");
+                    card.Health = reader.GetAttribute("health");
+                    card.EffectName = reader.GetAttribute("effectName");
                     
 
                 //stores that new card in the DeckReader array list

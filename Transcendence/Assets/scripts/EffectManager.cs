@@ -42,13 +42,13 @@ public class EffectManager : MonoBehaviour {
     /// <param name="spellCard"></param>
     private static void Fireball(GameObject targetedCard, GameObject spellCard)
     {
-        targetedCard.GetComponent<Card>().currentHealth = targetedCard.GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
+        targetedCard.GetComponent<Card>().CurrentHealth = targetedCard.GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
 
         DestroyObject(spellCard);
 
-        targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().currentHealth.ToString();
+        targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().CurrentHealth.ToString();
 
-        if (targetedCard.GetComponent<Card>().currentHealth >= 0)
+        if (targetedCard.GetComponent<Card>().CurrentHealth >= 0)
         {
             DestroyObject(targetedCard);
             Debug.Log("The card has died to a fireball!");
@@ -62,8 +62,8 @@ public class EffectManager : MonoBehaviour {
     /// <param name="spellCard"></param>
     private static void Heal(GameObject targetedCard, GameObject spellCard)
     {
-        targetedCard.GetComponent<Card>().currentHealth = targetedCard.GetComponent<Card>().currentHealth + spellCard.GetComponent<Card>().currentHealth;
-        targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().currentHealth.ToString();
+        targetedCard.GetComponent<Card>().CurrentHealth = targetedCard.GetComponent<Card>().CurrentHealth + spellCard.GetComponent<Card>().CurrentHealth;
+        targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().CurrentHealth.ToString();
 
         Debug.Log("Targeted card was healed");
         DestroyObject(spellCard);     
@@ -80,20 +80,20 @@ public class EffectManager : MonoBehaviour {
         {
             if (GameObject.Find("bottomLeft1").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("bottomLeft1").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("bottomLeft1").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("bottomLeft1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomLeft1").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("bottomLeft1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("bottomLeft1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("bottomLeft1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomLeft1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("bottomLeft2").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("bottomLeft2").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("bottomLeft2").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("bottomLeft2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomLeft2").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("bottomLeft2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("bottomLeft2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("bottomLeft2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomLeft2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("bottomLeft3").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("bottomLeft3").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("bottomLeft3").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("bottomLeft3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomLeft3").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("bottomLeft3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("bottomLeft3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("bottomLeft3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomLeft3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
         }
@@ -101,20 +101,20 @@ public class EffectManager : MonoBehaviour {
         {
             if (GameObject.Find("bottomCenter1").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("bottomCenter1").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("bottomCenter1").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("bottomCenter1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomCenter1").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("bottomCenter1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("bottomCenter1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("bottomCenter1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomCenter1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("bottomCenter2").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("bottomCenter2").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("bottomCenter2").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("bottomCenter2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomCenter2").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("bottomCenter2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("bottomCenter2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("bottomCenter2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomCenter2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("bottomCenter3").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("bottomCenter3").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("bottomCenter3").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("bottomCenter3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomCenter3").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("bottomCenter3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("bottomCenter3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("bottomCenter3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("bottomCenter3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
         }
@@ -122,20 +122,20 @@ public class EffectManager : MonoBehaviour {
         {
             if (GameObject.Find("topRight1").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topRight1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topRight1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("topRight2").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topRight2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topRight2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("topRight3").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topRight3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topRight3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
         }
@@ -143,20 +143,20 @@ public class EffectManager : MonoBehaviour {
         {
             if (GameObject.Find("topLeft1").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topLeft1").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("topLeft1").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topLeft1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topLeft1").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topLeft1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("topLeft1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topLeft1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topLeft1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("topLeft2").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topLeft2").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("topLeft2").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topLeft2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topLeft2").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topLeft2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("topLeft2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topLeft2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topLeft2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("topLeft3").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topLeft3").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("topLeft3").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topLeft3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topLeft3").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topLeft3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("topLeft3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topLeft3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topLeft3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
         }
@@ -164,20 +164,20 @@ public class EffectManager : MonoBehaviour {
         {
             if (GameObject.Find("topMiddle1").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topMiddle1").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("top Middle1").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("to Middle1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle1").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topMiddle1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("top Middle1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("to Middle1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("topMiddle2").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topMiddle2").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("top Middle2").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topMiddle2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle2").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topMiddle2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("top Middle2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topMiddle2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("topMiddle3").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topMiddle3").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("top Middle3").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topMiddle3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle3").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topMiddle3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("top Middle3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topMiddle3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("top Middle3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
         }
@@ -185,19 +185,19 @@ public class EffectManager : MonoBehaviour {
         {
             if (GameObject.Find("topRight1").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topRight1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topRight1").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight1").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
 
             }
             if (GameObject.Find("topRight2").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topRight2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topRight2").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight2").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
             }
             if (GameObject.Find("topRight3").transform.Find("cardSmall") != null)
             {
-                GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().currentHealth = GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
-                GameObject.Find("topRight3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().currentHealth.ToString();
+                GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth = GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+                GameObject.Find("topRight3").transform.Find("cardSmall").transform.FindChild("Health").GetComponent<Text>().text = GameObject.Find("topRight3").transform.Find("cardSmall").GetComponent<Card>().CurrentHealth.ToString();
             }
         }
 
@@ -212,8 +212,8 @@ public class EffectManager : MonoBehaviour {
     /// <param name="spellCard"></param>
     private void Draw(GameObject targetedGameobject, GameObject spellCard)
     {
-        gm.drawCard(gm.currentPlayer);
-        gm.drawCard(gm.currentPlayer);
+        gm.DrawCard(gm.currentPlayer);
+        gm.DrawCard(gm.currentPlayer);
 
         Destroy(spellCard);
     }
