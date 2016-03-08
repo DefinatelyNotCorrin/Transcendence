@@ -19,9 +19,9 @@ public class EffectManager : MonoBehaviour {
         this.effectMap = new Dictionary<Effect, spellDelegate>();
 
         this.effectMap.Add(Effect.Fireball, new spellDelegate(Fireball));
-        this.effectMap.Add(Effect.Heal, new spellDelegate(heal));
-        this.effectMap.Add(Effect.Firestorm, new spellDelegate(zoneDamage));
-        this.effectMap.Add(Effect.Draw, new spellDelegate(draw));
+        this.effectMap.Add(Effect.Heal, new spellDelegate(Heal));
+        this.effectMap.Add(Effect.Firestorm, new spellDelegate(Firestorm));
+        this.effectMap.Add(Effect.Draw, new spellDelegate(Draw));
     } 
 
     /// <summary>
@@ -34,8 +34,12 @@ public class EffectManager : MonoBehaviour {
     {
         this.effectMap[key].DynamicInvoke(targeted, targeter);
     }
-    
-    // Basic fireball method. Does damage based on the attack of the spell card played. 
+
+    /// <summary>
+    /// Basic fireball method. Does damage based on the attack of the spell card played. 
+    /// </summary>
+    /// <param name="targetedCard"></param>
+    /// <param name="spellCard"></param>
     private static void Fireball(GameObject targetedCard, GameObject spellCard)
     {
         targetedCard.GetComponent<Card>().currentHealth = targetedCard.GetComponent<Card>().currentHealth - spellCard.GetComponent<Card>().currentAttack;
@@ -47,20 +51,30 @@ public class EffectManager : MonoBehaviour {
         if (targetedCard.GetComponent<Card>().currentHealth >= 0)
         {
             DestroyObject(targetedCard);
-            Debug.Log("the card has died to a fireball!");
+            Debug.Log("The card has died to a fireball!");
         }
     }
 
-    private static void heal(GameObject targetedCard, GameObject spellCard)
+    /// <summary>
+    /// Heal the targeted card 2 hp.
+    /// </summary>
+    /// <param name="targetedCard"></param>
+    /// <param name="spellCard"></param>
+    private static void Heal(GameObject targetedCard, GameObject spellCard)
     {
         targetedCard.GetComponent<Card>().currentHealth = targetedCard.GetComponent<Card>().currentHealth + spellCard.GetComponent<Card>().currentHealth;
-
-        DestroyObject(spellCard);
-
         targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().currentHealth.ToString();
+
+        Debug.Log("Targeted card was healed");
+        DestroyObject(spellCard);     
     }
 
-    private static void zoneDamage(GameObject targtedCard, GameObject spellCard)
+    /// <summary>
+    /// Does 3 damage to all of the cards in the targeted zone.
+    /// </summary>
+    /// <param name="targtedCard"></param>
+    /// <param name="spellCard"></param>
+    private static void Firestorm(GameObject targtedCard, GameObject spellCard)
     {
         if (targtedCard.transform.parent.transform.parent.name.Equals("leftTemplePlayingSpaces"))
         {
@@ -191,23 +205,16 @@ public class EffectManager : MonoBehaviour {
 
     }
 
-    private void draw(GameObject targetedCard, GameObject spellCard)
+    /// <summary>
+    /// Draw 2 cards for a player.
+    /// </summary>
+    /// <param name="targetedGameobject"></param>
+    /// <param name="spellCard"></param>
+    private void Draw(GameObject targetedGameobject, GameObject spellCard)
     {
-       
-        if (spellCard.GetComponent<Card>().battleSide == 0)
-        {
-            for (int i = 0; i < spellCard.GetComponent<Card>().currentCost; i++)
-            {
-                gm.drawCard(GameObject.Find("Player1"));
-            }
-        }
+        gm.drawCard(gm.currentPlayer);
+        gm.drawCard(gm.currentPlayer);
 
-        if (spellCard.GetComponent<Card>().battleSide == 1)
-        {
-            for (int i = 0; i < spellCard.GetComponent<Card>().currentCost; i++)
-            {
-                gm.drawCard(GameObject.Find("Player2"));
-            }
-        }
+        Destroy(spellCard);
     }
 }
