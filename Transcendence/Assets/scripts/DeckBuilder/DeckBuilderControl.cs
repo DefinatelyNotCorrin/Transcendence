@@ -90,7 +90,7 @@ public class DeckBuilderControl : MonoBehaviour {
         deckName.interactable = state;
         cardInDeckPrefab.interactable = state;
     }
-
+    /*
 	private void populate(){
         //populate page with 10 cards from those viable for current player's build
         for (int i = 0; i < 10; i++) {
@@ -148,38 +148,39 @@ public class DeckBuilderControl : MonoBehaviour {
             }
 
             // Initialize the card's current values
-            current.setCurrents();
+            current.SetCurrents();
 
             // Set the card's name
-            card.GetComponentInChildren<Text>().text = current.cardName;
+            card.GetComponentInChildren<Text>().text = current.CardName;
 
             //TODO: set all values of script to those of current, or just set equal to that of current
-            cardsScript.cardName = currentCard.cardName;
-            card.name = currentCard.cardName;
+            cardsScript.CardName = current.CardName;
+            card.name = current.CardName;
 
             // Set all of the remaining information for the card
-            cardsScript.ID = currentCard.ID;
-            cardsScript.Image = currentCard.Image;
-            cardsScript.Description = currentCard.Description;
-            cardsScript.Alliance = currentCard.Alliance;
-            cardsScript.Type = currentCard.Type;
-            cardsScript.Cost = currentCard.Cost;
-            cardsScript.Attack = currentCard.Attack;
-            cardsScript.Health = currentCard.Health;
-            cardsScript.Defense = currentCard.Defense;
-            cardsScript.Range = currentCard.Range;
-            cardsScript.Target = currentCard.Target;
-            cardsScript.CurrentID = currentCard.CurrentID;
-            cardsScript.CurrentCost = currentCard.CurrentCost;
-            cardsScript.CurrentAttack = currentCard.CurrentAttack;
-            cardsScript.CurrentHealth = currentCard.CurrentHealth;
-            cardsScript.CurrentDefense = currentCard.CurrentDefense;
-            cardsScript.CurrentRange = currentCard.CurrentRange;
+            cardsScript.ID = current.ID;
+            cardsScript.Image = current.Image;
+            cardsScript.Description = current.Description;
+            cardsScript.Alliance = current.Alliance;
+            cardsScript.Type = current.Type;
+            cardsScript.Cost = current.Cost;
+            cardsScript.Attack = current.Attack;
+            cardsScript.Health = current.Health;
+            cardsScript.Defense = current.Defense;
+            cardsScript.Range = current.Range;
+            cardsScript.Target = current.Target;
+            cardsScript.CurrentID = current.CurrentID;
+            cardsScript.CurrentCost = current.CurrentCost;
+            cardsScript.CurrentAttack = current.CurrentAttack;
+            cardsScript.CurrentHealth = current.CurrentHealth;
+            cardsScript.CurrentDefense = current.CurrentDefense;
+            cardsScript.CurrentRange = current.CurrentRange;
             cardsScript.OwnerTag = "Player 1";
-            cardsScript.EffectName = currentCard.EffectName;
+            cardsScript.EffectName = current.EffectName;
 
         }
     }
+    */ 
 
     public void downPagePress()
     {
