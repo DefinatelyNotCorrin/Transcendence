@@ -159,24 +159,24 @@ public class DeckBuilderControl : MonoBehaviour {
 
             // Set all of the remaining information for the card
             cardsScript.ID = currentCard.ID;
-            cardsScript.image = currentCard.image;
-            cardsScript.description = currentCard.description;
-            cardsScript.alliance = currentCard.alliance;
-            cardsScript.type = currentCard.type;
-            cardsScript.cost = currentCard.cost;
-            cardsScript.attack = currentCard.attack;
-            cardsScript.health = currentCard.health;
-            cardsScript.defense = currentCard.defense;
-            cardsScript.range = currentCard.range;
-            cardsScript.target = currentCard.target;
-            cardsScript.currentID = currentCard.currentID;
-            cardsScript.currentCost = currentCard.currentCost;
-            cardsScript.currentAttack = currentCard.currentAttack;
-            cardsScript.currentHealth = currentCard.currentHealth;
-            cardsScript.currentDefense = currentCard.currentDefense;
-            cardsScript.currentRange = currentCard.currentRange;
-            cardsScript.ownerTag = "Player 1";
-            cardsScript.effectName = currentCard.effectName;
+            cardsScript.Image = currentCard.Image;
+            cardsScript.Description = currentCard.Description;
+            cardsScript.Alliance = currentCard.Alliance;
+            cardsScript.Type = currentCard.Type;
+            cardsScript.Cost = currentCard.Cost;
+            cardsScript.Attack = currentCard.Attack;
+            cardsScript.Health = currentCard.Health;
+            cardsScript.Defense = currentCard.Defense;
+            cardsScript.Range = currentCard.Range;
+            cardsScript.Target = currentCard.Target;
+            cardsScript.CurrentID = currentCard.CurrentID;
+            cardsScript.CurrentCost = currentCard.CurrentCost;
+            cardsScript.CurrentAttack = currentCard.CurrentAttack;
+            cardsScript.CurrentHealth = currentCard.CurrentHealth;
+            cardsScript.CurrentDefense = currentCard.CurrentDefense;
+            cardsScript.CurrentRange = currentCard.CurrentRange;
+            cardsScript.OwnerTag = "Player 1";
+            cardsScript.EffectName = currentCard.EffectName;
 
         }
     }
