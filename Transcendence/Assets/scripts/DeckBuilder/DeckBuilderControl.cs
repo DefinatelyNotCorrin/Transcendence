@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
@@ -7,9 +8,12 @@ public class DeckBuilderControl : MonoBehaviour {
 
     //CardBook
     public Canvas cardBookCanvas;
-        //Database
-
-        //Prefabs
+    public List<Card> displayedCards;
+    //Database
+        private string Path { get; set; } //path of full database xml
+        public Deck Database { get; set; } //all cards of database in selected alliance and not in current build
+        public Deck CurrentBuild { get; set; }//all cards in the deck the player is creating
+    //Prefabs
         public GameObject creatureCardPrefab;
         public GameObject spellCardPrefab;
         //Top Row
@@ -88,8 +92,94 @@ public class DeckBuilderControl : MonoBehaviour {
     }
 
 	private void populate(){
-		
-	}
+        //populate page with 10 cards from those viable for current player's build
+        for (int i = 0; i < 10; i++) {
+            GameObject card;
+            Card current = Database.poll(0);
+            //helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
+            displayedCards.Add(current);
+            // Create the card with creature prefab
+            if (current.type.Equals("Creature"))
+            {
+                card = (GameObject)Instantiate(creatureCardPrefab, hand.position, hand.rotation);
+                card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)]; //TODO: nonrandom sprites
+            }
+            // Or create it using the spell prefab
+            else
+            {
+                card = (GameObject)Instantiate(spellCardPrefab, hand.position, hand.rotation);
+                card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
+            }
+            //quick reference card's script component
+            Card cardsScript = card.GetComponent<Card>();
+            // Set the card's transform to that of its player's hand
+            switch (i)
+            {
+                case 1:
+                    card.transform.SetParent(slot1.transform.parent);
+                    break;
+                case 2:
+                    card.transform.SetParent(slot2.transform.parent);
+                    break;
+                case 3:
+                    card.transform.SetParent(slot3.transform.parent);
+                    break;
+                case 4:
+                    card.transform.SetParent(slot4.transform.parent);
+                    break;
+                case 5:
+                    card.transform.SetParent(slot5.transform.parent);
+                    break;
+                case 6:
+                    card.transform.SetParent(slot6.transform.parent);
+                    break;
+                case 7:
+                    card.transform.SetParent(slot7.transform.parent);
+                    break;
+                case 8:
+                    card.transform.SetParent(slot8.transform.parent);
+                    break;
+                case 9:
+                    card.transform.SetParent(slot9.transform.parent);
+                    break;
+                case 10:
+                    card.transform.SetParent(slot10.transform.parent);
+                    break;
+            }
+
+            // Initialize the card's current values
+            current.setCurrents();
+
+            // Set the card's name
+            card.GetComponentInChildren<Text>().text = current.cardName;
+
+            //TODO: set all values of script to those of current, or just set equal to that of current
+            cardsScript.cardName = currentCard.cardName;
+            card.name = currentCard.cardName;
+
+            // Set all of the remaining information for the card
+            cardsScript.ID = currentCard.ID;
+            cardsScript.image = currentCard.image;
+            cardsScript.description = currentCard.description;
+            cardsScript.alliance = currentCard.alliance;
+            cardsScript.type = currentCard.type;
+            cardsScript.cost = currentCard.cost;
+            cardsScript.attack = currentCard.attack;
+            cardsScript.health = currentCard.health;
+            cardsScript.defense = currentCard.defense;
+            cardsScript.range = currentCard.range;
+            cardsScript.target = currentCard.target;
+            cardsScript.currentID = currentCard.currentID;
+            cardsScript.currentCost = currentCard.currentCost;
+            cardsScript.currentAttack = currentCard.currentAttack;
+            cardsScript.currentHealth = currentCard.currentHealth;
+            cardsScript.currentDefense = currentCard.currentDefense;
+            cardsScript.currentRange = currentCard.currentRange;
+            cardsScript.ownerTag = "Player 1";
+            cardsScript.effectName = currentCard.effectName;
+
+        }
+    }
 
     public void downPagePress()
     {

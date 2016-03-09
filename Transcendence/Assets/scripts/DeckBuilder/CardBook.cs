@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.IO;
 using System;
 using System.Collections.Generic;
 using System.Collections;
@@ -11,7 +12,7 @@ public class CardBook : MonoBehaviour
 	public GameObject creatureCardPrefab;
 	public GameObject spellCardPrefab;
 	//Reader
-	private string path;
+	private string Path { get; set; } //path of full database xml
 	public Deck Database { get; set; } //all cards of database in selected alliance and not in current build
 	public Deck CurrentBuild { get; set; }//all cards in the deck the player is creating
 
@@ -36,6 +37,14 @@ public class CardBook : MonoBehaviour
 	{
         return Database.activeDeck.Count;
 	}
+
+    public void GeneratePage()
+    {
+
+    }
+
+
+
 		
 }
 
