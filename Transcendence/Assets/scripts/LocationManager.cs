@@ -10,6 +10,7 @@ public class LocationManager : MonoBehaviour {
     /// </summary>
 	void Start ()
     {
+
         this.locationMap.Add(Location.BottomCenter1, GameObject.Find("BottomCenter1"));
         this.locationMap.Add(Location.BottomCenter2, GameObject.Find("BottomCenter2"));
         this.locationMap.Add(Location.BottomCenter3, GameObject.Find("BottomCenter3"));
@@ -38,12 +39,12 @@ public class LocationManager : MonoBehaviour {
         this.locationMap.Add(Location.Player2Hand, GameObject.Find("Player2Hand"));
     }
 	
-    public GameObject getLocationGameobject(Location location)
+    public GameObject GetLocationGameObject(Location location)
     {
         return this.locationMap[location];
     }
 
-    public Transform getLocationTransform(Location location)
+    public Transform GetLocationTransform(Location location)
     {
         return this.locationMap[location].transform;
     }
