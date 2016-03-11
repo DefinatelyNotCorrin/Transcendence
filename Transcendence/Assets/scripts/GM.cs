@@ -38,7 +38,8 @@ public class GM : MonoBehaviour
 
     // All of the sprites for cards
     private Sprite[] spriteSheet;
-    public Sprite greenCardGlow;
+    public Sprite activeGlow;
+    public Sprite placeableGlow;
 
     // Locations
     private LocationManager locations;
@@ -138,6 +139,7 @@ public class GM : MonoBehaviour
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
         }
+        this.UpdateCardColors();
     }
 
     /// <summary>
@@ -175,6 +177,22 @@ public class GM : MonoBehaviour
         {
             EndGame(player2);
         }
+
+        foreach(GameObject card in GameObject.FindGameObjectsWithTag("Card"))
+        {
+            if (!card.GetComponent<Card>().HasBeenPlaced)
+            {
+                if (((currentPlayer.GetComponent<player>().CurrentMana - card.GetComponent<Card>().CurrentCost) >= 0)
+                    && (card.GetComponent<Card>().BattleSide == currentPlayer.GetComponent<player>().PlayerSide))
+                {
+                    card.transform.FindChild("Outline").GetComponent<Image>().sprite = this.placeableGlow;
+                }
+                else
+                {
+                    card.transform.FindChild("Outline").GetComponent<Image>().sprite = this.clear;
+                }
+            }
+        }
     }
 
     /// <summary>
@@ -189,6 +207,7 @@ public class GM : MonoBehaviour
         }
         player.GetComponent<player>().CurrentMana = player.GetComponent<player>().ManaMax;
 
+        /*
         foreach (GameObject card in GameObject.FindGameObjectsWithTag("Card"))
         {
             if (card.GetComponent<Card>().IsExhausted == true)
@@ -197,9 +216,10 @@ public class GM : MonoBehaviour
             }
             else
             {
-                card.transform.FindChild("Outline").GetComponent<Image>().sprite = this.clear;
+                card.transform.FindChild("Outline").GetComponent<Image>().sprite = clear; //= this.clear;
             }
         }
+        */
 
         DrawCard(player);
     }
@@ -209,7 +229,6 @@ public class GM : MonoBehaviour
     /// </summary>
     public void EndTurn()
     {
-
         // Toggles to Player 2 turn if Player 1 pressed the button
         if (player1.GetComponent<player>().IsTurn)
         {
@@ -242,12 +261,12 @@ public class GM : MonoBehaviour
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<player>().VictoryPoints + " VP!";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<player>().VictoryPoints + " VP!";
 
-            currentPlayer = player2;
+            currentPlayer = player2;         
         }
-
         // Toggles to player 1 turn if Player 2 pressed the button
         else if (player2.GetComponent<player>().IsTurn)
         {
+            // Set Player 2's card back to enabled, and Player 1's card back to clear
             Transform hand1 = locations.GetLocationTransform(Location.Player1Hand);
 
             foreach (Transform child in hand1)
@@ -262,8 +281,10 @@ public class GM : MonoBehaviour
                 child.Find("Card Back").GetComponent<Image>().sprite = cardBackCitadel;
             }
 
+            // Give Player 2 all earned VP
             VPTally(player2);
 
+            // Start Player 1's turn
             StartTurn(player1);
             player1.GetComponent<player>().IsTurn = true;
             player2.GetComponent<player>().IsTurn = false;
@@ -276,6 +297,7 @@ public class GM : MonoBehaviour
 
             currentPlayer = player1;
         }
+        this.UpdateCardColors();
 
         Debug.Log("The current player is " + currentPlayer.name);
     }
@@ -354,6 +376,32 @@ public class GM : MonoBehaviour
         InstantiateCard(player, player.GetComponent<player>().Deck.poll());
     }
 
+    public void UpdateCardColors()
+    {
+        // Set all placed cards to active
+        foreach (GameObject card in GameObject.FindGameObjectsWithTag("Card"))
+        {
+            //Check to see if the card has been placed
+            if (card.GetComponent<Card>().HasBeenPlaced)
+            {
+                // If it is, check to see if it is exhausted
+                if (card.GetComponent<Card>().IsExhausted)
+                {
+                    // Set it to not exhausted if it is
+                    card.GetComponent<Card>().IsExhausted = false;
+                }
+                // Color the card since it shouldn't be exhausted anymore
+                if (card.GetComponent<Card>().BattleSide == currentPlayer.GetComponent<player>().PlayerSide)
+                {
+                    card.transform.FindChild("Outline").GetComponent<Image>().sprite = this.activeGlow;
+                }
+                else
+                {
+                    card.transform.FindChild("Outline").GetComponent<Image>().sprite = this.clear;
+                }
+            }      
+        }
+    }
 
     /// <summary>
     /// Tally a player's VP at the end of their turn
@@ -467,7 +515,7 @@ public class GM : MonoBehaviour
                 cardsScript.Health = currentCard.Health;
                 cardsScript.Defense = currentCard.Defense;
                 cardsScript.Range = currentCard.Range;
-                cardsScript.Target = currentCard.Target;
+                cardsScript.TargetName = currentCard.TargetName;
                 cardsScript.CurrentID = currentCard.CurrentID;
                 cardsScript.CurrentCost = currentCard.CurrentCost;
                 cardsScript.CurrentAttack = currentCard.CurrentAttack;
@@ -475,6 +523,7 @@ public class GM : MonoBehaviour
                 cardsScript.CurrentDefense = currentCard.CurrentDefense;
                 cardsScript.CurrentRange = currentCard.CurrentRange;
                 cardsScript.OwnerTag = "Player 1";
+                cardsScript.BattleSide = player.GetComponent<player>().PlayerSide;
                 cardsScript.EffectName = currentCard.EffectName;
 
                 // Set the effect for each card
@@ -484,6 +533,11 @@ public class GM : MonoBehaviour
                     if (effect.ToString().Equals(currentCard.EffectName))
                     {
                         cardsScript.Effect = effect;
+                        Debug.Log(effect.ToString());
+                    }
+                    else if (effect.ToString().Equals(currentCard.TargetName))
+                    {
+                        cardsScript.Target = effect;
                         Debug.Log(effect.ToString());
                     }
                 }
@@ -554,7 +608,7 @@ public class GM : MonoBehaviour
                 cardsScript.Health = currentCard.Health;
                 cardsScript.Defense = currentCard.Defense;
                 cardsScript.Range = currentCard.Range;
-                cardsScript.Target = currentCard.Target;
+                cardsScript.TargetName = currentCard.TargetName;
                 cardsScript.CurrentID = currentCard.CurrentID;
                 cardsScript.CurrentCost = currentCard.CurrentCost;
                 cardsScript.CurrentAttack = currentCard.CurrentAttack;
@@ -562,6 +616,7 @@ public class GM : MonoBehaviour
                 cardsScript.CurrentDefense = currentCard.CurrentDefense;
                 cardsScript.CurrentRange = currentCard.CurrentRange;
                 cardsScript.OwnerTag = "Player 2";
+                cardsScript.BattleSide = player.GetComponent<player>().PlayerSide;
                 cardsScript.EffectName = currentCard.EffectName;
 
                 // Set the effect for each card
@@ -571,6 +626,11 @@ public class GM : MonoBehaviour
                     if (effect.ToString().Equals(currentCard.EffectName))
                     {
                         cardsScript.Effect = effect;
+                        Debug.Log(effect.ToString());
+                    }
+                    else if (effect.ToString().Equals(currentCard.TargetName))
+                    {
+                        cardsScript.Target = effect;
                         Debug.Log(effect.ToString());
                     }
                 }

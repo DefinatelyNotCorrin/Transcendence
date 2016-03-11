@@ -42,13 +42,14 @@ public class EffectManager : MonoBehaviour {
     /// <param name="spellCard"></param>
     private static void Fireball(GameObject targetedCard, GameObject spellCard)
     {
-        targetedCard.GetComponent<Card>().CurrentHealth = targetedCard.GetComponent<Card>().CurrentHealth - spellCard.GetComponent<Card>().CurrentAttack;
+        targetedCard.GetComponent<Card>().CurrentHealth -= 2;
 
         DestroyObject(spellCard);
 
         targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().CurrentHealth.ToString();
+        targetedCard.transform.FindChild("Health").GetComponent<Text>().color = Color.red;
 
-        if (targetedCard.GetComponent<Card>().CurrentHealth >= 0)
+        if (targetedCard.GetComponent<Card>().CurrentHealth <= 0)
         {
             DestroyObject(targetedCard);
             Debug.Log("The card has died to a fireball!");
@@ -62,8 +63,9 @@ public class EffectManager : MonoBehaviour {
     /// <param name="spellCard"></param>
     private static void Heal(GameObject targetedCard, GameObject spellCard)
     {
-        targetedCard.GetComponent<Card>().CurrentHealth = targetedCard.GetComponent<Card>().CurrentHealth + spellCard.GetComponent<Card>().CurrentHealth;
+        targetedCard.GetComponent<Card>().CurrentHealth += 2;
         targetedCard.transform.FindChild("Health").GetComponent<Text>().text = targetedCard.GetComponent<Card>().CurrentHealth.ToString();
+        targetedCard.transform.FindChild("Health").GetComponent<Text>().color = Color.green;
 
         Debug.Log("Targeted card was healed");
         DestroyObject(spellCard);     

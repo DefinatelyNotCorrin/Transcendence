@@ -44,7 +44,7 @@ public class DeckReader: MonoBehaviour {
                     card.Attack = reader.GetAttribute("attack");
                     card.Defense = reader.GetAttribute("defense");
                     card.Range = reader.GetAttribute("range");
-                    card.Target = reader.GetAttribute("target");
+                    card.TargetName = reader.GetAttribute("target");
                     card.Health = reader.GetAttribute("health");
                     card.EffectName = reader.GetAttribute("effectName");
                     

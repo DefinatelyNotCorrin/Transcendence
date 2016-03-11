@@ -18,7 +18,7 @@ using System;
     public string Health { get; set; }
     public string Defense { get; set; }
     public string Range { get; set; }
-    public string Target { get; set; }
+    public string TargetName { get; set; }
     public string EffectName { get; set; }
     //public string effect;
 
@@ -36,6 +36,7 @@ using System;
 
     // Spell information
     public Effect Effect { get; set; }
+    public Effect Target { get; set; }
 
 	public void SetCurrents() {
 

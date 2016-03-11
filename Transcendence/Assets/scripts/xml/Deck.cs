@@ -244,6 +244,7 @@ public class Deck : MonoBehaviour
         return filtered;
     }
 
+    /*
     public List<Card> filterTarget(string target)
     {
         List<Card> filtered = new List<Card>();
@@ -256,6 +257,7 @@ public class Deck : MonoBehaviour
         }
         return filtered;
     }
+    */
 
 }
 

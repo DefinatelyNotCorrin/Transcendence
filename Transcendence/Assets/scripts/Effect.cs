@@ -18,6 +18,7 @@ public enum Effect {
     Draw,
 
     // Ranges
+    Passive,
     Single,
     Zone,
     All,

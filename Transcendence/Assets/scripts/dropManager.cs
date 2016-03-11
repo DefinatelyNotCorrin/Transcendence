@@ -48,7 +48,8 @@ public class dropManager : MonoBehaviour {
 
         // 
         else if (pointerObject.CompareTag("Card")
-            && draggingCardScript.Type.Equals("Spell"))
+            && draggingCardScript.Type.Equals("Spell")
+            && draggingCardScript.TargetName.Equals("Single"))
         {
             Debug.Log("Spell and Card conditions met.");
             spellAndCard(draggingCardObject, draggingCardScript, pointerObject);
@@ -77,7 +78,6 @@ public class dropManager : MonoBehaviour {
             )
         {
             // Send card to its new field
-
             D.parentToReturnTo = pointerObject.GetComponent<Field>().transform;
 
             GM.player1.GetComponent<player>().CurrentMana = GM.player1.GetComponent<player>().CurrentMana - draggingCardScript.CurrentCost;
@@ -87,6 +87,8 @@ public class dropManager : MonoBehaviour {
             // Set the card tag back to "card" 
             draggingCardScript.HasBeenPlaced = true;
             draggingCardGameObject.tag = "Card";
+            //draggingCardScript.BattleSide = 0;
+            draggingCardGameObject.transform.FindChild("Outline").GetComponent<Image>().sprite = GM.clear;
         }
         // Runs card placement for player 2
         else if (pointerObject.GetComponent<Field>().side.Equals("Player 2")
@@ -96,7 +98,6 @@ public class dropManager : MonoBehaviour {
             )
         {
             // Send card to its new field
-
             D.parentToReturnTo = pointerObject.GetComponent<Field>().transform;
 
             GM.player2.GetComponent<player>().CurrentMana = GM.player2.GetComponent<player>().CurrentMana - draggingCardScript.CurrentCost;
@@ -106,6 +107,8 @@ public class dropManager : MonoBehaviour {
             // Set the card tag back to "card" 
             draggingCardScript.HasBeenPlaced = true;
             draggingCardGameObject.tag = "Card";
+            //draggingCardScript.BattleSide = 1;
+            draggingCardGameObject.transform.FindChild("Outline").GetComponent<Image>().sprite = GM.clear;
         }
         // If neither is valid, card is set back to a card
         else
@@ -166,7 +169,6 @@ public class dropManager : MonoBehaviour {
     // Logic for a card with something random below it
     public void spellAndWhatever(GameObject draggingCardGameObject, Card draggingCardScript, GameObject pointerObject)
     {
-
     }
 
     /// <remarks>
