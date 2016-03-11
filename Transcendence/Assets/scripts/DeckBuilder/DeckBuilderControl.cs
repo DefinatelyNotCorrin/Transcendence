@@ -7,44 +7,44 @@ using UnityEngine.SceneManagement;
 public class DeckBuilderControl : MonoBehaviour {
 
     //CardBook
-    public Canvas cardBookCanvas;
-    public List<Card> displayedCards;
+    private Canvas cardBookCanvas;
+    private List<Card> displayedCards;
     //Database
         private string Path { get; set; } //path of full database xml
-        public Deck Database { get; set; } //all cards of database in selected alliance and not in current build
-        public Deck CurrentBuild { get; set; }//all cards in the deck the player is creating
+        private Deck Database { get; set; } //all cards of database in selected alliance and not in current build
+        private Deck CurrentBuild { get; set; }//all cards in the deck the player is creating
     //Prefabs
-        public GameObject creatureCardPrefab;
-        public GameObject spellCardPrefab;
-        //Top Row
-        public Button slot1;
-        public Button slot2;
-        public Button slot3;
-        public Button slot4;
-        public Button slot5;
-        //Bottom Row
-        public Button slot6;
-        public Button slot7;
-        public Button slot8;
-        public Button slot9;
-        public Button slot10;
-        //Page Controls
-        public Button upPage;
-        public Button downPage;
-        //Taskbar
-        public Button newDeck;
-        public Button loadDeck;
-        public Button exit;
-        public Button save;
-        public Toggle creaturesToggle;
-        public Toggle spellsToggle;
-        public Toggle boonsToggle;
+        private GameObject creatureCardPrefab;
+        private GameObject spellCardPrefab;
+    //Top Row
+    private Button slot1;
+    private Button slot2;
+    private Button slot3;
+    private Button slot4;
+    private Button slot5;
+    //Bottom Row
+    private Button slot6;
+    private Button slot7;
+    private Button slot8;
+    private Button slot9;
+    private Button slot10;
+    //Page Controls
+    private Button upPage;
+    private Button downPage;
+    //Taskbar
+    private Button newDeck;
+    private Button loadDeck;
+    private Button exit;
+    private Button save;
+    private Toggle creaturesToggle;
+    private Toggle spellsToggle;
+    private Toggle boonsToggle;
     //DeckPanel
-    public Canvas deckPanelCanvas;
+    private Canvas deckPanelCanvas;
         private bool isSaved;
-        public Deck currentDeck;
-        public InputField deckName;
-        public Button cardInDeckPrefab;
+        private Deck currentDeck;
+        private InputField deckName;
+        private Button cardInDeckPrefab;
     //Audio
     public AudioSource bookAudio;
         public AudioClip pageTurn;
@@ -57,7 +57,29 @@ public class DeckBuilderControl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-        helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
+
+        slot1 = GameObject.Find("Slot1").transform.FindChild("Template").GetComponent<Button>();
+        slot2 = GameObject.Find("Slot2").transform.FindChild("Template").GetComponent<Button>();
+        slot3 = GameObject.Find("Slot3").transform.FindChild("Template").GetComponent<Button>();
+        slot4 = GameObject.Find("Slot4").transform.FindChild("Template").GetComponent<Button>();
+        slot5 = GameObject.Find("Slot5").transform.FindChild("Template").GetComponent<Button>();
+        slot6 = GameObject.Find("Slot6").transform.FindChild("Template").GetComponent<Button>();
+        slot7 = GameObject.Find("Slot7").transform.FindChild("Template").GetComponent<Button>();
+        slot8 = GameObject.Find("Slot8").transform.FindChild("Template").GetComponent<Button>();
+        slot9 = GameObject.Find("Slot9").transform.FindChild("Template").GetComponent<Button>();
+        slot10 = GameObject.Find("Slot10").transform.FindChild("Template").GetComponent<Button>();
+        upPage = GameObject.Find("RightPage").GetComponent<Button>();
+        downPage = GameObject.Find("LeftPage").GetComponent<Button>();
+        newDeck = GameObject.Find("New Deck Button").GetComponent<Button>();
+        loadDeck = GameObject.Find("Load Deck Button").GetComponent<Button>();
+        
+        exit = GameObject.Find("Exit Button").GetComponent<Button>();
+        save = GameObject.Find("Save Button").GetComponent<Button>();
+        creaturesToggle = GameObject.Find("Creatures Toggle").GetComponent<Toggle>();
+        spellsToggle = GameObject.Find("Spells Toggle").GetComponent<Toggle>();
+        boonsToggle = GameObject.Find("Boons Toggle").GetComponent<Toggle>();
+       //helperPrompt = (Resources.Load("prefabs/PromptMenu")) as GameObject;
+        helperPrompt = (GameObject)Instantiate(Resources.Load("prefabs/PromptMenu"), transform.position, transform.rotation);
         helperPrompt.GetComponent<PromptMenuScript>().isVisible(false);
     }
 	
@@ -69,6 +91,7 @@ public class DeckBuilderControl : MonoBehaviour {
     public void IsComponentsInteractable(bool state)
         //disables all interaction
         {
+        
         slot1.interactable = state;
         slot2.interactable = state;
         slot3.interactable = state;
@@ -89,8 +112,8 @@ public class DeckBuilderControl : MonoBehaviour {
         boonsToggle.interactable = state;
         deckName.interactable = state;
         cardInDeckPrefab.interactable = state;
+        
     }
-    /*
 	private void populate(){
         //populate page with 10 cards from those viable for current player's build
         for (int i = 0; i < 10; i++) {
@@ -99,16 +122,16 @@ public class DeckBuilderControl : MonoBehaviour {
             //helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
             displayedCards.Add(current);
             // Create the card with creature prefab
-            if (current.type.Equals("Creature"))
+            if (current.Type.Equals("Creature"))
             {
-                card = (GameObject)Instantiate(creatureCardPrefab, hand.position, hand.rotation);
-                card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)]; //TODO: nonrandom sprites
+                card = (GameObject)Instantiate(creatureCardPrefab, slot1.transform.position, slot1.transform.rotation);
+                //card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)]; //TODO: nonrandom sprites
             }
             // Or create it using the spell prefab
             else
             {
-                card = (GameObject)Instantiate(spellCardPrefab, hand.position, hand.rotation);
-                card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
+                card = (GameObject)Instantiate(spellCardPrefab, slot1.transform.position, slot1.transform.rotation);
+                //card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
             }
             //quick reference card's script component
             Card cardsScript = card.GetComponent<Card>();
@@ -180,7 +203,6 @@ public class DeckBuilderControl : MonoBehaviour {
 
         }
     }
-    */ 
 
     public void downPagePress()
     {
@@ -232,9 +254,11 @@ public class DeckBuilderControl : MonoBehaviour {
     public void ExitPress()
     //return to title menu
     {
+        Debug.Log("SHOWMETHEMONEY");
         if (!helperPrompt.GetComponent<PromptMenuScript>().mutation.Equals("exit"))
             //if the current mutation is not already exit, set all values to those needed for an exit prompt
         {
+            Debug.Log("OPENEDPROMPT");
                 helperPrompt.GetComponent<PromptMenuScript>().moveToCenter();
                 helperPrompt.GetComponent<PromptMenuScript>().setMutation("exit");
                 helperPrompt.GetComponent<PromptMenuScript>().setDescription("Exit to menu?");
@@ -249,6 +273,7 @@ public class DeckBuilderControl : MonoBehaviour {
     public void OnClickExit()
         //exit the scene
     {
+        Debug.Log("EXIT_PRESS");
         bookAudio.PlayOneShot(clickSound, 0.7F);
         SceneManager.LoadScene(0);
     }
@@ -256,8 +281,8 @@ public class DeckBuilderControl : MonoBehaviour {
     public void OnClickCancel()
         //hide the helper prompt without taking action
     {
+        Debug.Log("CANCEL_PRESS");
         bookAudio.PlayOneShot(clickSound, 0.7F);
-
         helperPrompt.GetComponent<PromptMenuScript>().isVisible(false);
 
     }
