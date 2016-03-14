@@ -15,6 +15,7 @@ public class player : MonoBehaviour {
     public Deck Deck { get; set; }
     public bool IsTurn { get; set; }
     public string DeckPath { get; set; }
+    public string Name { get; set; }
 
     void Start ()
     {

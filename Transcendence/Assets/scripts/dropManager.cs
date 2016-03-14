@@ -17,7 +17,7 @@ public class dropManager : MonoBehaviour {
     }
 
     // Sorts the objects 
-    public void drop(PointerEventData data, GameObject draggingCardObject, Transform pointerObjectName)
+    public void Drop(PointerEventData data, GameObject draggingCardObject, Transform pointerObjectName)
     {
         GameObject pointerObject = pointerObjectName.gameObject;
         Card draggingCardScript = draggingCardObject.GetComponent<Card>();
@@ -31,7 +31,7 @@ public class dropManager : MonoBehaviour {
         {
             // Run the logic for a card over a field
             Debug.Log("Creature and Field conditions met.");
-            creatureAndField(draggingCardObject, draggingCardScript, pointerObject);
+            TryPlace(draggingCardObject, draggingCardScript, pointerObject);
         }
 
         // Checks to see if the card is a card and the thing below it is a card
@@ -39,36 +39,48 @@ public class dropManager : MonoBehaviour {
             && draggingCardScript.Type.Equals("Creature")
             && !draggingCardScript.IsExhausted
             && draggingCardScript.HasBeenPlaced
-            && draggingCardScript.OwnerTag.Equals(GM.currentPlayer.tag)
             && !draggingCardScript.OwnerTag.Equals(pointerObject.GetComponent<Card>().OwnerTag))
         {
             Debug.Log("Placed Card and Enemy Card conditions met.");
-            creatureAndCard(draggingCardObject, draggingCardScript, pointerObject);
+            TryAttack(draggingCardObject, draggingCardScript, pointerObject);
         }
 
-        // 
+        // Single target card
         else if (pointerObject.CompareTag("Card")
             && draggingCardScript.Type.Equals("Spell")
-            && draggingCardScript.TargetName.Equals("Single"))
+            && draggingCardScript.Target.Equals(Effect.Single))
         {
-            Debug.Log("Spell and Card conditions met.");
-            spellAndCard(draggingCardObject, draggingCardScript, pointerObject);
+            Debug.Log("Single target spell conditions met.");
+            TrySpell(draggingCardObject, draggingCardScript, pointerObject);
+        }
+        // Non-targeted card
+        else if (draggingCardScript.Type.Equals("Spell") && draggingCardScript.TargetName.Equals("All"))
+        {
+            Debug.Log("Non-targeted spell conditions met.");
+            TrySpell(draggingCardObject, draggingCardScript, pointerObject);
         }
         // If combat is not valid, make the card a card again
+        else if (draggingCardScript.TargetName.Equals("Zone") 
+            && (pointerObject.CompareTag("Card") || pointerObject.CompareTag("Field"))
+            && draggingCardScript.Type.Equals("Spell"))
+        {
+            Debug.Log("Zone spell conditions met.");
+            TrySpell(draggingCardObject, draggingCardScript, pointerObject);
+        }
         else
         {
-            Debug.Log("Invalid move!");
+            Debug.Log("No conditions met!");
             draggingCardObject.tag = "Card";
         }
     }
 
     /// <summary>
-    /// Creature and field logics. 
+    /// Creature placement logics.
     /// </summary>
     /// <param name="draggingCardGameObject"></param> GameObject of the card being dragged.
     /// <param name="draggingCardScript"></param> Card script of the card being dragged. 
-    /// <param name="pointerObject"></param>
-    public void creatureAndField(GameObject draggingCardGameObject, Card draggingCardScript, GameObject pointerObject)
+    /// <param name="pointerObject"></param> The object below the dragging card.
+    public void TryPlace(GameObject draggingCardGameObject, Card draggingCardScript, GameObject pointerObject)
     {
         // Runs card placement for player 1
         if (pointerObject.GetComponent<Field>().side.Equals("Player 1")
@@ -118,32 +130,32 @@ public class dropManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Creature attacking logics.
+    /// </summary>
+    /// <param name="draggingCardGameObject"></param> GameObject of the card being dragged.
+    /// <param name="draggingCardScript"></param> Card script of the card being dragged. 
+    /// <param name="pointerObject"></param> The object below the dragging card.
     // Logic for a creature with a card below it
-    public void creatureAndCard(GameObject draggingCardGameObject, Card draggingCardScript, GameObject pointerObject)
+    public void TryAttack(GameObject draggingCardGameObject, Card draggingCardScript, GameObject pointerObject)
     {
-        // Checks to see if it is the player's turn and they own the card
-        if (GM.player1.GetComponent<player>().IsTurn && draggingCardScript.OwnerTag.Equals("Player 1"))
+        // Checks if it is owner's turn
+        if (draggingCardScript.OwnerTag.Equals(GM.currentPlayer.GetComponent<player>().Name))
         {
             Debug.Log("Combat conditions met");
-            // Runs combat for the cards
-            GM.Combat(draggingCardGameObject, pointerObject);
-        }
-        // Checks to see if it is the player's turn and they own the card
-        else if (GM.player2.GetComponent<player>().IsTurn && draggingCardScript.OwnerTag.Equals("Player 2"))
-        {
-            Debug.Log("Combat conditions met");
-            // Runs combat for the cards
+
             GM.Combat(draggingCardGameObject, pointerObject);
         }
         // If combat is not valid, make the card a card again
         else
         {
+            Debug.Log("Combat conditions not met");
             draggingCardGameObject.tag = "Card";
         }
     }
 
     // Logic for a spell with a card below it
-    public void spellAndCard(GameObject draggingCardGameObject, Card draggingCardScript, GameObject pointerObject)
+    public void TrySpell(GameObject draggingCardGameObject, Card draggingCardScript, GameObject pointerObject)
     {
         // if the spell is owned by the current player, and it does not exceed that player's mana, then
         //actionCard.ownerTag.Equals(gm.currentPlayer.tag)
@@ -165,11 +177,7 @@ public class dropManager : MonoBehaviour {
             draggingCardGameObject.tag = "Card";
         }    
     }
-
-    // Logic for a card with something random below it
-    public void spellAndWhatever(GameObject draggingCardGameObject, Card draggingCardScript, GameObject pointerObject)
-    {
-    }
+}
 
     /// <remarks>
     /// The following are spell method that are deprecated. Dont use!
@@ -353,4 +361,4 @@ public class dropManager : MonoBehaviour {
         }
     }
     */
-}
+

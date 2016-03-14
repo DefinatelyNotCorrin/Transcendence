@@ -60,6 +60,8 @@ public class GM : MonoBehaviour
 
         this.player1.GetComponent<player>().PlayerSide = 0;
         this.player2.GetComponent<player>().PlayerSide = 1;
+        this.player1.GetComponent<player>().Name = "Player 1";
+        this.player2.GetComponent<player>().Name = "Player 2";
 
         // The initial mulligan
         player1.GetComponent<player>().loadDeck();
@@ -334,9 +336,8 @@ public class GM : MonoBehaviour
     /// </summary>
     /// <param name="attackingCard"></param> The card attacking.
     /// <param name="defendingCard"></param> The card being attacked. 
-    public static void Combat(GameObject attackingCard, GameObject defendingCard)
+    public void Combat(GameObject attackingCard, GameObject defendingCard)
     {
-
         if (attackingCard == null || defendingCard == null)
         {
             Debug.Log("Card is null");
@@ -349,25 +350,28 @@ public class GM : MonoBehaviour
         defendingCard.GetComponent<Card>().CurrentHealth = defendingCard.GetComponent<Card>().CurrentHealth - attackingCard.GetComponent<Card>().CurrentAttack;
 
         attackingCard.transform.Find("Health").gameObject.GetComponent<Text>().text = attackingCard.GetComponent<Card>().CurrentHealth.ToString();
+        attackingCard.transform.FindChild("Health").GetComponent<Text>().color = Color.red;
+        attackingCard.transform.Find("Outline").gameObject.GetComponent<Image>().sprite = clear;
         defendingCard.transform.Find("Health").gameObject.GetComponent<Text>().text = defendingCard.GetComponent<Card>().CurrentHealth.ToString();
+        defendingCard.transform.FindChild("Health").GetComponent<Text>().color = Color.red;
 
-        //Destroy dead cards
+        //Destroy attacking cards
         if (attackingCard.GetComponent<Card>().CurrentHealth <= 0)
         {
             Destroy(attackingCard);
             Debug.Log("Attacking Card Died!");
         }
-        else {
+        else
+        {
             attackingCard.gameObject.tag = "Card";
             attackingCard.GetComponent<Card>().IsExhausted = true;
         }
-
+        // Destroy dead defending card
         if (defendingCard.GetComponent<Card>().CurrentHealth <= 0)
         {
             Destroy(defendingCard);
             Debug.Log("Defending Card Died!");
         }
-
     }
 
     // Draw a card method for the player
@@ -522,7 +526,7 @@ public class GM : MonoBehaviour
                 cardsScript.CurrentHealth = currentCard.CurrentHealth;
                 cardsScript.CurrentDefense = currentCard.CurrentDefense;
                 cardsScript.CurrentRange = currentCard.CurrentRange;
-                cardsScript.OwnerTag = "Player 1";
+                cardsScript.OwnerTag = player1.GetComponent<player>().Name;
                 cardsScript.BattleSide = player.GetComponent<player>().PlayerSide;
                 cardsScript.EffectName = currentCard.EffectName;
 
@@ -615,7 +619,7 @@ public class GM : MonoBehaviour
                 cardsScript.CurrentHealth = currentCard.CurrentHealth;
                 cardsScript.CurrentDefense = currentCard.CurrentDefense;
                 cardsScript.CurrentRange = currentCard.CurrentRange;
-                cardsScript.OwnerTag = "Player 2";
+                cardsScript.OwnerTag = player2.GetComponent<player>().Name;
                 cardsScript.BattleSide = player.GetComponent<player>().PlayerSide;
                 cardsScript.EffectName = currentCard.EffectName;
 

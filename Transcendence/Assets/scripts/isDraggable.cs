@@ -58,7 +58,7 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         GameObject draggingCard = GameObject.FindGameObjectWithTag("Dragging");
         GameObject pointerObject = data.pointerCurrentRaycast.gameObject;
 
-        dm.drop(data, draggingCard, pointerObject.transform);
+        dm.Drop(data, draggingCard, pointerObject.transform);
         //
         this.transform.SetParent(parentToReturnTo);
 
