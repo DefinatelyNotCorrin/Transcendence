@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.IO;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -57,7 +58,7 @@ public class DeckBuilderControl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
-
+        //load the database in from XML
         slot1 = GameObject.Find("Slot1").transform.FindChild("Template").GetComponent<Button>();
         slot2 = GameObject.Find("Slot2").transform.FindChild("Template").GetComponent<Button>();
         slot3 = GameObject.Find("Slot3").transform.FindChild("Template").GetComponent<Button>();
@@ -81,6 +82,7 @@ public class DeckBuilderControl : MonoBehaviour {
        //helperPrompt = (Resources.Load("prefabs/PromptMenu")) as GameObject;
         helperPrompt = (GameObject)Instantiate(Resources.Load("prefabs/PromptMenu"), transform.position, transform.rotation);
         helperPrompt.GetComponent<PromptMenuScript>().isVisible(false);
+        populate();
     }
 	
 	// Update is called once per frame
@@ -115,7 +117,29 @@ public class DeckBuilderControl : MonoBehaviour {
         
     }
 	private void populate(){
-        //populate page with 10 cards from those viable for current player's build
+      //populate page with 10 cards from those viable for current player's build
+        //load database array from path using Reader
+        Path = Application.dataPath + "/scripts/xml/cards.xml";
+        DeckReader reader = new DeckReader();
+        if (File.Exists(Path))
+        {
+            List<Card> cardList = reader.load(Path);
+            Database = new Deck();
+            Database.activeDeck = new List<Card>();
+            Database.archiveDeck = new List<Card>();
+            foreach (Card c in cardList)
+            {
+                Debug.Log(c.CardName);
+                Database.archiveDeck.Add(c);
+            }
+            Database.resetActive();
+            //TODO: Sort Database Deck by cost and lettering 
+        }
+        else
+        {
+            Debug.Log("Error: File not Found");
+        }
+        //instantiate the objects/visual representation
         for (int i = 0; i < 10; i++) {
             GameObject card;
             Card current = Database.poll(0);
@@ -254,11 +278,9 @@ public class DeckBuilderControl : MonoBehaviour {
     public void ExitPress()
     //return to title menu
     {
-        Debug.Log("SHOWMETHEMONEY");
         if (!helperPrompt.GetComponent<PromptMenuScript>().mutation.Equals("exit"))
             //if the current mutation is not already exit, set all values to those needed for an exit prompt
         {
-            Debug.Log("OPENEDPROMPT");
                 helperPrompt.GetComponent<PromptMenuScript>().moveToCenter();
                 helperPrompt.GetComponent<PromptMenuScript>().setMutation("exit");
                 helperPrompt.GetComponent<PromptMenuScript>().setDescription("Exit to menu?");
@@ -285,6 +307,11 @@ public class DeckBuilderControl : MonoBehaviour {
         bookAudio.PlayOneShot(clickSound, 0.7F);
         helperPrompt.GetComponent<PromptMenuScript>().isVisible(false);
 
+    }
+
+    public void NewPress()
+    {
+        //TODO:Prompt for save, shift populate to start
     }
 
 }

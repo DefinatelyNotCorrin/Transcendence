@@ -13,7 +13,11 @@ public class PromptMenuScript : MonoBehaviour {
     // Use this for initialization
     void Start()
     {
-        
+        setMutation("unassigned");
+        layoutDuo();
+        setLeftButtonText("text1");
+        setRightButtonText("text2");
+        setMiddleButtonText("text3");
     }
 
     // Update is called once per frame
