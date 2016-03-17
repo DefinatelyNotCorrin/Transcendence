@@ -13,6 +13,8 @@ public class MatchStartScript : MonoBehaviour {
 	public Dropdown p2Selector;
 	public Button p1Lock;
 	public Button p2Lock;
+    public Text p1input;
+    public Text p2input;
     public GameObject Player1Data;
     public GameObject Player2Data;
     public string tempName;
@@ -35,7 +37,10 @@ public class MatchStartScript : MonoBehaviour {
 
 	void Start () {
 
-		exitMenu.enabled = false;
+        Player1Data.GetComponent<player>().Name = "Player 1";
+        Player2Data.GetComponent<player>().Name = "Player 2";
+
+        exitMenu.enabled = false;
 		helperPrompt.enabled = false;
 
         DontDestroyOnLoad(Player1Data);
@@ -174,8 +179,20 @@ public class MatchStartScript : MonoBehaviour {
 		}
 	}
 
-	//sets components of menu to all disabled or all interactable
-	public void IsComponentsInteractable(bool state){
+    public void Player1NameSelect()
+    {
+        Player1Data.GetComponent<player>().Name = this.p1input.text;
+        Debug.Log(Player1Data.GetComponent<player>().Name);
+    }
+
+    public void Player2NameSelect()
+    {
+        Player2Data.GetComponent<player>().Name = this.p2input.text;
+        Debug.Log(Player2Data.GetComponent<player>().Name);
+    }
+
+    //sets components of menu to all disabled or all interactable
+    public void IsComponentsInteractable(bool state){
 		//if statements prevent locking, opening exit menu, canceling, and overriding lock state
 		if (!p1IsLocked) {
 			p1Selector.interactable = state;

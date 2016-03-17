@@ -26,15 +26,14 @@ public class dropManager : MonoBehaviour {
 
         Debug.Log("Dragging card is a " + draggingCardObject.GetComponent<Card>().Type);
 
-        // Checks to see if the card is a card and the thing below it is a field
+        // Placing creature card
         if (pointerObject.CompareTag("Field") && !draggingCardScript.HasBeenPlaced && draggingCardScript.Type.Equals("Creature"))
         {
             // Run the logic for a card over a field
             Debug.Log("Creature and Field conditions met.");
             TryPlace(draggingCardObject, draggingCardScript, pointerObject);
         }
-
-        // Checks to see if the card is a card and the thing below it is a card
+        // Attacking creature card
         else if (pointerObject.CompareTag("Card")
             && draggingCardScript.Type.Equals("Creature")
             && !draggingCardScript.IsExhausted
@@ -44,29 +43,25 @@ public class dropManager : MonoBehaviour {
             Debug.Log("Placed Card and Enemy Card conditions met.");
             TryAttack(draggingCardObject, draggingCardScript, pointerObject);
         }
-
-        // Single target card
-        else if (pointerObject.CompareTag("Card")
-            && draggingCardScript.Type.Equals("Spell")
-            && draggingCardScript.Target.Equals(Effect.Single))
+        // Single target spell card
+        else if (pointerObject.CompareTag("Card") && draggingCardScript.Type.Equals("Spell") && draggingCardScript.Target.Equals(Effect.Single))
         {
             Debug.Log("Single target spell conditions met.");
             TrySpell(draggingCardObject, draggingCardScript, pointerObject);
         }
-        // Non-targeted card
-        else if (draggingCardScript.Type.Equals("Spell") && draggingCardScript.TargetName.Equals("All"))
+        // Non-targeted spell card
+        else if (draggingCardScript.Type.Equals("Spell") && draggingCardScript.Target.Equals(Effect.All))
         {
             Debug.Log("Non-targeted spell conditions met.");
             TrySpell(draggingCardObject, draggingCardScript, pointerObject);
         }
-        // If combat is not valid, make the card a card again
-        else if (draggingCardScript.TargetName.Equals("Zone") 
-            && (pointerObject.CompareTag("Card") || pointerObject.CompareTag("Field"))
-            && draggingCardScript.Type.Equals("Spell"))
+        // Zone spell card
+        else if (draggingCardScript.Target.Equals(Effect.Zone) && pointerObject.CompareTag("Card") && draggingCardScript.Type.Equals("Spell"))
         {
             Debug.Log("Zone spell conditions met.");
             TrySpell(draggingCardObject, draggingCardScript, pointerObject);
         }
+        // Turn card back to card if action conditions are met
         else
         {
             Debug.Log("No conditions met!");
@@ -154,6 +149,12 @@ public class dropManager : MonoBehaviour {
         }
     }
 
+    /// <summary>
+    /// Spell use logics.
+    /// </summary>
+    /// <param name="draggingCardGameObject"></param>
+    /// <param name="draggingCardScript"></param>
+    /// <param name="pointerObject"></param>
     // Logic for a spell with a card below it
     public void TrySpell(GameObject draggingCardGameObject, Card draggingCardScript, GameObject pointerObject)
     {

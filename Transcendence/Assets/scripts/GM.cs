@@ -60,8 +60,8 @@ public class GM : MonoBehaviour
 
         this.player1.GetComponent<player>().PlayerSide = 0;
         this.player2.GetComponent<player>().PlayerSide = 1;
-        this.player1.GetComponent<player>().Name = "Player 1";
-        this.player2.GetComponent<player>().Name = "Player 2";
+        this.player1.GetComponent<player>().Name = GameObject.Find("Player1StartData").GetComponent<player>().Name;
+        this.player2.GetComponent<player>().Name = GameObject.Find("Player2StartData").GetComponent<player>().Name;
 
         // The initial mulligan
         player1.GetComponent<player>().loadDeck();
@@ -110,7 +110,7 @@ public class GM : MonoBehaviour
 
             TogglePlayerChangeMenu();
             switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "Get 20 VP to win.";
-            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Player 1 goes first!";
+            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = player1.GetComponent<player>().Name + " goes first!";
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
         }
@@ -137,7 +137,7 @@ public class GM : MonoBehaviour
 
             TogglePlayerChangeMenu();
             switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "Get 20 VP to win.";
-            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Player 2 goes first!";
+            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = player2.GetComponent<player>().Name + " goes first!";
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
         }
@@ -151,12 +151,13 @@ public class GM : MonoBehaviour
     {
 
         // Update mana every frame **** CAUSE WHY NOT? ****
-        player1Mana.text = player1.GetComponent<player>().CurrentMana.ToString();
-        player2Mana.text = player2.GetComponent<player>().CurrentMana.ToString();
+        player1Mana.text = "Mana: " + player1.GetComponent<player>().CurrentMana.ToString();
+        player2Mana.text = "Mana: " + player2.GetComponent<player>().CurrentMana.ToString();
 
-        player1VP.text = player1.GetComponent<player>().VictoryPoints.ToString();
-        player2VP.text = player2.GetComponent<player>().VictoryPoints.ToString();
+        player1VP.text = "VP: " + player1.GetComponent<player>().VictoryPoints.ToString();
+        player2VP.text = "VP: " + player2.GetComponent<player>().VictoryPoints.ToString();
 
+        /*
         // Set interactability of "End Turn" buttons based on player turn
         if (player1.GetComponent<player>().IsTurn)
         {
@@ -169,13 +170,14 @@ public class GM : MonoBehaviour
             player1EndTurnButton.interactable = false;
             player2EndTurnButton.interactable = true;
         }
+        */
 
-        if (player1.GetComponent<player>().VictoryPoints == 20)
+        if (player1.GetComponent<player>().VictoryPoints >= 20)
         {
             EndGame(player1);
         }
 
-        if (player2.GetComponent<player>().VictoryPoints == 20)
+        if (player2.GetComponent<player>().VictoryPoints >= 20)
         {
             EndGame(player2);
         }
@@ -258,10 +260,10 @@ public class GM : MonoBehaviour
             player2.GetComponent<player>().IsTurn = true;
 
             TogglePlayerChangeMenu();
-            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "It is now Player 2's turn";
+            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "It is now " + player2.GetComponent<player>().Name + "'s turn";
             switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Current Scores:";
-            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<player>().VictoryPoints + " VP!";
-            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<player>().VictoryPoints + " VP!";
+            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = player1.GetComponent<player>().Name + " has " + player1.GetComponent<player>().VictoryPoints + " VP!";
+            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = player2.GetComponent<player>().Name + " has " + player2.GetComponent<player>().VictoryPoints + " VP!";
 
             currentPlayer = player2;         
         }
@@ -292,10 +294,10 @@ public class GM : MonoBehaviour
             player2.GetComponent<player>().IsTurn = false;
 
             TogglePlayerChangeMenu();
-            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "It is now Player 1's turn";
+            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "It is now " + player1.GetComponent<player>().Name + "'s turn";
             switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Current Scores:";
-            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "Player 1 has " + player1.GetComponent<player>().VictoryPoints + " VP!";
-            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "Player 2 has " + player2.GetComponent<player>().VictoryPoints + " VP!";
+            switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = player1.GetComponent<player>().Name + " has " + player1.GetComponent<player>().VictoryPoints + " VP!";
+            switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = player2.GetComponent<player>().Name + " has " + player2.GetComponent<player>().VictoryPoints + " VP!";
 
             currentPlayer = player1;
         }
@@ -313,7 +315,8 @@ public class GM : MonoBehaviour
         switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "";
         switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
         switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
-        switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = winner.GetComponent<player>().name + " Wins!";
+        switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = winner.GetComponent<player>().Name + " Has Transcended! \nCongrats!";
+        switchPlayerMenu.transform.Find("Button").GetComponent<Button>().onClick.AddListener(delegate () { exitMenu(); });
     }
 
     /// <summary>
@@ -338,20 +341,14 @@ public class GM : MonoBehaviour
     /// <param name="defendingCard"></param> The card being attacked. 
     public void Combat(GameObject attackingCard, GameObject defendingCard)
     {
-        if (attackingCard == null || defendingCard == null)
-        {
-            Debug.Log("Card is null");
-        }
-
         // Attacking card combat
         attackingCard.GetComponent<Card>().CurrentHealth = attackingCard.GetComponent<Card>().CurrentHealth - defendingCard.GetComponent<Card>().CurrentAttack;
-
-        // Defending card combat
-        defendingCard.GetComponent<Card>().CurrentHealth = defendingCard.GetComponent<Card>().CurrentHealth - attackingCard.GetComponent<Card>().CurrentAttack;
-
         attackingCard.transform.Find("Health").gameObject.GetComponent<Text>().text = attackingCard.GetComponent<Card>().CurrentHealth.ToString();
         attackingCard.transform.FindChild("Health").GetComponent<Text>().color = Color.red;
         attackingCard.transform.Find("Outline").gameObject.GetComponent<Image>().sprite = clear;
+
+        // Defending card combat
+        defendingCard.GetComponent<Card>().CurrentHealth = defendingCard.GetComponent<Card>().CurrentHealth - attackingCard.GetComponent<Card>().CurrentAttack;
         defendingCard.transform.Find("Health").gameObject.GetComponent<Text>().text = defendingCard.GetComponent<Card>().CurrentHealth.ToString();
         defendingCard.transform.FindChild("Health").GetComponent<Text>().color = Color.red;
 
@@ -366,6 +363,7 @@ public class GM : MonoBehaviour
             attackingCard.gameObject.tag = "Card";
             attackingCard.GetComponent<Card>().IsExhausted = true;
         }
+
         // Destroy dead defending card
         if (defendingCard.GetComponent<Card>().CurrentHealth <= 0)
         {
@@ -376,8 +374,15 @@ public class GM : MonoBehaviour
 
     // Draw a card method for the player
     public void DrawCard(GameObject player)
-    {        
-        InstantiateCard(player, player.GetComponent<player>().Deck.poll());
+    {
+        try
+        {
+            InstantiateCard(player, player.GetComponent<player>().Deck.poll());
+        }
+        catch
+        {
+            Debug.Log("Out of cards!");
+        } 
     }
 
     public void UpdateCardColors()
