@@ -5,15 +5,15 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class DeckBuilderControl : MonoBehaviour {
-
+public class DeckBuilderControl : MonoBehaviour {    
     //CardBook
     private Canvas cardBookCanvas;
-    private List<Card> displayedCards;
     //Database
-        private string Path { get; set; } //path of full database xml
+    private string Path { get; set; } //path of full database xml
         private Deck Database { get; set; } //all cards of database in selected alliance and not in current build
         private Deck CurrentBuild { get; set; }//all cards in the deck the player is creating
+    public List<Card> DisplayedCards;
+    private Sprite[] spriteSheet;
     //Prefabs
         private GameObject creatureCardPrefab;
         private GameObject spellCardPrefab;
@@ -58,6 +58,9 @@ public class DeckBuilderControl : MonoBehaviour {
 
     // Use this for initialization
     void Start () {
+        //prefabs
+        creatureCardPrefab = Resources.Load("prefabs/displayedCard", typeof(GameObject)) as GameObject;
+        spellCardPrefab = Resources.Load("prefabs/displayedCard", typeof(GameObject)) as GameObject;
         //load the database in from XML
         slot1 = GameObject.Find("Slot1").transform.FindChild("Template").GetComponent<Button>();
         slot2 = GameObject.Find("Slot2").transform.FindChild("Template").GetComponent<Button>();
@@ -73,7 +76,9 @@ public class DeckBuilderControl : MonoBehaviour {
         downPage = GameObject.Find("LeftPage").GetComponent<Button>();
         newDeck = GameObject.Find("New Deck Button").GetComponent<Button>();
         loadDeck = GameObject.Find("Load Deck Button").GetComponent<Button>();
-        
+
+        spriteSheet = Resources.LoadAll<Sprite>(""); 
+
         exit = GameObject.Find("Exit Button").GetComponent<Button>();
         save = GameObject.Find("Save Button").GetComponent<Button>();
         creaturesToggle = GameObject.Find("Creatures Toggle").GetComponent<Toggle>();
@@ -119,20 +124,26 @@ public class DeckBuilderControl : MonoBehaviour {
 	private void populate(){
       //populate page with 10 cards from those viable for current player's build
         //load database array from path using Reader
-        Path = Application.dataPath + "/scripts/xml/cards.xml";
+        Path = Application.dataPath + "/scripts/xml/spellsWithModifiers.xml";
         DeckReader reader = new DeckReader();
         if (File.Exists(Path))
         {
             List<Card> cardList = reader.load(Path);
+            Debug.Log("Card List: " + cardList[0].CardName);
             Database = new Deck();
             Database.activeDeck = new List<Card>();
             Database.archiveDeck = new List<Card>();
             foreach (Card c in cardList)
             {
-                Debug.Log(c.CardName);
                 Database.archiveDeck.Add(c);
             }
+            Debug.Log("archiveDeck: " + Database.archiveDeck[0].CardName);
+            foreach (Card c in Database.archiveDeck)
+            {
+                Database.activeDeck.Add(c);
+            }
             Database.resetActive();
+            Debug.Log("activeDeck: " + Database.activeDeck[0].CardName);
             //TODO: Sort Database Deck by cost and lettering 
         }
         else
@@ -140,22 +151,23 @@ public class DeckBuilderControl : MonoBehaviour {
             Debug.Log("Error: File not Found");
         }
         //instantiate the objects/visual representation
-        for (int i = 0; i < 10; i++) {
+        for (int i = 1; i <= 10; i++) {
             GameObject card;
             Card current = Database.poll(0);
+            Debug.Log("Current:" + current.CardName);
             //helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
-            displayedCards.Add(current);
+            DisplayedCards.Add(current);
             // Create the card with creature prefab
             if (current.Type.Equals("Creature"))
             {
                 card = (GameObject)Instantiate(creatureCardPrefab, slot1.transform.position, slot1.transform.rotation);
-                //card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)]; //TODO: nonrandom sprites
+                card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)]; //TODO: nonrandom sprites
             }
             // Or create it using the spell prefab
             else
             {
                 card = (GameObject)Instantiate(spellCardPrefab, slot1.transform.position, slot1.transform.rotation);
-                //card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
+                card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
             }
             //quick reference card's script component
             Card cardsScript = card.GetComponent<Card>();
@@ -164,33 +176,43 @@ public class DeckBuilderControl : MonoBehaviour {
             {
                 case 1:
                     card.transform.SetParent(slot1.transform.parent);
+                    card.transform.position = slot1.transform.position;
                     break;
                 case 2:
                     card.transform.SetParent(slot2.transform.parent);
+                    card.transform.position = slot2.transform.position;
                     break;
                 case 3:
                     card.transform.SetParent(slot3.transform.parent);
+                    card.transform.position = slot3.transform.position;
                     break;
                 case 4:
                     card.transform.SetParent(slot4.transform.parent);
+                    card.transform.position = slot4.transform.position;
                     break;
                 case 5:
                     card.transform.SetParent(slot5.transform.parent);
+                    card.transform.position = slot5.transform.position;
                     break;
                 case 6:
                     card.transform.SetParent(slot6.transform.parent);
+                    card.transform.position = slot6.transform.position;
                     break;
                 case 7:
                     card.transform.SetParent(slot7.transform.parent);
+                    card.transform.position = slot7.transform.position;
                     break;
                 case 8:
                     card.transform.SetParent(slot8.transform.parent);
+                    card.transform.position = slot8.transform.position;
                     break;
                 case 9:
                     card.transform.SetParent(slot9.transform.parent);
+                    card.transform.position = slot9.transform.position;
                     break;
                 case 10:
                     card.transform.SetParent(slot10.transform.parent);
+                    card.transform.position = slot10.transform.position;
                     break;
             }
 
@@ -205,25 +227,27 @@ public class DeckBuilderControl : MonoBehaviour {
             card.name = current.CardName;
 
             // Set all of the remaining information for the card
+            Debug.Log("ID" + current.ID);
             cardsScript.ID = current.ID;
             cardsScript.Image = current.Image;
             cardsScript.Description = current.Description;
             cardsScript.Alliance = current.Alliance;
-            cardsScript.Type = current.Type;
             cardsScript.Cost = current.Cost;
             cardsScript.Attack = current.Attack;
             cardsScript.Health = current.Health;
             cardsScript.Defense = current.Defense;
             cardsScript.Range = current.Range;
-            cardsScript.Target = current.Target;
-            cardsScript.CurrentID = current.CurrentID;
-            cardsScript.CurrentCost = current.CurrentCost;
-            cardsScript.CurrentAttack = current.CurrentAttack;
-            cardsScript.CurrentHealth = current.CurrentHealth;
-            cardsScript.CurrentDefense = current.CurrentDefense;
-            cardsScript.CurrentRange = current.CurrentRange;
             cardsScript.OwnerTag = "Player 1";
             cardsScript.EffectName = current.EffectName;
+            Debug.Log("ScriptID" + current.ID);
+
+            card.transform.Find("Title").gameObject.GetComponent<Text>().text = cardsScript.CardName;
+            card.transform.Find("Description").gameObject.GetComponent<Text>().text = cardsScript.Description;
+            card.transform.Find("Attack").gameObject.GetComponent<Text>().text = cardsScript.Attack;
+            card.transform.Find("Defense").gameObject.GetComponent<Text>().text = cardsScript.Defense;
+            card.transform.Find("Health").gameObject.GetComponent<Text>().text = cardsScript.Health;
+            card.transform.Find("Range").gameObject.GetComponent<Text>().text = cardsScript.Range;
+            card.transform.Find("Cost").gameObject.GetComponent<Text>().text = cardsScript.Cost;
 
         }
     }

@@ -300,30 +300,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e2abb38942b02845b44e7495b038541, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cardName: 
-  ID: 
-  image: 
-  description: 
-  alliance: 
-  type: 
-  cost: 
-  attack: 
-  health: 
-  defense: 
-  range: 
-  target: 
-  effectName: 
-  currentID: 0
-  currentCost: 0
-  currentAttack: 0
-  currentHealth: 0
-  battleSide: 0
-  currentDefense: 0
-  currentRange: 
-  isExhausted: 0
-  hasBeenPlaced: 0
-  ownerTag: 
-  effect: 0
 --- !u!114 &11457600
 MonoBehaviour:
   m_ObjectHideFlags: 1
