@@ -59,6 +59,11 @@ public class Deck : MonoBehaviour
         return discard.Count;
     }
 
+    public bool hasNext() //returns if there is readable card in list[0]
+    {
+        return activeDeck.Count > 0; 
+    }
+
     public Card poll() //returns card of index 0 in deck, removes card from list
     {
         Card card = activeDeck[0];

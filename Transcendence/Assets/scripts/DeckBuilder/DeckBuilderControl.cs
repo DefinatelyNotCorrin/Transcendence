@@ -150,105 +150,129 @@ public class DeckBuilderControl : MonoBehaviour {
         {
             Debug.Log("Error: File not Found");
         }
+        //TESTING: CYCLE TO THE CARDS DISPLAYED
+        for (int i = 1; i <= 40; i++)
+        {
+            Database.poll(0);
+        }
         //instantiate the objects/visual representation
-        for (int i = 1; i <= 10; i++) {
+        for (int i = 1; i <= 10; i++)
+        {
             GameObject card;
-            Card current = Database.poll(0);
-            Debug.Log("Current:" + current.CardName);
-            //helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
-            DisplayedCards.Add(current);
-            // Create the card with creature prefab
-            if (current.Type.Equals("Creature"))
+            if (Database.hasNext())
             {
-                card = (GameObject)Instantiate(creatureCardPrefab, slot1.transform.position, slot1.transform.rotation);
-                card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)]; //TODO: nonrandom sprites
+                //TODO: ASSEMBLE THE TEN CARDS FOR DISPLAY, BEFORE DISPLAY. USE WHILE METHOD INSTEAD TO INSTANTIATE EACH. 
+                //WE MUST DO THIS IN ORDER TO STACK DUPLICATES (FIREBALL X3) SO THEY DO NOT TAKE UP OVER ONE SPACE
+
+                Card current = Database.poll(0);
+                Debug.Log("Current:" + current.CardName);
+                //helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
+                DisplayedCards.Add(current);
+                // Create the card with creature prefab
+                if (current.Type.Equals("Creature"))
+                {
+                    card = (GameObject)Instantiate(creatureCardPrefab, slot1.transform.position, slot1.transform.rotation);
+                    card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)]; //TODO: nonrandom sprites
+                }
+                // Or create it using the spell prefab
+                else
+                {
+                    card = (GameObject)Instantiate(spellCardPrefab, slot1.transform.position, slot1.transform.rotation);
+                    card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
+                }
+                //quick reference card's script component
+                Card cardsScript = card.GetComponent<Card>();
+                switch (i)
+                { //TODO: Finish conversions
+
+                    case 1:
+                        card.transform.SetParent(slot1.transform.parent);
+                        card.transform.position = new Vector3(slot1.transform.position.x, slot1.transform.position.y + 6, slot1.transform.position.z);
+                        break;
+                    case 2:
+                        card.transform.SetParent(slot2.transform.parent);
+                        card.transform.position = new Vector3(slot2.transform.position.x, slot2.transform.position.y + 6, slot2.transform.position.z);
+                        break;
+                    case 3:
+                        card.transform.SetParent(slot3.transform.parent);
+                        card.transform.position = new Vector3(slot3.transform.position.x, slot3.transform.position.y + 6, slot3.transform.position.z);
+                        break;
+                    case 4:
+                        card.transform.SetParent(slot4.transform.parent);
+                        card.transform.position = new Vector3(slot4.transform.position.x, slot4.transform.position.y + 6, slot4.transform.position.z);
+                        break;
+                    case 5:
+                        card.transform.SetParent(slot5.transform.parent);
+                        card.transform.position = new Vector3(slot5.transform.position.x, slot5.transform.position.y + 6, slot5.transform.position.z);
+                        break;
+                    case 6:
+                        card.transform.SetParent(slot6.transform.parent);
+                        card.transform.position = new Vector3(slot6.transform.position.x, slot6.transform.position.y + 6, slot6.transform.position.z);
+                        break;
+                    case 7:
+                        card.transform.SetParent(slot7.transform.parent);
+                        card.transform.position = new Vector3(slot7.transform.position.x, slot7.transform.position.y + 6, slot7.transform.position.z);
+                        break;
+                    case 8:
+                        card.transform.SetParent(slot8.transform.parent);
+                        card.transform.position = new Vector3(slot8.transform.position.x, slot8.transform.position.y + 6, slot8.transform.position.z);
+                        break;
+                    case 9:
+                        card.transform.SetParent(slot9.transform.parent);
+                        card.transform.position = new Vector3(slot9.transform.position.x, slot9.transform.position.y + 6, slot9.transform.position.z);
+                        break;
+                    case 10:
+                        card.transform.SetParent(slot10.transform.parent);
+                        card.transform.position = new Vector3(slot10.transform.position.x, slot10.transform.position.y + 6, slot10.transform.position.z);
+                        break;
+                }
+
+                // Initialize the card's current values
+                current.SetCurrents();
+
+                // Set the card's name
+                card.GetComponentInChildren<Text>().text = current.CardName;
+
+                //TODO: set all values of script to those of current, or just set equal to that of current
+                cardsScript.CardName = current.CardName;
+                card.name = current.CardName;
+
+                // Set all of the remaining information for the card
+                Debug.Log("ID" + current.ID);
+                cardsScript.ID = current.ID;
+                cardsScript.Image = current.Image;
+                cardsScript.Description = current.Description;
+                cardsScript.Alliance = current.Alliance;
+                cardsScript.Cost = current.Cost;
+                cardsScript.Attack = current.Attack;
+                cardsScript.Health = current.Health;
+                cardsScript.Defense = current.Defense;
+                cardsScript.Range = current.Range;
+                cardsScript.OwnerTag = "Player 1";
+                cardsScript.EffectName = current.EffectName;
+                Debug.Log("ScriptID" + current.ID);
+
+                card.transform.Find("Title").gameObject.GetComponent<Text>().text = cardsScript.CardName;
+                card.transform.Find("Description").gameObject.GetComponent<Text>().text = cardsScript.Description;
+                card.transform.Find("Attack").gameObject.GetComponent<Text>().text = cardsScript.Attack;
+                card.transform.Find("Defense").gameObject.GetComponent<Text>().text = cardsScript.Defense;
+                card.transform.Find("Health").gameObject.GetComponent<Text>().text = cardsScript.Health;
+                //Display M for range if Melee, R if ranged
+                if (cardsScript.Range.Equals("Melee"))
+                {
+                    card.transform.Find("Range").gameObject.GetComponent<Text>().text = "M";
+                }
+                else if (cardsScript.Range.Equals("Ranged"))
+                {
+                    card.transform.Find("Range").gameObject.GetComponent<Text>().text = "R";
+                }
+                else
+                {
+                    card.transform.Find("Range").gameObject.GetComponent<Text>().text = "";
+                }
+                card.transform.Find("Cost").gameObject.GetComponent<Text>().text = cardsScript.Cost;
+
             }
-            // Or create it using the spell prefab
-            else
-            {
-                card = (GameObject)Instantiate(spellCardPrefab, slot1.transform.position, slot1.transform.rotation);
-                card.transform.FindChild("Splash").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
-            }
-            //quick reference card's script component
-            Card cardsScript = card.GetComponent<Card>();
-            // Set the card's transform to that of its player's hand
-            switch (i)
-            {
-                case 1:
-                    card.transform.SetParent(slot1.transform.parent);
-                    card.transform.position = slot1.transform.position;
-                    break;
-                case 2:
-                    card.transform.SetParent(slot2.transform.parent);
-                    card.transform.position = slot2.transform.position;
-                    break;
-                case 3:
-                    card.transform.SetParent(slot3.transform.parent);
-                    card.transform.position = slot3.transform.position;
-                    break;
-                case 4:
-                    card.transform.SetParent(slot4.transform.parent);
-                    card.transform.position = slot4.transform.position;
-                    break;
-                case 5:
-                    card.transform.SetParent(slot5.transform.parent);
-                    card.transform.position = slot5.transform.position;
-                    break;
-                case 6:
-                    card.transform.SetParent(slot6.transform.parent);
-                    card.transform.position = slot6.transform.position;
-                    break;
-                case 7:
-                    card.transform.SetParent(slot7.transform.parent);
-                    card.transform.position = slot7.transform.position;
-                    break;
-                case 8:
-                    card.transform.SetParent(slot8.transform.parent);
-                    card.transform.position = slot8.transform.position;
-                    break;
-                case 9:
-                    card.transform.SetParent(slot9.transform.parent);
-                    card.transform.position = slot9.transform.position;
-                    break;
-                case 10:
-                    card.transform.SetParent(slot10.transform.parent);
-                    card.transform.position = slot10.transform.position;
-                    break;
-            }
-
-            // Initialize the card's current values
-            current.SetCurrents();
-
-            // Set the card's name
-            card.GetComponentInChildren<Text>().text = current.CardName;
-
-            //TODO: set all values of script to those of current, or just set equal to that of current
-            cardsScript.CardName = current.CardName;
-            card.name = current.CardName;
-
-            // Set all of the remaining information for the card
-            Debug.Log("ID" + current.ID);
-            cardsScript.ID = current.ID;
-            cardsScript.Image = current.Image;
-            cardsScript.Description = current.Description;
-            cardsScript.Alliance = current.Alliance;
-            cardsScript.Cost = current.Cost;
-            cardsScript.Attack = current.Attack;
-            cardsScript.Health = current.Health;
-            cardsScript.Defense = current.Defense;
-            cardsScript.Range = current.Range;
-            cardsScript.OwnerTag = "Player 1";
-            cardsScript.EffectName = current.EffectName;
-            Debug.Log("ScriptID" + current.ID);
-
-            card.transform.Find("Title").gameObject.GetComponent<Text>().text = cardsScript.CardName;
-            card.transform.Find("Description").gameObject.GetComponent<Text>().text = cardsScript.Description;
-            card.transform.Find("Attack").gameObject.GetComponent<Text>().text = cardsScript.Attack;
-            card.transform.Find("Defense").gameObject.GetComponent<Text>().text = cardsScript.Defense;
-            card.transform.Find("Health").gameObject.GetComponent<Text>().text = cardsScript.Health;
-            card.transform.Find("Range").gameObject.GetComponent<Text>().text = cardsScript.Range;
-            card.transform.Find("Cost").gameObject.GetComponent<Text>().text = cardsScript.Cost;
-
         }
     }
 
