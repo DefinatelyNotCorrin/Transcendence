@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Xml;
 using UnityEngine;
 
@@ -47,6 +48,7 @@ public class DeckReader: MonoBehaviour {
                     card.TargetName = reader.GetAttribute("target");
                     card.Health = reader.GetAttribute("health");
                     card.EffectName = reader.GetAttribute("effectName");
+                    card.Count = Int32.Parse(reader.GetAttribute("count"));
                     
 
                 //stores that new card in the DeckReader array list

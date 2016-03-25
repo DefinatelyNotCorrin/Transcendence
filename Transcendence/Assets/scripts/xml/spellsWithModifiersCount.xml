@@ -27,23 +27,23 @@
 	<card name="Angry Walrus" ID="105" description="Roughly 15.4 times stronger than an average walrus." alliance="Neutral" type="Creature" cost="11" attack="11" health="8" defense="0" range="Melee" target="Slot"/>
 	<card name="Elder Dragon" ID="106" description="Its claws can pierce through stone; its roar can shatter bones." alliance="Neutral" type="Creature" cost="12" attack="11" health="10" defense="0" range="Melee" target="Slot"/>
 	<card name="World Guardian" ID="107" description="Built in The Forgotten Ages. They awaken when the world's fate is threatened." alliance="Neutral" type="Creature" cost="12" attack="4" health="20" defense="0" range="Melee" target="Slot"/>
-  	<card name="Fireball" ID="151" description="Do 2 damage to the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Fireball"/>
 	<card name="Fireball" ID="151" description="Do 2 damage to the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Fireball"/>
-	<card name="Fireball" ID="151" description="Do 2 damage to the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Fireball"/>
-  	<card name="Fireball" ID="151" description="Do 2 damage to the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Fireball"/>
-  	<card name="Fireball" ID="151" description="Do 2 damage to the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Fireball"/>
-  	<card name="Fireball" ID="151" description="Do 2 damage to the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Fireball"/>
-  	<card name="Minor Heal" ID="152" description="Heal 2 hp of the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Heal"/>
-  	<card name="Minor Heal" ID="152" description="Heal 2 hp of the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Heal"/>
-  	<card name="Minor Heal" ID="152" description="Heal 2 hp of the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Heal"/>
-  	<card name="Minor Heal" ID="152" description="Heal 2 hp of the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Heal"/>
-  	<card name="Minor Heal" ID="152" description="Heal 2 hp of the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Heal"/>
-  	<card name="Minor Heal" ID="152" description="Heal 2 hp of the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Heal"/>
-	<card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
-	<card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
-	<card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
-  	<card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
-  	<card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
-  	<card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
-  	<card name="Pot of Greed" ID="153" description="Draw 1 card. " alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
+	<card name="Minor Heal" ID="152" description="Heal 2 hp of the targeted creature." alliance="Neutral" type="Spell" cost="2" range="Ranged" target="Single" effectName="Heal"/>
+	<card name="Pot of Greed" ID="153" description="Draw 1 card." alliance="Neutral" type="Spell" cost="1" range="Player" target="All" effectName="Draw"/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
+	<card/>
 </data-set>

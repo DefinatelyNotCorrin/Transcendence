@@ -124,7 +124,7 @@ public class DeckBuilderControl : MonoBehaviour {
 	private void populate(){
       //populate page with 10 cards from those viable for current player's build
         //load database array from path using Reader
-        Path = Application.dataPath + "/scripts/xml/spellsWithModifiers.xml";
+        Path = Application.dataPath + "/scripts/xml/database.xml";
         DeckReader reader = new DeckReader();
         if (File.Exists(Path))
         {
@@ -150,11 +150,6 @@ public class DeckBuilderControl : MonoBehaviour {
         {
             Debug.Log("Error: File not Found");
         }
-        //TESTING: CYCLE TO THE CARDS DISPLAYED
-        for (int i = 1; i <= 40; i++)
-        {
-            Database.poll(0);
-        }
         //instantiate the objects/visual representation
         for (int i = 1; i <= 10; i++)
         {
@@ -163,7 +158,6 @@ public class DeckBuilderControl : MonoBehaviour {
             {
                 //TODO: ASSEMBLE THE TEN CARDS FOR DISPLAY, BEFORE DISPLAY. USE WHILE METHOD INSTEAD TO INSTANTIATE EACH. 
                 //WE MUST DO THIS IN ORDER TO STACK DUPLICATES (FIREBALL X3) SO THEY DO NOT TAKE UP OVER ONE SPACE
-
                 Card current = Database.poll(0);
                 Debug.Log("Current:" + current.CardName);
                 //helperPrompt = (GameObject)Instantiate(helperPrompt, this.transform.position, this.transform.rotation);
@@ -361,5 +355,25 @@ public class DeckBuilderControl : MonoBehaviour {
     {
         //TODO:Prompt for save, shift populate to start
     }
+
+    public void Depopulate()
+    {
+        foreach (Card c in DisplayedCards)
+        {
+            Database.insertCardToActive(c);
+        }
+    }
+
+    public void UpPage()
+    {
+
+    }
+
+    public void DownPage()
+    {
+
+    }
+
+
 
 }

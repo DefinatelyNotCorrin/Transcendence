@@ -103,6 +103,22 @@ public class Deck : MonoBehaviour
         discard.Insert(index, card);
     }
 
+    public void insertCardToArchive(Card card)
+    {
+        archiveDeck.Add(card);
+    }
+
+    public void insertCardToActive(Card card)
+    {
+        activeDeck.Add(card);
+    }
+
+    public void insertCardToDiscard(Card card)
+    {
+        discard.Add(card);
+    }
+
+
     public void resetActive() //clears active Deck and sets it equal to archive
     {
         activeDeck.Clear();

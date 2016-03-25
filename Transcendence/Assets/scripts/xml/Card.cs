@@ -34,6 +34,9 @@ using System;
     public bool HasBeenPlaced { get; set; }
     public string OwnerTag { get; set; }
 
+    //Values for Deckbuilder
+    public int Count { get; set; }
+
     // Spell information
     public Effect Effect { get; set; }
     public Effect Target { get; set; }
