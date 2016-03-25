@@ -4,7 +4,7 @@ using System;
 
 public class Field : MonoBehaviour {
 
-    public string side;
+    public int side;
 
     // Location of the object
     public Location location;

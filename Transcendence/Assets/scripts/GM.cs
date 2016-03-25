@@ -51,49 +51,52 @@ public class GM : MonoBehaviour
     {
         this.switchPlayerMenu.enabled = false;
 
-        player1.GetComponent<player>().DeckPath = GameObject.Find("Player1StartData").GetComponent<player>().DeckPath;
-        player2.GetComponent<player>().DeckPath = GameObject.Find("Player2StartData").GetComponent<player>().DeckPath;
-
-        spriteSheet = Resources.LoadAll<Sprite>("");
+        this.spriteSheet = Resources.LoadAll<Sprite>("");
 
         this.locations = GameObject.Find("Location Manager").GetComponent<LocationManager>();
 
+        // Set up the player objects for the match
+        try
+        {
+            this.player1.GetComponent<player>().DeckPath = GameObject.Find("Player1StartData").GetComponent<player>().DeckPath;
+            this.player2.GetComponent<player>().DeckPath = GameObject.Find("Player2StartData").GetComponent<player>().DeckPath;
+
+            this.player1.GetComponent<player>().Name = GameObject.Find("Player1StartData").GetComponent<player>().Name;
+            this.player2.GetComponent<player>().Name = GameObject.Find("Player2StartData").GetComponent<player>().Name;
+        }
+        catch
+        {
+            Debug.Log("THE PLAYER DATA AINT THERE, SON!");
+        }
+
         this.player1.GetComponent<player>().PlayerSide = 0;
         this.player2.GetComponent<player>().PlayerSide = 1;
-        this.player1.GetComponent<player>().Name = GameObject.Find("Player1StartData").GetComponent<player>().Name;
-        this.player2.GetComponent<player>().Name = GameObject.Find("Player2StartData").GetComponent<player>().Name;
+
+        this.player1.GetComponent<player>().ManaMax = 2;
+        this.player2.GetComponent<player>().ManaMax = 2;
 
         // The initial mulligan
-        player1.GetComponent<player>().loadDeck();
-        player2.GetComponent<player>().loadDeck();
+        this.player1.GetComponent<player>().loadDeck();
+        this.player2.GetComponent<player>().loadDeck();
 
-        DrawCard(player1);
-        DrawCard(player2);
+        DrawCard(player1, 4);
+        DrawCard(player2, 4);
 
-        DrawCard(player1);
-        DrawCard(player2);
-
-        DrawCard(player1);
-        DrawCard(player2);
-
-        DrawCard(player1);
-        DrawCard(player2);
+        Destroy(GameObject.Find("Player1StartData"));
+        Destroy(GameObject.Find("Player2StartData"));
 
         int chance = UnityEngine.Random.Range(0, 2);
-
-        // Set player starting mana cap
-        player1.GetComponent<player>().ManaMax = 2;
-        player2.GetComponent<player>().ManaMax = 2;
 
         // Determine who goes first, and start that player's turn
         if (chance == 0)
         {
+            //Debug.Log("Player 1 goes first.");
+
             Transform hand1 = locations.GetLocationTransform(Location.Player1Hand);
             Transform hand2 = locations.GetLocationTransform(Location.Player2Hand);
 
-            Debug.Log("Player 1 goes first.");
-
             StartTurn(player1);
+
             currentPlayer = player1;
 
             player1.GetComponent<player>().IsTurn = true;
@@ -103,26 +106,28 @@ public class GM : MonoBehaviour
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = clear;
             }
+
             foreach (Transform child in hand2)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = cardBackCitadel;
             }
 
             TogglePlayerChangeMenu();
-            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "Get 20 VP to win.";
-            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = player1.GetComponent<player>().Name + " goes first!";
+            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = player1.GetComponent<player>().Name + " goes first!" + "\nGet 20 VP to win.";
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
         }
         else if (chance == 1)
         {
-            Debug.Log("Player 2 goes first.");
+            //Debug.Log("Player 2 goes first.");
 
             Transform hand1 = locations.GetLocationTransform(Location.Player1Hand);
             Transform hand2 = locations.GetLocationTransform(Location.Player2Hand);
 
             currentPlayer = player2;
+
             StartTurn(player2);
+
             player1.GetComponent<player>().IsTurn = false;
             player2.GetComponent<player>().IsTurn = true;
 
@@ -130,17 +135,18 @@ public class GM : MonoBehaviour
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = cardBackTemple;
             }
+
             foreach (Transform child in hand2)
             {
                 child.Find("Card Back").GetComponent<Image>().sprite = clear;
             }
 
             TogglePlayerChangeMenu();
-            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "Get 20 VP to win.";
-            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = player2.GetComponent<player>().Name + " goes first!";
+            switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = player2.GetComponent<player>().Name + " goes first!" + "\nGet 20 VP to win.";
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
         }
+
         this.UpdateCardColors();
     }
 
@@ -149,28 +155,12 @@ public class GM : MonoBehaviour
     /// </summary>
     public void Update()
     {
-
         // Update mana every frame **** CAUSE WHY NOT? ****
         player1Mana.text = "Mana: " + player1.GetComponent<player>().CurrentMana.ToString();
         player2Mana.text = "Mana: " + player2.GetComponent<player>().CurrentMana.ToString();
 
         player1VP.text = "VP: " + player1.GetComponent<player>().VictoryPoints.ToString();
         player2VP.text = "VP: " + player2.GetComponent<player>().VictoryPoints.ToString();
-
-        /*
-        // Set interactability of "End Turn" buttons based on player turn
-        if (player1.GetComponent<player>().IsTurn)
-        {
-            player1EndTurnButton.interactable = true;
-            player2EndTurnButton.interactable = false;
-        }
-
-        if (player2.GetComponent<player>().IsTurn)
-        {
-            player1EndTurnButton.interactable = false;
-            player2EndTurnButton.interactable = true;
-        }
-        */
 
         if (player1.GetComponent<player>().VictoryPoints >= 20)
         {
@@ -211,21 +201,7 @@ public class GM : MonoBehaviour
         }
         player.GetComponent<player>().CurrentMana = player.GetComponent<player>().ManaMax;
 
-        /*
-        foreach (GameObject card in GameObject.FindGameObjectsWithTag("Card"))
-        {
-            if (card.GetComponent<Card>().IsExhausted == true)
-            {
-                card.transform.FindChild("Outline").GetComponent<Image>().sprite = this.greenCardGlow;
-            }
-            else
-            {
-                card.transform.FindChild("Outline").GetComponent<Image>().sprite = clear; //= this.clear;
-            }
-        }
-        */
-
-        DrawCard(player);
+        DrawCard(player, 1);
     }
 
     /// <summary>
@@ -261,7 +237,6 @@ public class GM : MonoBehaviour
 
             TogglePlayerChangeMenu();
             switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "It is now " + player2.GetComponent<player>().Name + "'s turn";
-            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Current Scores:";
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = player1.GetComponent<player>().Name + " has " + player1.GetComponent<player>().VictoryPoints + " VP!";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = player2.GetComponent<player>().Name + " has " + player2.GetComponent<player>().VictoryPoints + " VP!";
 
@@ -295,7 +270,6 @@ public class GM : MonoBehaviour
 
             TogglePlayerChangeMenu();
             switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "It is now " + player1.GetComponent<player>().Name + "'s turn";
-            switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = "Current Scores:";
             switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = player1.GetComponent<player>().Name + " has " + player1.GetComponent<player>().VictoryPoints + " VP!";
             switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = player2.GetComponent<player>().Name + " has " + player2.GetComponent<player>().VictoryPoints + " VP!";
 
@@ -303,7 +277,7 @@ public class GM : MonoBehaviour
         }
         this.UpdateCardColors();
 
-        Debug.Log("The current player is " + currentPlayer.name);
+        Debug.Log("The current player is now " + currentPlayer.name);
     }
 
     /// <summary>
@@ -312,10 +286,9 @@ public class GM : MonoBehaviour
     /// <param name="winner"></param> The player who has won. 
     public void EndGame(GameObject winner)
     {
-        switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = "";
+        switchPlayerMenu.transform.Find("CurrentPlayer").GetComponent<Text>().text = winner.GetComponent<player>().Name + " Has Transcended! \nCongrats!";
         switchPlayerMenu.transform.Find("Player1Score").GetComponent<Text>().text = "";
         switchPlayerMenu.transform.Find("Player2Score").GetComponent<Text>().text = "";
-        switchPlayerMenu.transform.Find("CurrentScore:").GetComponent<Text>().text = winner.GetComponent<player>().Name + " Has Transcended! \nCongrats!";
         switchPlayerMenu.transform.Find("Button").GetComponent<Button>().onClick.AddListener(delegate () { exitMenu(); });
     }
 
@@ -373,16 +346,19 @@ public class GM : MonoBehaviour
     }
 
     // Draw a card method for the player
-    public void DrawCard(GameObject player)
+    public void DrawCard(GameObject player, int number)
     {
-        try
+        for (int i = 0; i < number; i++)
         {
-            InstantiateCard(player, player.GetComponent<player>().Deck.poll());
+            try
+            {
+                InstantiateCard(player, player.GetComponent<player>().Deck.poll());
+            }
+            catch
+            {
+                Debug.Log("Out of cards!");
+            }
         }
-        catch
-        {
-            Debug.Log("Out of cards!");
-        } 
     }
 
     public void UpdateCardColors()
@@ -542,12 +518,12 @@ public class GM : MonoBehaviour
                     if (effect.ToString().Equals(currentCard.EffectName))
                     {
                         cardsScript.Effect = effect;
-                        Debug.Log(effect.ToString());
+                        //Debug.Log(effect.ToString());
                     }
                     else if (effect.ToString().Equals(currentCard.TargetName))
                     {
                         cardsScript.Target = effect;
-                        Debug.Log(effect.ToString());
+                        //Debug.Log(effect.ToString());
                     }
                 }
 
@@ -635,12 +611,12 @@ public class GM : MonoBehaviour
                     if (effect.ToString().Equals(currentCard.EffectName))
                     {
                         cardsScript.Effect = effect;
-                        Debug.Log(effect.ToString());
+                        //Debug.Log(effect.ToString());
                     }
                     else if (effect.ToString().Equals(currentCard.TargetName))
                     {
                         cardsScript.Target = effect;
-                        Debug.Log(effect.ToString());
+                        //Debug.Log(effect.ToString());
                     }
                 }
 
