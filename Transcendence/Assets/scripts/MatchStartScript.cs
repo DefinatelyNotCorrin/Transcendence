@@ -49,7 +49,7 @@ public class MatchStartScript : MonoBehaviour {
         paths.Add("/scripts/xml/cards.xml");
         paths.Add("/scripts/xml/2cards.xml");
         paths.Add("/scripts/xml/3cards.xml");
-        paths.Add("/scripts/xml/neutralsAndSpellsBASIC.xml");
+        paths.Add("/scripts/xml/neutralsAndSpells.xml");
         // The newest spells that you can buy!
         paths.Add("/scripts/xml/spellsWithModifiers.xml");
 
@@ -63,7 +63,7 @@ public class MatchStartScript : MonoBehaviour {
 
             List<Card> database = reader.load(path);
 
-            Deck deck = new Deck(path, i.ToString());
+            Deck deck = new Deck(path, reader.GetDeckName(path));
 
             foreach (Card c in database)
             {

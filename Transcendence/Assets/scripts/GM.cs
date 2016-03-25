@@ -162,18 +162,26 @@ public class GM : MonoBehaviour
         player1VP.text = "VP: " + player1.GetComponent<player>().VictoryPoints.ToString();
         player2VP.text = "VP: " + player2.GetComponent<player>().VictoryPoints.ToString();
 
-        if (player1.GetComponent<player>().VictoryPoints >= 20)
+        if (currentPlayer.GetComponent<player>().VictoryPoints >= 20)
         {
-            EndGame(player1);
+            EndGame(currentPlayer);
         }
 
-        if (player2.GetComponent<player>().VictoryPoints >= 20)
+        if (player1.GetComponent<player>().IsTurn)
         {
-            EndGame(player2);
+            GameObject.Find("Player1HandRaycastBlocker").GetComponent<Image>().raycastTarget = false;
+            GameObject.Find("Player2HandRaycastBlocker").GetComponent<Image>().raycastTarget = true;
+        }
+        else
+        {
+            GameObject.Find("Player1HandRaycastBlocker").GetComponent<Image>().raycastTarget = true;
+            GameObject.Find("Player2HandRaycastBlocker").GetComponent<Image>().raycastTarget = false;
         }
 
-        foreach(GameObject card in GameObject.FindGameObjectsWithTag("Card"))
+        
+        foreach(GameObject card in GameObject.FindGameObjectsWithTag("Card")) // that card.GetComponent<Card>().BattleSide == currentPlayer.GetComponent<player>().PlayerSide
         {
+            // Color the cards in the hand of the current player
             if (!card.GetComponent<Card>().HasBeenPlaced)
             {
                 if (((currentPlayer.GetComponent<player>().CurrentMana - card.GetComponent<Card>().CurrentCost) >= 0)
@@ -186,6 +194,18 @@ public class GM : MonoBehaviour
                     card.transform.FindChild("Outline").GetComponent<Image>().sprite = this.clear;
                 }
             }
+
+            /*
+            // Make cards that are exhausted not draggable?
+            if (card.GetComponent<Card>().HasBeenPlaced && card.GetComponent<Card>().IsExhausted)
+            {
+                card.GetComponent<isDraggable>().enabled = false;
+            }
+            else
+            {
+                card.GetComponent<isDraggable>().enabled = true;
+            }
+            */
         }
     }
 

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <data-set>
+  <name name="Generic Deck 3"></name>
 	<card name="Duskmire Leech" ID="81" description="There are things worse than mosquitoes in the muck beneath the Duskmire." alliance="Neutral" type="Creature" cost="0" attack="1" health="1" defense="0" range="Melee" target="Slot"/>
 	<card name="Carrion Crawler" ID="82" description="Give them a few hours and they'll eat everything but the heart." alliance="Neutral" type="Creature" cost="1" attack="1" health="2" defense="0" range="Melee" target="Slot"/>
 	<card name="Faerie Dragon" ID="83" description="They may not steal sheep or level towns, but they do have a nasty bite." alliance="Neutral" type="Creature" cost="1" attack="2" health="1" defense="0" range="Melee" target="Slot"/>

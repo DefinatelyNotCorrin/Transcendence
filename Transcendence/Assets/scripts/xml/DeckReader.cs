@@ -18,7 +18,6 @@ public class DeckReader: MonoBehaviour {
     /// <returns = arr></returns> the deck returned
     public List<Card> load(string inputPath)
     {
-
         //follows the path of the xml, and loads it into a reader
         arr = new List<Card>();
         path = inputPath;
@@ -26,12 +25,11 @@ public class DeckReader: MonoBehaviour {
        
         while(reader.Read())
         {
-
             //should check to see if the line is an element, and then if it is called 'card'
             if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "card"))
              {
                 //generates new empty card object
-#pragma warning disable
+                #pragma warning disable
                 Card card = new Card();
 
                     //set values of new card Object from xml attributes
@@ -48,16 +46,40 @@ public class DeckReader: MonoBehaviour {
                     card.TargetName = reader.GetAttribute("target");
                     card.Health = reader.GetAttribute("health");
                     card.EffectName = reader.GetAttribute("effectName");
+                    if (!(reader.GetAttribute("count") == null))
+                    {
                     card.Count = Int32.Parse(reader.GetAttribute("count"));
+                    }
                     
-
                 //stores that new card in the DeckReader array list
                 arr.Add(card);
+            }
+        }
+        //returns the card arr after all cards have been added (PLS)
+        return arr;
+    }
 
+    public String GetDeckName(string path)
+    {
+        String name = "";
+        this.path = path;
+
+        XmlReader reader = XmlReader.Create(path);
+
+        while (reader.Read())
+        {
+            //should check to see if the line is an element, and then if it is called 'card'
+            if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "name"))
+            {
+                name = reader.GetAttribute("name");
             }
         }
 
-        //returns the card arr after all cards have been added (PLS)
-        return arr;
+        if(name.Equals(""))
+        {
+            name = "Null";
+        }
+
+        return name;
     }
 }
