@@ -13,6 +13,7 @@ public class DeckBuilderControl : MonoBehaviour {
         private Deck Database { get; set; } //all cards of database in selected alliance and not in current build
         private Deck CurrentBuild { get; set; }//all cards in the deck the player is creating
     public List<Card> DisplayedCards;
+    private int positionInList;
     private Sprite[] spriteSheet;
     //Prefabs
         private GameObject creatureCardPrefab;
@@ -87,6 +88,7 @@ public class DeckBuilderControl : MonoBehaviour {
        //helperPrompt = (Resources.Load("prefabs/PromptMenu")) as GameObject;
         helperPrompt = (GameObject)Instantiate(Resources.Load("prefabs/PromptMenu"), transform.position, transform.rotation);
         helperPrompt.GetComponent<PromptMenuScript>().isVisible(false);
+        positionInList = 0;
         populate();
     }
 	
@@ -348,7 +350,6 @@ public class DeckBuilderControl : MonoBehaviour {
         Debug.Log("CANCEL_PRESS");
         bookAudio.PlayOneShot(clickSound, 0.7F);
         helperPrompt.GetComponent<PromptMenuScript>().isVisible(false);
-
     }
 
     public void NewPress()
@@ -362,16 +363,24 @@ public class DeckBuilderControl : MonoBehaviour {
         {
             Database.insertCardToActive(c);
         }
+        foreach (GameObject card in GameObject.FindGameObjectsWithTag("Card"))
+        {
+            Destroy(card);
+        }
     }
 
     public void UpPage()
     {
-
+        Depopulate();
+        positionInList++;
+        populate();
     }
 
     public void DownPage()
     {
-
+        Depopulate();
+        positionInList--;
+        populate();
     }
 
 
