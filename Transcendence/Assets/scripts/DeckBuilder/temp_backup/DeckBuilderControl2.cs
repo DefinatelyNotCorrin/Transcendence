@@ -5,14 +5,15 @@ using System.Collections.Generic;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class DeckBuilderControl : MonoBehaviour {    
-   /* 
+public class DeckBuilderControl2 : MonoBehaviour {    
     //CardBook
     private Canvas cardBookCanvas;
     //Database
     private string Path { get; set; } //path of full database xml
+        private Deck Database { get; set; } //all cards of database in selected alliance and not in current build
         private Deck CurrentBuild { get; set; }//all cards in the deck the player is creating
     public bool loadedDatabase;       //TODO: See below
+    public List<Card> DisplayedCards; //Will no longer need to exist after CardsInBook fully implemented, Database won't need to exist either
     private List<List<Card>> CardsInBook; //pages = number of cards in cardList / 10 (if mod 10 greater than 0 aka has remainder then ++)
     private Sprite[] spriteSheet;
     //Prefabs
@@ -153,7 +154,7 @@ public class DeckBuilderControl : MonoBehaviour {
                 Debug.Log("Error: File not Found");
             }
         }
-        //database loaded, proceed with book compilation
+        //instantiate the objects/visual representation
         Card current;
         int DatabaseSize = Database.activeDeck.Count;
         switch (direction)
@@ -186,9 +187,8 @@ public class DeckBuilderControl : MonoBehaviour {
                     DisplayedCards.Add(current);
                 }
                 break;
-        }                                                                                                                                                                              
+        }
         Debug.LogError("Free From Loop");
-        //instantiate the objects/visual representation
         for (int i = 1; i <= 10; i++)
         {
             GameObject card;
@@ -427,5 +427,5 @@ public class DeckBuilderControl : MonoBehaviour {
     }
 
 
-    */
+
 }

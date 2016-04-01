@@ -1148,6 +1148,10 @@ Prefab:
       propertyPath: m_Name
       value: DisplayedCard
       objectReference: {fileID: 0}
+    - target: {fileID: 124954, guid: 8db82daf57b08474b8fb38069a9e1f2c, type: 2}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8db82daf57b08474b8fb38069a9e1f2c, type: 2}
   m_IsPrefabParent: 0
@@ -2620,7 +2624,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 954745240}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1724962316}
+        m_MethodName: DownPage
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &954745240
@@ -5138,6 +5153,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0590ccc4033a06d4f8f58ccb56e1c39e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  loadedDatabase: 0
   DisplayedCards: []
   bookAudio: {fileID: 1724962315}
   pageTurn: {fileID: 8300000, guid: fd7e103909338ba47bd97280d11df2f9, type: 3}
