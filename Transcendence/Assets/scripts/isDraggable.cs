@@ -2,14 +2,29 @@
 using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using System;
+using System.Timers;
 
-public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler {
+public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 
     public bool isDragging = false;
     private dropManager dm;
+    private double CARD_HOVER_TIME = 2.0; // seconds?
+    private double startTime;
+    private double currentTime;
+    private double triggerTime;
+    private bool checkTime = false;
+    private bool displayZoomedView = false;
+    private GM gm;
 
     //original location of a card before it is dragged
     public Transform parentToReturnTo = null;
+    //God cares not for As, he cares only for your faith
+
+    public void Start()
+    {
+        gm = GameObject.Find("GM").GetComponent<GM>();
+    }
 
     //incase that the state of the card is needed, this method exists
     public bool isBeingDragged() {
@@ -19,6 +34,12 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnBeginDrag(PointerEventData data) {
 		//Debug.Log ("on begin drag");
         isDragging = true;
+        this.checkTime = false;
+
+        if (this.displayZoomedView)
+        {
+            this.displayZoomedView = false;
+        }
 
         //saves the current parent of the object
         parentToReturnTo = this.transform.parent;
@@ -35,18 +56,21 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
 
         this.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().raycastTarget = false;
         GetComponent<CanvasGroup>().blocksRaycasts = false;
-        this.GetComponent<Image>().raycastTarget = false;    
-        
+        this.GetComponent<Image>().raycastTarget = false;        
     }
 
-	public void OnDrag(PointerEventData data) {
+    private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+    {
+        Debug.Log("The timer even occured!");
+    }
+
+    public void OnDrag(PointerEventData data) {
 		//Debug.Log ("dragging");
 
         //moves the card to the cursor position
         this.transform.position = data.position;
 
         this.gameObject.tag = "Dragging";
-
     }
 
 	public void OnEndDrag(PointerEventData data) {
@@ -58,11 +82,45 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         GameObject draggingCard = GameObject.FindGameObjectWithTag("Dragging");
         GameObject pointerObject = data.pointerCurrentRaycast.gameObject;
 
-        dm.Drop(data, draggingCard, pointerObject.transform);
-        //
+        //dm.Drop(data, draggingCard, pointerObject.transform);
+        
+        try
+        {
+            dm.Drop(data, draggingCard, pointerObject.transform);
+        }
+        catch
+        {
+            Debug.Log("Nice try, JOHNATHAN!");
+        } 
+
         this.transform.SetParent(parentToReturnTo);
 
         GetComponent<CanvasGroup>().blocksRaycasts = true;
         this.GetComponent<Image>().raycastTarget = true;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        //this.checkTime = true;
+        //this.startTime = Time.time;
+        //this.currentTime = Time.time;
+        //this.triggerTime = startTime + CARD_HOVER_TIME;
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        //this.checkTime = false;
+    }
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        if (this.displayZoomedView)
+        {
+            this.displayZoomedView = false;
+        }
+        else
+        {
+            this.displayZoomedView = true;
+        }
     }
 }

@@ -44,7 +44,7 @@ public class dropManager : MonoBehaviour {
             TryAttack(draggingCardObject, draggingCardScript, pointerObject);
         }
         // Single target spell card
-        else if (pointerObject.CompareTag("Card") && draggingCardScript.Type.Equals("Spell") && draggingCardScript.Target.Equals(Effect.Single))
+        else if (pointerObject.CompareTag("Card") && pointerObject.GetComponent<Card>().Type.Equals("Creature") && draggingCardScript.Type.Equals("Spell") && draggingCardScript.Target.Equals(Effect.Single))
         {
             //Debug.Log("Single target spell conditions met.");
             TrySpell(draggingCardObject, draggingCardScript, pointerObject);
@@ -56,7 +56,7 @@ public class dropManager : MonoBehaviour {
             TrySpell(draggingCardObject, draggingCardScript, pointerObject);
         }
         // Zone spell card
-        else if (draggingCardScript.Target.Equals(Effect.Zone) && pointerObject.CompareTag("Card") && draggingCardScript.Type.Equals("Spell"))
+        else if (draggingCardScript.Target.Equals(Effect.Zone) && pointerObject.CompareTag("Card") && pointerObject.GetComponent<Card>().Type.Equals("Creature") && draggingCardScript.Type.Equals("Spell"))
         {
             //Debug.Log("Zone spell conditions met.");
             TrySpell(draggingCardObject, draggingCardScript, pointerObject);
@@ -64,7 +64,7 @@ public class dropManager : MonoBehaviour {
         // Turn card back to card if action conditions are met
         else
         {
-            //Debug.Log("No conditions met!");
+            Debug.Log("No conditions met!");
             draggingCardObject.tag = "Card";
         }
     }

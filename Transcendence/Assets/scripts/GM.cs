@@ -51,7 +51,7 @@ public class GM : MonoBehaviour
     {
         this.switchPlayerMenu.enabled = false;
 
-        this.spriteSheet = Resources.LoadAll<Sprite>("");
+        this.spriteSheet = Resources.LoadAll<Sprite>("Sprites");
 
         this.locations = GameObject.Find("Location Manager").GetComponent<LocationManager>();
 
@@ -178,8 +178,12 @@ public class GM : MonoBehaviour
             GameObject.Find("Player2HandRaycastBlocker").GetComponent<Image>().raycastTarget = false;
         }
 
-        
-        foreach(GameObject card in GameObject.FindGameObjectsWithTag("Card")) // that card.GetComponent<Card>().BattleSide == currentPlayer.GetComponent<player>().PlayerSide
+        if (GameObject.Find("EndTurnPlayer1").GetComponent<Button>().interactable == switchPlayerMenu.enabled)
+        {
+            GameObject.Find("EndTurnPlayer1").GetComponent<Button>().interactable = !switchPlayerMenu.enabled;
+        }
+
+        foreach (GameObject card in GameObject.FindGameObjectsWithTag("Card")) // that card.GetComponent<Card>().BattleSide == currentPlayer.GetComponent<player>().PlayerSide
         {
             // Color the cards in the hand of the current player
             if (!card.GetComponent<Card>().HasBeenPlaced)
@@ -297,7 +301,7 @@ public class GM : MonoBehaviour
         }
         this.UpdateCardColors();
 
-        Debug.Log("The current player is now " + currentPlayer.name);
+        Debug.Log("The current player is now " + currentPlayer.GetComponent<player>().Name);
     }
 
     /// <summary>
@@ -486,13 +490,13 @@ public class GM : MonoBehaviour
                 if (currentCard.Type.Equals("Creature"))
                 {
                     card = (GameObject)Instantiate(prefabCreatureCard, hand.position, hand.rotation);
-                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
+                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = this.spriteSheet[Int64.Parse(currentCard.ID)];
                 }
                 // Or create it using the spell prefab
                 else
                 {
                     card = (GameObject)Instantiate(prefabSpellCard, hand.position, hand.rotation);
-                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0,8)];
+                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = this.spriteSheet[Int64.Parse(currentCard.ID)];
                 }
 
                 // Set the reference to the new card's script
@@ -522,6 +526,7 @@ public class GM : MonoBehaviour
                 cardsScript.Range = currentCard.Range;
                 cardsScript.TargetName = currentCard.TargetName;
                 cardsScript.CurrentID = currentCard.CurrentID;
+                Debug.Log(currentCard.CurrentID);
                 cardsScript.CurrentCost = currentCard.CurrentCost;
                 cardsScript.CurrentAttack = currentCard.CurrentAttack;
                 cardsScript.CurrentHealth = currentCard.CurrentHealth;
@@ -579,13 +584,13 @@ public class GM : MonoBehaviour
                 if (currentCard.Type.Equals("Creature"))
                 {
                     card = (GameObject)Instantiate(prefabCreatureCard, hand.transform.position, hand.rotation);
-                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
+                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[Int64.Parse(currentCard.ID)];
                 }
                 // Or create it with the spell prefab
                 else
                 {
                     card = (GameObject)Instantiate(prefabSpellCard, hand.transform.position, hand.rotation);
-                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[UnityEngine.Random.Range(0, 8)];
+                    card.transform.FindChild("Splash Image").gameObject.GetComponent<Image>().sprite = spriteSheet[Int64.Parse(currentCard.ID)];
                 }
 
                 // Set the reference to the new card's script
