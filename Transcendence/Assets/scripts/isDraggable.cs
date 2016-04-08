@@ -27,7 +27,8 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     }
 
     //incase that the state of the card is needed, this method exists
-    public bool isBeingDragged() {
+    public bool isBeingDragged()
+    {
         return isDragging;
     }
 
@@ -117,10 +118,14 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         if (this.displayZoomedView)
         {
             this.displayZoomedView = false;
+            gm.DisplayDiscription(this.transform.gameObject, false);
+            Debug.Log("Display closed for " + this.transform.gameObject.name);
         }
         else
         {
             this.displayZoomedView = true;
+            gm.DisplayDiscription(this.transform.gameObject, true);
+            Debug.Log("Display open for " + this.transform.gameObject.name);
         }
     }
 }

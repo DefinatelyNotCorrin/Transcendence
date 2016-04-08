@@ -369,6 +369,20 @@ public class GM : MonoBehaviour
         }
     }
 
+    public void DisplayDiscription(GameObject card, bool display)
+    {
+        Card cardScript = card.GetComponent<Card>();
+        if (display)
+        {
+            GameObject hover = Instantiate((GameObject)Resources.Load("Prefabs/Card Hover"));
+            hover.transform = card.transform;
+        }
+        else if (!display && GameObject.Find("Card Hover") != null)
+        {
+            Destroy(GameObject.Find("Card Hover"));
+        }
+    }
+
     // Draw a card method for the player
     public void DrawCard(GameObject player, int number)
     {
