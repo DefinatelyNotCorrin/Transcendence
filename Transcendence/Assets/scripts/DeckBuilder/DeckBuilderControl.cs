@@ -6,15 +6,15 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class DeckBuilderControl : MonoBehaviour {    
-   /* 
     //CardBook
     private Canvas cardBookCanvas;
     //Database
     private string Path { get; set; } //path of full database xml
         private Deck CurrentBuild { get; set; }//all cards in the deck the player is creating
     public bool loadedDatabase;       //TODO: See below
-    private List<List<Card>> CardsInBook; //pages = number of cards in cardList / 10 (if mod 10 greater than 0 aka has remainder then ++)
     private Sprite[] spriteSheet;
+    CardBook Book;
+    private List<Card> DisplayedCards;
     //Prefabs
         private GameObject displayedCardPrefab;
     //Top Row
@@ -123,77 +123,27 @@ public class DeckBuilderControl : MonoBehaviour {
 	private void populate(int direction){
         //populate page with 10 cards from those viable for current player's build
         //load database array from path using Reader
+        Debug.Log("Entering Database Initialization Loop");
         if (!loadedDatabase)
         {
             Path = Application.dataPath + "/scripts/xml/database.xml";
-            DeckReader reader = new DeckReader();
-            if (File.Exists(Path))
-            {
-                List<Card> cardList = reader.load(Path);
-                Debug.Log("Card List: " + cardList[0].CardName);
-                Database = new Deck();
-                Database.activeDeck = new List<Card>();
-                Database.archiveDeck = new List<Card>();
-                foreach (Card c in cardList)
-                {
-                    Database.archiveDeck.Add(c);
-                }
-                Debug.Log("archiveDeck: " + Database.archiveDeck[0].CardName);
-                foreach (Card c in Database.archiveDeck)
-                {
-                    Database.activeDeck.Add(c);
-                }
-                Database.resetActive();
-                Debug.Log("activeDeck: " + Database.activeDeck[0].CardName);
+                Book = new CardBook(Path);
                 loadedDatabase = true;
                 //TODO: Sort Database Deck by cost and lettering 
-            }
-            else
-            {
-                Debug.Log("Error: File not Found");
-            }
         }
+        Debug.Log("Exited Database Initialization Loop");
         //database loaded, proceed with book compilation
         Card current;
-        int DatabaseSize = Database.activeDeck.Count;
-        switch (direction)
-        {
-            case -1:
-                for (int i = DatabaseSize-1; i >= DatabaseSize - 10; i--)
-                {
-                    Debug.LogError(i);
-                    current = Database.activeDeck[i];
-                    Database.activeDeck.RemoveAt(i);
-                    Debug.Log("Current:" + current.CardName);
-                    DisplayedCards.Add(current);
-                }
-                break;
-            case 0:
-                for (int i = 0; i < 10; i++)
-                {
-                    current = Database.activeDeck[i];
-                    Database.activeDeck.RemoveAt(i);
-                    Debug.Log("Current:" + current.CardName);
-                    DisplayedCards.Add(current);
-                }
-                break;
-            case 1:
-                for (int i = 0; i < 10; i++)
-                {
-                    current = Database.activeDeck[i];
-                    Database.activeDeck.RemoveAt(i);
-	                Debug.Log("Current:" + current.CardName);
-                    DisplayedCards.Add(current);
-                }
-                break;
-        }                                                                                                                                                                              
-        Debug.LogError("Free From Loop");
+        Book.ChangeCurrentPage(direction);
+        //add Cards of new CurrentPage to Displayed Cards
+        Debug.Log("Entered GetCardsOfPage");
+        DisplayedCards = Book.GetCardsOfPage(Book.CurrentPage);
         //instantiate the objects/visual representation
         for (int i = 1; i <= 10; i++)
         {
+            Debug.Log("Entered DisplayLoop");
             GameObject card;
-            if (Database.hasNext())
-            {
+            //If there is another card to display (has next)
                 current = DisplayedCards[i-1];
                 // Create the card with creature prefab
                 card = (GameObject)Instantiate(displayedCardPrefab, slot1.transform.position, slot1.transform.rotation);
@@ -211,50 +161,50 @@ public class DeckBuilderControl : MonoBehaviour {
                 }
                 //quick reference card's script component
                 Card cardsScript = card.GetComponent<Card>();
-                switch (i)
-                { //TODO: Finish conversions
+            switch (i)
+            { //TODO: Finish conversions
 
-                    case 1:
-                        card.transform.SetParent(slot1.transform.parent);
-                        card.transform.position = new Vector3(slot1.transform.position.x, slot1.transform.position.y + 6, slot1.transform.position.z);
-                        break;
-                    case 2:
-                        card.transform.SetParent(slot2.transform.parent);
-                        card.transform.position = new Vector3(slot2.transform.position.x, slot2.transform.position.y + 6, slot2.transform.position.z);
-                        break;
-                    case 3:
-                        card.transform.SetParent(slot3.transform.parent);
-                        card.transform.position = new Vector3(slot3.transform.position.x, slot3.transform.position.y + 6, slot3.transform.position.z);
-                        break;
-                    case 4:
-                        card.transform.SetParent(slot4.transform.parent);
-                        card.transform.position = new Vector3(slot4.transform.position.x, slot4.transform.position.y + 6, slot4.transform.position.z);
-                        break;
-                    case 5:
-                        card.transform.SetParent(slot5.transform.parent);
-                        card.transform.position = new Vector3(slot5.transform.position.x, slot5.transform.position.y + 6, slot5.transform.position.z);
-                        break;
-                    case 6:
-                        card.transform.SetParent(slot6.transform.parent);
-                        card.transform.position = new Vector3(slot6.transform.position.x, slot6.transform.position.y + 6, slot6.transform.position.z);
-                        break;
-                    case 7:
-                        card.transform.SetParent(slot7.transform.parent);
-                        card.transform.position = new Vector3(slot7.transform.position.x, slot7.transform.position.y + 6, slot7.transform.position.z);
-                        break;
-                    case 8:
-                        card.transform.SetParent(slot8.transform.parent);
-                        card.transform.position = new Vector3(slot8.transform.position.x, slot8.transform.position.y + 6, slot8.transform.position.z);
-                        break;
-                    case 9:
-                        card.transform.SetParent(slot9.transform.parent);
-                        card.transform.position = new Vector3(slot9.transform.position.x, slot9.transform.position.y + 6, slot9.transform.position.z);
-                        break;
-                    case 10:
-                        card.transform.SetParent(slot10.transform.parent);
-                        card.transform.position = new Vector3(slot10.transform.position.x, slot10.transform.position.y + 6, slot10.transform.position.z);
-                        break;
-                }
+                case 1:
+                    card.transform.SetParent(slot1.transform.parent);
+                    card.transform.position = new Vector3(slot1.transform.position.x, slot1.transform.position.y + 6, slot1.transform.position.z);
+                    break;
+                case 2:
+                    card.transform.SetParent(slot2.transform.parent);
+                    card.transform.position = new Vector3(slot2.transform.position.x, slot2.transform.position.y + 6, slot2.transform.position.z);
+                    break;
+                case 3:
+                    card.transform.SetParent(slot3.transform.parent);
+                    card.transform.position = new Vector3(slot3.transform.position.x, slot3.transform.position.y + 6, slot3.transform.position.z);
+                    break;
+                case 4:
+                    card.transform.SetParent(slot4.transform.parent);
+                    card.transform.position = new Vector3(slot4.transform.position.x, slot4.transform.position.y + 6, slot4.transform.position.z);
+                    break;
+                case 5:
+                    card.transform.SetParent(slot5.transform.parent);
+                    card.transform.position = new Vector3(slot5.transform.position.x, slot5.transform.position.y + 6, slot5.transform.position.z);
+                    break;
+                case 6:
+                    card.transform.SetParent(slot6.transform.parent);
+                    card.transform.position = new Vector3(slot6.transform.position.x, slot6.transform.position.y + 6, slot6.transform.position.z);
+                    break;
+                case 7:
+                    card.transform.SetParent(slot7.transform.parent);
+                    card.transform.position = new Vector3(slot7.transform.position.x, slot7.transform.position.y + 6, slot7.transform.position.z);
+                    break;
+                case 8:
+                    card.transform.SetParent(slot8.transform.parent);
+                    card.transform.position = new Vector3(slot8.transform.position.x, slot8.transform.position.y + 6, slot8.transform.position.z);
+                    break;
+                case 9:
+                    card.transform.SetParent(slot9.transform.parent);
+                    card.transform.position = new Vector3(slot9.transform.position.x, slot9.transform.position.y + 6, slot9.transform.position.z);
+                    break;
+                case 10:
+                    card.transform.SetParent(slot10.transform.parent);
+                    card.transform.position = new Vector3(slot10.transform.position.x, slot10.transform.position.y + 6, slot10.transform.position.z);
+                    break;
+            }
 
                 // Initialize the card's current values
                 current.SetCurrents();
@@ -311,8 +261,6 @@ public class DeckBuilderControl : MonoBehaviour {
                     card.transform.Find("Range").gameObject.SetActive(false);
                 }
                 card.transform.Find("Cost").gameObject.GetComponent<Text>().text = cardsScript.Cost;
-
-            }
         }
     }
 
@@ -403,10 +351,7 @@ public class DeckBuilderControl : MonoBehaviour {
 
     public void Depopulate()
     {
-        foreach (Card c in DisplayedCards)
-        {
-            Database.insertCardToActive(c);
-        }
+        Book.returnCardsToCurrentPage(DisplayedCards);
         DisplayedCards.Clear();
         foreach (GameObject card in GameObject.FindGameObjectsWithTag("Card"))
         {
@@ -427,5 +372,4 @@ public class DeckBuilderControl : MonoBehaviour {
     }
 
 
-    */
 }

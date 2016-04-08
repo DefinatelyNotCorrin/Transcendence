@@ -12,13 +12,14 @@ public class CardBook : MonoBehaviour
     private string Path { get; set; } //path of full database xml
     private List<Card> CardList { get; set; } //full list of all cards from XML
     private List<List<Card>> CardPages { get; set; } //book of cards organized by pages of ten
-    private int CurrentPage { get; set; } //keeps track of location in book
+    public int CurrentPage; //keeps track of location in book
     private const int CARDS_PER_PAGE = 10; //Number of cards per page, must correspond with displayed slots in scene 
     private int NumPages;
     private bool Compiled { get; set; }
 
-    CardBook (String path)
+    public CardBook (String path)
     {
+        Debug.Log("TRIGGER1");
         LoadDatabaseFromFile(path);
     }
 
@@ -30,42 +31,61 @@ public class CardBook : MonoBehaviour
 
     public void LoadDatabaseFromFile(String path)
     {
+        Debug.Log("TRIGGER:LoadDatabaseFromFile");
         Path = path;
         DeckReader reader = new DeckReader();
         if (File.Exists(Path))
         {
-            List<Card> CardList = reader.load(Path);
+            CardList = reader.load(Path);
+            Debug.Log("TRIGGER:CardListLoad");
         }
         else
         {
-            Debug.Log("Error: File not Found");
+            Debug.LogError("Error: File not Found");
         }
+        Debug.Log(CardList[0].CardName + " is held by CardList @ pos0");
         CompileBook();
     }
 
     public void CompileBook()
     {
-        NumPages = CardList.Count;
+        CardPages = new List<List<Card>>();
+        NumPages = CardList.Count / 10;
         if (CardList.Count % 10 != 0) //If there are cards remaining, add another page
         {
             NumPages++;
         }
-        for (int Page = 0; Page < NumPages - 1; Page++)
+        Debug.Log(NumPages + "pgs");
+        for (int Page = 0; Page < NumPages; Page++)
             {
+            CardPages.Add(new List<Card>());
+            Debug.Log("PageIteration:" + Page);
             for (int i = 0; i < CARDS_PER_PAGE; i++)
             {
-                if (CardList[i + (10 * Page)] != null)
-                {
-                    CardPages[Page][i] = CardList[i + (10 * Page)];
-                }
+                Debug.Log("CardIteration:" + i);
+                //if (CardList[i + (10 * Page)] != null)
+                //{
+                int element = i + (Page * 10);
+                Debug.Log("CardList element of attempted access: " + element);
+                Debug.Log("CardList element of attempted access name: " + CardList[element].CardName);
+                CardPages[Page].Insert(i, CardList[element]);
+                //}
             }
             }
         Compiled = true;
+        Debug.Log("FreeFromPagationLoop");
     }
 
     public List<Card> GetCardsOfPage(int Page) //returns 10 cards for display later from passed page
     {
-            return CardPages[Page];
+        Debug.Log("Attempting access of Page:" + Page);
+        CurrentPage = Page;
+        return CardPages[Page];
+    }
+
+    public void returnCardsToCurrentPage(List<Card> DisplayedCards)
+    {
+        CardPages[CurrentPage] = DisplayedCards;
     }
 
     public Card GetCardByPageElement(int Page, int Element) //returns 10 cards for display later from passed page
@@ -83,6 +103,26 @@ public class CardBook : MonoBehaviour
     public void clearCardByPageElement(int Page, int Element)
     {
         CardPages[Page].Clear();
+    }
+
+    public void ChangeCurrentPage(int direction)
+    {
+        switch (direction)
+        {
+            case -1:
+                CurrentPage--;
+                break;
+            case 0:
+                CurrentPage = 0;
+                break;
+            case 1:
+                CurrentPage++;
+                break;
+        }
+        if (CurrentPage < 0)
+        {
+            CurrentPage = NumPages - 1;
+        }
     }
 
 
