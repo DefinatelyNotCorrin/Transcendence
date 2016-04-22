@@ -49,6 +49,7 @@ public class CardBook : MonoBehaviour
 
     public void CompileBook()
     {
+        int numCards = 0; //TEST
         CardPages = new List<List<Card>>();
         NumPages = CardList.Count / 10;
         if (CardList.Count % 10 != 0) //If there are cards remaining, add another page
@@ -62,6 +63,7 @@ public class CardBook : MonoBehaviour
             Debug.Log("PageIteration:" + Page);
             for (int i = 0; i < CARDS_PER_PAGE; i++)
             {
+                numCards++; //TEST
                 Debug.Log("CardIteration:" + i);
                 //if (CardList[i + (10 * Page)] != null)
                 //{
@@ -73,18 +75,31 @@ public class CardBook : MonoBehaviour
             }
             }
         Compiled = true;
+        Debug.LogError(numCards); //TEST
         Debug.Log("FreeFromPagationLoop");
     }
 
-    public List<Card> GetCardsOfPage(int Page) //returns 10 cards for display later from passed page
+    public List<Card> GetCardsOfPage(int PageRequested) //returns 10 cards for display later from passed page
     {
-        Debug.Log("Attempting access of Page:" + Page);
-        CurrentPage = Page;
-        return CardPages[Page];
+        Debug.Log("Attempting access of Page:" + PageRequested);
+        if (PageRequested > CardPages.Count-1)
+        {
+            CurrentPage = 0;
+        }
+        else if (PageRequested < 0)
+        {
+            CurrentPage = CardPages.Count;
+        }
+        else
+        {
+            CurrentPage = PageRequested;
+        }
+        return CardPages[CurrentPage];
     }
 
     public void returnCardsToCurrentPage(List<Card> DisplayedCards)
     {
+        Debug.LogError(CurrentPage + " recieved " + DisplayedCards[0].CardName);
         CardPages[CurrentPage] = DisplayedCards;
     }
 

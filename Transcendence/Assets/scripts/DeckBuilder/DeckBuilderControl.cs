@@ -138,6 +138,7 @@ public class DeckBuilderControl : MonoBehaviour {
         //add Cards of new CurrentPage to Displayed Cards
         Debug.Log("Entered GetCardsOfPage");
         DisplayedCards = Book.GetCardsOfPage(Book.CurrentPage);
+        Debug.LogError("STATE of DispCards directly after draw" + DisplayedCards[0].CardName);
         //instantiate the objects/visual representation
         for (int i = 1; i <= 10; i++)
         {
@@ -351,7 +352,13 @@ public class DeckBuilderControl : MonoBehaviour {
 
     public void Depopulate()
     {
-        Book.returnCardsToCurrentPage(DisplayedCards);
+        Debug.LogError(DisplayedCards[0].CardName + " STATE of DisplayedCards pre-return");
+        List<Card> CardsToInsert = new List<Card>();
+        foreach (Card c in DisplayedCards)
+        {
+            CardsToInsert.Add(c);
+        }
+        Book.returnCardsToCurrentPage(CardsToInsert);
         DisplayedCards.Clear();
         foreach (GameObject card in GameObject.FindGameObjectsWithTag("Card"))
         {
