@@ -53,6 +53,8 @@ public class GM : MonoBehaviour
 
         this.spriteSheet = Resources.LoadAll<Sprite>("Sprites");
 
+        Debug.Log(this.spriteSheet.Length + " IS THE NUMBER OF SPRITES LOADED");
+
         this.locations = GameObject.Find("Location Manager").GetComponent<LocationManager>();
 
         // Set up the player objects for the match
@@ -374,8 +376,16 @@ public class GM : MonoBehaviour
         Card cardScript = card.GetComponent<Card>();
         if (display)
         {
+            if (GameObject.Find("Card Hover") != null)
+            {
+                Destroy(GameObject.Find("Card Hover"));
+            }
+
             GameObject hover = Instantiate((GameObject)Resources.Load("Prefabs/Card Hover"));
-            hover.transform = card.transform;
+            hover.transform.SetParent(GameObject.Find("Canvas").transform);
+            hover.transform.position = new Vector2(640,427);
+            //hover.transform.FindChild("Card").FindChild("Splash Image").GetComponent<Image>().sprite = ;
+            hover.name = "Card Hover";
         }
         else if (!display && GameObject.Find("Card Hover") != null)
         {
@@ -390,7 +400,7 @@ public class GM : MonoBehaviour
         {
             try
             {
-                InstantiateCard(player, player.GetComponent<player>().Deck.poll());
+                this.InstantiateCard(player, player.GetComponent<player>().Deck.poll());
             }
             catch
             {
@@ -540,7 +550,7 @@ public class GM : MonoBehaviour
                 cardsScript.Range = currentCard.Range;
                 cardsScript.TargetName = currentCard.TargetName;
                 cardsScript.CurrentID = currentCard.CurrentID;
-                Debug.Log(currentCard.CurrentID);
+                //Debug.Log(currentCard.CurrentID);
                 cardsScript.CurrentCost = currentCard.CurrentCost;
                 cardsScript.CurrentAttack = currentCard.CurrentAttack;
                 cardsScript.CurrentHealth = currentCard.CurrentHealth;

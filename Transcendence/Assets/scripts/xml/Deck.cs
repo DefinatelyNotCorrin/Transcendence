@@ -37,6 +37,14 @@ public class Deck : MonoBehaviour
         this.path = path;
     }
 
+    public Deck(String name)
+    {
+        activeDeck = new List<Card>();
+        archiveDeck = new List<Card>();
+        discard = new List<Card>();
+        this.deckName = name;
+    }
+
     public Deck()
     {
         activeDeck = new List<Card>();

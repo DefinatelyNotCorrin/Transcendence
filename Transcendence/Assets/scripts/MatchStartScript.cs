@@ -46,11 +46,46 @@ public class MatchStartScript : MonoBehaviour {
         DontDestroyOnLoad(Player1Data);
         DontDestroyOnLoad(Player2Data);
 
-        paths.Add("/scripts/xml/cards.xml");
-        paths.Add("/scripts/xml/2cards.xml");
-        paths.Add("/scripts/xml/3cards.xml");
-        paths.Add("/scripts/xml/neutralsAndSpells.xml");
+        
+
+        /*
+        List<TextAsset> decks = new List<TextAsset>();
+
+        UnityEngine.Object[] stuff = Resources.LoadAll("Decks");
+
+        foreach (UnityEngine.Object obj in stuff)
+        {
+            decks.Add((TextAsset)obj);
+        }
+
+        foreach (TextAsset xmlDeck in decks)
+        {
+            MemoryStream assetStream = new MemoryStream(xmlDeck.bytes);
+
+            DeckReader reader = new DeckReader();
+
+            List<Card> database = reader.load(assetStream);
+
+            Deck deck = new Deck(reader.GetDeckName(assetStream));
+
+            foreach (Card c in database)
+            {
+                deck.archiveDeck.Add(c);
+            }
+
+            deckPool.Add(deck);
+        }
+        */
+
+        //paths.Add("/scripts/xml/cards.xml");
+        //paths.Add("/scripts/xml/2cards.xml");
+        //paths.Add("/scripts/xml/3cards.xml");
+        //paths.Add("/scripts/xml/neutralsAndSpells.xml");
         // The newest spells that you can buy!
+        paths.Add("/scripts/xml/spellsWithModifiers.xml");
+        paths.Add("/scripts/xml/spellsWithModifiers.xml");
+        paths.Add("/scripts/xml/spellsWithModifiers.xml");
+        paths.Add("/scripts/xml/spellsWithModifiers.xml");
         paths.Add("/scripts/xml/spellsWithModifiers.xml");
 
         foreach (string p in paths)
@@ -79,8 +114,11 @@ public class MatchStartScript : MonoBehaviour {
             Dropdown.OptionData data = new Dropdown.OptionData(d.deckName);
             p1Selector.options.Add(data);
             p2Selector.options.Add(data);
-            Debug.Log("Option added of deckName " + d.deckName);
+            //Debug.Log("Option added of deckName " + d.deckName);
         }
+
+        Player1Data.GetComponent<player>().DeckPath = deckPool[0].path;
+        Player2Data.GetComponent<player>().DeckPath = deckPool[0].path;
     }
 	
 	// Update is called once per frame
@@ -181,14 +219,21 @@ public class MatchStartScript : MonoBehaviour {
 
     public void Player1NameSelect()
     {
-        Player1Data.GetComponent<player>().Name = this.p1input.text;
-        Debug.Log(Player1Data.GetComponent<player>().Name);
+        if (!this.p1input.Equals(""))
+        {
+            Player1Data.GetComponent<player>().Name = this.p1input.text;
+        }
+        Debug.Log(Player1Data.GetComponent<player>().Name + " is p1 name");
     }
 
     public void Player2NameSelect()
     {
-        Player2Data.GetComponent<player>().Name = this.p2input.text;
-        Debug.Log(Player2Data.GetComponent<player>().Name);
+        if (!this.p2input.Equals(""))
+        {
+            Player2Data.GetComponent<player>().Name = this.p2input.text;
+        }
+           
+        Debug.Log(Player2Data.GetComponent<player>().Name + " is p2 name.");
     }
 
     //sets components of menu to all disabled or all interactable

@@ -37,6 +37,11 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         isDragging = true;
         this.checkTime = false;
 
+        if (GameObject.Find("Card Hover") != null)
+        {
+            Destroy(GameObject.Find("Card Hover"));
+        }
+
         if (this.displayZoomedView)
         {
             this.displayZoomedView = false;
