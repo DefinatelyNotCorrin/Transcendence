@@ -14,7 +14,7 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     private double currentTime;
     private double triggerTime;
     private bool checkTime = false;
-    private bool displayZoomedView = false;
+    public bool displayZoomedView = false;
     private GM gm;
 
     //original location of a card before it is dragged

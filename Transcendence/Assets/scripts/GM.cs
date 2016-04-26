@@ -384,8 +384,27 @@ public class GM : MonoBehaviour
             GameObject hover = Instantiate((GameObject)Resources.Load("Prefabs/Card Hover"));
             hover.transform.SetParent(GameObject.Find("Canvas").transform);
             hover.transform.position = new Vector2(640,427);
-            //hover.transform.FindChild("Card").FindChild("Splash Image").GetComponent<Image>().sprite = ;
+            hover.transform.FindChild("Card").FindChild("Splash Image").GetComponent<Image>().sprite = card.transform.FindChild("Splash Image").GetComponent<Image>().sprite;
+            hover.transform.FindChild("Card").FindChild("Card Frame").GetComponent<Image>().sprite = card.transform.FindChild("Card Frame").GetComponent<Image>().sprite;
+            hover.transform.FindChild("Card").FindChild("Description").GetComponent<Text>().text = card.transform.FindChild("Description").GetComponent<Text>().text;
+            hover.transform.FindChild("Card").FindChild("Title").GetComponent<Text>().text = card.transform.FindChild("Title").GetComponent<Text>().text;
+            hover.transform.FindChild("Card").FindChild("Cost").GetComponent<Text>().text = card.transform.FindChild("Cost").GetComponent<Text>().text;
+            hover.transform.FindChild("Card").FindChild("Attack").GetComponent<Text>().text = card.transform.FindChild("Attack").GetComponent<Text>().text;
+            hover.transform.FindChild("Card").FindChild("Health").GetComponent<Text>().text = card.transform.FindChild("Health").GetComponent<Text>().text;
+            hover.transform.FindChild("Card").FindChild("Defense").GetComponent<Text>().text = card.transform.FindChild("Defense").GetComponent<Text>().text;
+            hover.transform.FindChild("Card").FindChild("Health").GetComponent<Text>().text = card.transform.FindChild("Health").GetComponent<Text>().text;
+            hover.transform.FindChild("Card").FindChild("Range").GetComponent<Text>().text = card.transform.FindChild("Range").GetComponent<Text>().text;
+
             hover.name = "Card Hover";
+
+            foreach (GameObject c in GameObject.FindGameObjectsWithTag("Card"))
+            {
+                if (c.GetComponent<isDraggable>().displayZoomedView == true && !card.Equals(c))
+                {
+                    c.GetComponent<isDraggable>().displayZoomedView = false;
+                    Debug.Log("Display closed for " + c.name);
+                }
+            }
         }
         else if (!display && GameObject.Find("Card Hover") != null)
         {

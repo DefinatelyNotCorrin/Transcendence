@@ -38,7 +38,8 @@ public class dropManager : MonoBehaviour {
             && draggingCardScript.Type.Equals("Creature")
             && !draggingCardScript.IsExhausted
             && draggingCardScript.HasBeenPlaced
-            && !draggingCardScript.OwnerTag.Equals(pointerObject.GetComponent<Card>().OwnerTag))
+            && !draggingCardScript.OwnerTag.Equals(pointerObject.GetComponent<Card>().OwnerTag)
+            )
         {
             //Debug.Log("Placed Card and Enemy Card conditions met.");
             TryAttack(draggingCardObject, draggingCardScript, pointerObject);

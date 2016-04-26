@@ -51,22 +51,16 @@ public class MatchStartScript : MonoBehaviour {
         /*
         List<TextAsset> decks = new List<TextAsset>();
 
-        UnityEngine.Object[] stuff = Resources.LoadAll("Decks");
+        TextAsset[] stuff = (TextAsset[])Resources.LoadAll("Decks");
 
-        foreach (UnityEngine.Object obj in stuff)
+        foreach (TextAsset xmlDeck in stuff)
         {
-            decks.Add((TextAsset)obj);
-        }
-
-        foreach (TextAsset xmlDeck in decks)
-        {
-            MemoryStream assetStream = new MemoryStream(xmlDeck.bytes);
 
             DeckReader reader = new DeckReader();
 
-            List<Card> database = reader.load(assetStream);
+            List<Card> database = reader.load(xmlDeck);
 
-            Deck deck = new Deck(reader.GetDeckName(assetStream));
+            Deck deck = new Deck(reader.GetDeckName(xml));
 
             foreach (Card c in database)
             {
@@ -82,6 +76,7 @@ public class MatchStartScript : MonoBehaviour {
         //paths.Add("/scripts/xml/3cards.xml");
         //paths.Add("/scripts/xml/neutralsAndSpells.xml");
         // The newest spells that you can buy!
+        
         paths.Add("/scripts/xml/spellsWithModifiers.xml");
         paths.Add("/scripts/xml/spellsWithModifiers.xml");
         paths.Add("/scripts/xml/spellsWithModifiers.xml");
@@ -108,6 +103,7 @@ public class MatchStartScript : MonoBehaviour {
             deckPool.Add(deck);
             i++;
         }
+        
 
         foreach (Deck d in deckPool)
         {

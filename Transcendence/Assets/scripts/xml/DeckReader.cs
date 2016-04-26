@@ -30,7 +30,7 @@ public class DeckReader: MonoBehaviour {
             if ((reader.NodeType == XmlNodeType.Element) && (reader.Name == "card"))
              {
                 //generates new empty card object
-#pragma warning disable
+                #pragma warning disable
                 Card card = new Card();
 
                     //set values of new card Object from xml attributes
@@ -60,10 +60,11 @@ public class DeckReader: MonoBehaviour {
         return arr;
     }
 
-    public List<Card> load(MemoryStream stream)
+    public List<Card> load(TextAsset stream)
     {
         arr = new List<Card>();
-        XmlReader reader = XmlReader.Create(stream);
+
+        XmlReader reader = XmlReader.Create(new StreamReader(stream.text));
 
         while (reader.Read())
         {
