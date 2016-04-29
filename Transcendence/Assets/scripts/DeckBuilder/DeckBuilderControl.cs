@@ -43,7 +43,7 @@ public class DeckBuilderControl : MonoBehaviour {
     //DeckPanel
     private Canvas deckPanelCanvas;
         private bool isSaved;
-        private Deck currentDeck;
+        public Deck CurrentDeck; //TODO: privatize
         private InputField deckName;
         private Button cardInDeckPrefab;
     //Audio
@@ -283,7 +283,7 @@ public class DeckBuilderControl : MonoBehaviour {
     {
         if (isSaved)
         {
-            currentDeck.vacate();
+            CurrentDeck.vacate();
         }
         else
         {

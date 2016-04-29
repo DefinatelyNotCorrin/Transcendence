@@ -8,6 +8,7 @@ public class DisplayedCard : MonoBehaviour, IPointerClickHandler {
     {
         //if (this.GetComponent<Card>().Count < instead, let's 
         //currentDeck.Add(DisplayedCard);
+        GameObject.Find("DeckBuilder").GetComponent<DeckBuilderControl>().CurrentDeck.activeDeck.Add(this.GetComponent<Card>());
 
     }
 
