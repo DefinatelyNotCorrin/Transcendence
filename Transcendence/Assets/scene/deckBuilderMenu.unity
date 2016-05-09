@@ -1142,14 +1142,6 @@ Prefab:
       propertyPath: m_Name
       value: DisplayedCard
       objectReference: {fileID: 0}
-    - target: {fileID: 124954, guid: 8db82daf57b08474b8fb38069a9e1f2c, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 116034, guid: 8db82daf57b08474b8fb38069a9e1f2c, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 8db82daf57b08474b8fb38069a9e1f2c, type: 2}
   m_IsPrefabParent: 0
@@ -3071,7 +3063,7 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1738561515}
   m_HandleRect: {fileID: 1738561514}
   m_Direction: 0
-  m_Value: 0
+  m_Value: 1
   m_Size: 1
   m_NumberOfSteps: 0
   m_OnValueChanged:
@@ -3639,8 +3631,9 @@ GameObject:
   - 222: {fileID: 1250957810}
   - 114: {fileID: 1250957809}
   - 114: {fileID: 1250957811}
+  - 114: {fileID: 1250957812}
   m_Layer: 5
-  m_Name: Panel
+  m_Name: ConstructPanel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3708,6 +3701,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9d56b0189231d9e44b1aab2acc3ff54a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1250957812
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1250957807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7e7a9a0f30469854881efe246cb624af, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  deckName: 
+  path: 
+  archiveDeck: []
+  activeDeck: []
+  discard: []
 --- !u!1 &1254017281
 GameObject:
   m_ObjectHideFlags: 0
@@ -4416,21 +4425,6 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1398406942}
---- !u!1 &1420637499 stripped
-GameObject:
-  m_PrefabParentObject: {fileID: 124954, guid: 8db82daf57b08474b8fb38069a9e1f2c, type: 2}
-  m_PrefabInternal: {fileID: 341685749}
---- !u!114 &1420637507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1420637499}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 35fd80d8824d9c34c926b8f2d50a2f12, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1487916519
 GameObject:
   m_ObjectHideFlags: 0
@@ -6257,7 +6251,7 @@ MonoBehaviour:
   m_HandleRect: {fileID: 146516600}
   m_Direction: 2
   m_Value: 1
-  m_Size: 0.4367816
+  m_Size: 0.43678162
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

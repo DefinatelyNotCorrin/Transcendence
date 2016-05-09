@@ -75,7 +75,7 @@ public class CardBook : MonoBehaviour
             }
             }
         Compiled = true;
-        Debug.LogError(numCards); //TEST
+        Debug.LogError("There are {" + numCards + "} unique cards in database"); //TEST
         Debug.Log("FreeFromPagationLoop");
     }
 

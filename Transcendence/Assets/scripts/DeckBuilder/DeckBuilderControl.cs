@@ -138,7 +138,7 @@ public class DeckBuilderControl : MonoBehaviour {
         //add Cards of new CurrentPage to Displayed Cards
         Debug.Log("Entered GetCardsOfPage");
         DisplayedCards = Book.GetCardsOfPage(Book.CurrentPage);
-        Debug.LogError("STATE of DispCards directly after draw" + DisplayedCards[0].CardName);
+        Debug.LogError("After page shift, first displayed is " + DisplayedCards[0].CardName);
         //instantiate the objects/visual representation
         for (int i = 1; i <= 10; i++)
         {
