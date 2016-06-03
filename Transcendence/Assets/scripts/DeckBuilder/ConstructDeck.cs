@@ -8,7 +8,9 @@ public class ConstructDeck : Deck {
     private string format; //Standard, No Restrictions, etc. //TODO: Implement format bar in scene
     private string creator; 
 
-
+    public ConstructDeck() : base()
+    {
+    }
     /// <summary>
     /// writes current deck state and relevant creation info to xml file at specified path
     /// </summary>
@@ -23,6 +25,7 @@ public class ConstructDeck : Deck {
     void SetStateFromFile()
     {
 
+        
     }
 
     void removeAllCopiesOfCard(Card c)

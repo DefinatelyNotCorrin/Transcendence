@@ -23,7 +23,7 @@ public class PromptMenuScript : MonoBehaviour {
     // Update is called once per frame
     void Update()
     {
-
+        
     }
     //Change prompt to format |  [button3]  |
     public void layoutSingle()

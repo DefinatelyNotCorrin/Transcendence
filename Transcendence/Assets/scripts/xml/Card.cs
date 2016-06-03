@@ -41,7 +41,12 @@ using System;
     public Effect Effect { get; set; }
     public Effect Target { get; set; }
 
-	public void SetCurrents() {
+    public Card clone(Card card)
+    {
+        return(Card)this.MemberwiseClone();
+    }
+
+    public void SetCurrents() {
 
 		//sets the combat values to the base as the object is initialized
 		CurrentID = Int32.Parse (ID);
@@ -51,6 +56,7 @@ using System;
 		CurrentDefense = Convert.ToDouble (Defense);
 		CurrentRange = Range;
 	}
+
 
 }
 
