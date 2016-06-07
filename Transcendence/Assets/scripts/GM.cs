@@ -4,6 +4,7 @@ using UnityEngine.UI;
 using System.Collections.Generic;
 using System;
 using UnityEngine.SceneManagement;
+using UnityEngine.EventSystems;
 
 // TODO refactor several methods with the current player object
 public class GM : MonoBehaviour
@@ -44,16 +45,22 @@ public class GM : MonoBehaviour
     // Locations
     private LocationManager locations;
 
+    // Constants
+    private const int LEFT_SQUARE_BONUS = 2;
+    private const int MIDDLE_SQUARE_BONUS = 1;
+    private const int RIGHT_SQUARE_BONUS = 2;
+
     /// <summary>
     /// Set basic information for each player, load their decks, and give them their mulliagns. Then pick a player to go first, and start his/her turn. 
     /// </summary>
+
     public void Start()
     {
         this.switchPlayerMenu.enabled = false;
 
         this.spriteSheet = Resources.LoadAll<Sprite>("Sprites");
 
-        Debug.Log(this.spriteSheet.Length + " IS THE NUMBER OF SPRITES LOADED");
+        //Debug.Log(this.spriteSheet.Length + " IS THE NUMBER OF SPRITES LOADED");
 
         this.locations = GameObject.Find("Location Manager").GetComponent<LocationManager>();
 
@@ -68,7 +75,7 @@ public class GM : MonoBehaviour
         }
         catch
         {
-            Debug.Log("THE PLAYER DATA AINT THERE, SON!");
+            //Debug.Log("THE PLAYER DATA AINT THERE, SON!");
         }
 
         this.player1.GetComponent<player>().PlayerSide = 0;
@@ -158,8 +165,8 @@ public class GM : MonoBehaviour
     public void Update()
     {
         // Update mana every frame **** CAUSE WHY NOT? ****
-        player1Mana.text = "Mana: " + player1.GetComponent<player>().CurrentMana.ToString();
-        player2Mana.text = "Mana: " + player2.GetComponent<player>().CurrentMana.ToString();
+        player1Mana.text = "Mana: " + player1.GetComponent<player>().CurrentMana.ToString() + " / " + player1.GetComponent<player>().ManaMax.ToString();
+        player2Mana.text = "Mana: " + player2.GetComponent<player>().CurrentMana.ToString() + " / " + player2.GetComponent<player>().ManaMax.ToString();
 
         player1VP.text = "VP: " + player1.GetComponent<player>().VictoryPoints.ToString();
         player2VP.text = "VP: " + player2.GetComponent<player>().VictoryPoints.ToString();
@@ -185,7 +192,7 @@ public class GM : MonoBehaviour
             GameObject.Find("EndTurnPlayer1").GetComponent<Button>().interactable = !switchPlayerMenu.enabled;
         }
 
-        foreach (GameObject card in GameObject.FindGameObjectsWithTag("Card")) // that card.GetComponent<Card>().BattleSide == currentPlayer.GetComponent<player>().PlayerSide
+        foreach (GameObject card in GameObject.FindGameObjectsWithTag("Card"))
         {
             // Color the cards in the hand of the current player
             if (!card.GetComponent<Card>().HasBeenPlaced)
@@ -200,18 +207,46 @@ public class GM : MonoBehaviour
                     card.transform.FindChild("Outline").GetComponent<Image>().sprite = this.clear;
                 }
             }
+        }
 
-            /*
-            // Make cards that are exhausted not draggable?
-            if (card.GetComponent<Card>().HasBeenPlaced && card.GetComponent<Card>().IsExhausted)
+        if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(1))
+        {
+            PointerEventData mouse = EventSystem.current.GetComponent<BetterStandaloneInputModule>().GetLastPointerEventData(-1);
+            GameObject clickedObject = EventSystem.current.GetComponent<BetterStandaloneInputModule>().GetLastPointerEventData(-1).pointerCurrentRaycast.gameObject;
+
+            Debug.Log("The clicked item is " + mouse.pointerCurrentRaycast.gameObject.name);
+
+            if (GameObject.FindGameObjectWithTag("Attacking") != null 
+                && GameObject.FindGameObjectWithTag("Attacking").GetComponent<Card>().BattleSide != clickedObject.GetComponent<Card>().BattleSide
+                && GameObject.FindGameObjectWithTag("Attacking").GetComponent<Card>().HasBeenPlaced
+                && !GameObject.FindGameObjectWithTag("Attacking").GetComponent<Card>().IsExhausted)
             {
-                card.GetComponent<isDraggable>().enabled = false;
+                Debug.Log("Combat called");
             }
-            else
+            else if (GameObject.FindGameObjectWithTag("Menu Open") == null 
+                && clickedObject.GetComponent<Card>() != null 
+                && clickedObject.GetComponent<Card>().OwnerTag.Equals(currentPlayer.GetComponent<player>().Name)
+                && clickedObject.GetComponent<Card>().HasBeenPlaced)
             {
-                card.GetComponent<isDraggable>().enabled = true;
+                Debug.Log("Opening menu for " + clickedObject.name);
+                clickedObject.tag = "Menu Open";
+                clickedObject.transform.FindChild("Function Menu").gameObject.SetActive(true);
             }
-            */
+            else if (GameObject.FindGameObjectWithTag("Menu Open") != null
+                && clickedObject.GetComponent<Card>() != null
+                && clickedObject.GetComponent<Card>().OwnerTag.Equals(currentPlayer.GetComponent<player>().Name)
+                && clickedObject.GetComponent<Card>().HasBeenPlaced)
+            {
+                Debug.Log("Closing menu for " + GameObject.FindGameObjectWithTag("Menu Open").name + ", Operning menu for " + clickedObject.name);
+
+                GameObject.FindGameObjectWithTag("Menu Open").transform.FindChild("Function Menu").gameObject.SetActive(false);
+                GameObject.FindGameObjectWithTag("Menu Open").tag = "Card";
+                clickedObject.transform.FindChild("Function Menu").gameObject.SetActive(true);
+                clickedObject.tag = "Menu Open";
+            }
+
+
+            //if pointerPress is null (it was either a mouse2 click or it was outside any gui), or if pointerPress doesn't have my context menu component.
         }
     }
 
@@ -301,9 +336,12 @@ public class GM : MonoBehaviour
 
             currentPlayer = player1;
         }
+
         this.UpdateCardColors();
 
-        Debug.Log("The current player is now " + currentPlayer.GetComponent<player>().Name);
+        this.DistributePlaceRewards();
+
+        //Debug.Log("The current player is now " + currentPlayer.GetComponent<player>().Name);
     }
 
     /// <summary>
@@ -334,6 +372,92 @@ public class GM : MonoBehaviour
     }
 
     /// <summary>
+    /// Give bonuses appropriately at the end of a turn.
+    /// </summary>
+    public void DistributePlaceRewards()
+    {
+        List<GameObject> numberInLeftTemplePlayingSpaces = new List<GameObject>();
+        List<GameObject> numberInMiddleTemplePlayingSpaces = new List<GameObject>();
+        List<GameObject> numberInRightTemplePlayingSpaces = new List<GameObject>();
+        List<GameObject> numberInLeftCitadelPlayingSpaces = new List<GameObject>();
+        List<GameObject> numberInMiddleCitadelPlayingSpaces = new List<GameObject>();
+        List<GameObject> numberInRightCitadelPlayingSpaces = new List<GameObject>();
+
+        foreach (GameObject card in GameObject.FindGameObjectsWithTag("Card"))
+        {
+            if (card.transform.parent.parent.gameObject.name.Equals("LeftTemplePlayingSpaces") && card.GetComponent<Card>().HasBeenPlaced == true)
+            {
+                numberInLeftTemplePlayingSpaces.Add(card);
+            }
+
+            if (card.transform.parent.parent.gameObject.name.Equals("MiddleTemplePlayingSpaces") && card.GetComponent<Card>().HasBeenPlaced == true)
+            {
+                numberInMiddleTemplePlayingSpaces.Add(card);
+            }
+
+            if (card.transform.parent.parent.gameObject.name.Equals("RightTemplePlayingSpaces") && card.GetComponent<Card>().HasBeenPlaced == true)
+            {
+                numberInRightTemplePlayingSpaces.Add(card);
+            }
+
+            if (card.transform.parent.parent.gameObject.name.Equals("LeftCitadelPlayingSpaces") && card.GetComponent<Card>().HasBeenPlaced == true)
+            {
+                numberInLeftCitadelPlayingSpaces.Add(card);
+            }
+
+            if (card.transform.parent.parent.gameObject.name.Equals("MiddleCitadelPlayingSpaces") && card.GetComponent<Card>().HasBeenPlaced == true)
+            {
+                numberInMiddleCitadelPlayingSpaces.Add(card);
+            }
+
+            if (card.transform.parent.parent.gameObject.name.Equals("RightCitadelPlayingSpaces") && card.GetComponent<Card>().HasBeenPlaced == true)
+            {
+                numberInRightCitadelPlayingSpaces.Add(card);
+            }
+        }
+
+        // Left spaces logic
+        if (numberInLeftTemplePlayingSpaces.Count > numberInLeftCitadelPlayingSpaces.Count)
+        {
+            player1.GetComponent<player>().CurrentMana += LEFT_SQUARE_BONUS;
+        }
+        else if (numberInLeftTemplePlayingSpaces.Count < numberInLeftCitadelPlayingSpaces.Count)
+        {
+            player2.GetComponent<player>().CurrentMana += LEFT_SQUARE_BONUS;
+        }
+
+        // Middle spaces logic
+        if (numberInMiddleTemplePlayingSpaces.Count > numberInMiddleCitadelPlayingSpaces.Count)
+        {
+            foreach (GameObject card in numberInMiddleTemplePlayingSpaces)
+            {
+                card.GetComponent<Card>().CurrentHealth += MIDDLE_SQUARE_BONUS;
+                card.transform.FindChild("Health").GetComponent<Text>().text = card.GetComponent<Card>().CurrentHealth.ToString();
+                card.transform.FindChild("Health").GetComponent<Text>().color = Color.green;
+            }
+        }
+        else if (numberInMiddleTemplePlayingSpaces.Count < numberInMiddleCitadelPlayingSpaces.Count)
+        {
+            foreach (GameObject card in numberInMiddleCitadelPlayingSpaces)
+            {
+                card.GetComponent<Card>().CurrentHealth += MIDDLE_SQUARE_BONUS;
+                card.transform.FindChild("Health").GetComponent<Text>().text = card.GetComponent<Card>().CurrentHealth.ToString();
+                card.transform.FindChild("Health").GetComponent<Text>().color = Color.green;
+            }
+        }
+
+        // Right spaces logic
+        if (numberInRightTemplePlayingSpaces.Count > numberInRightCitadelPlayingSpaces.Count)
+        {
+            player1.GetComponent<player>().VictoryPoints += LEFT_SQUARE_BONUS;
+        }
+        else if (numberInRightTemplePlayingSpaces.Count < numberInRightCitadelPlayingSpaces.Count)
+        {
+            player2.GetComponent<player>().VictoryPoints += LEFT_SQUARE_BONUS;
+        }
+    }
+
+    /// <summary>
     /// Runs combat between two cards.
     /// </summary>
     /// <param name="attackingCard"></param> The card attacking.
@@ -351,7 +475,7 @@ public class GM : MonoBehaviour
         defendingCard.transform.Find("Health").gameObject.GetComponent<Text>().text = defendingCard.GetComponent<Card>().CurrentHealth.ToString();
         defendingCard.transform.FindChild("Health").GetComponent<Text>().color = Color.red;
 
-        //Destroy attacking cards
+        // Destroy attacking cards
         if (attackingCard.GetComponent<Card>().CurrentHealth <= 0)
         {
             Destroy(attackingCard);
@@ -412,10 +536,14 @@ public class GM : MonoBehaviour
         }
     }
 
-    // Draw a card method for the player
-    public void DrawCard(GameObject player, int number)
+    /// <summary>
+    /// Draw card(s) for the player passed in, of the quantity passed in
+    /// </summary>
+    /// <param name="player"></param>
+    /// <param name="howMany"></param>
+    public void DrawCard(GameObject player, int howMany)
     {
-        for (int i = 0; i < number; i++)
+        for (int i = 0; i < howMany; i++)
         {
             try
             {
@@ -864,7 +992,5 @@ public class GM : MonoBehaviour
         Debug.Log("Method Called");
 
     }
+
 }
-
-
-

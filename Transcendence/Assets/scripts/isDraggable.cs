@@ -1,19 +1,16 @@
 ﻿using UnityEngine;
-using System.Collections;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
-using System;
-using System.Timers;
 
 public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler, IPointerEnterHandler, IPointerExitHandler, IPointerClickHandler {
 
     public bool isDragging = false;
     private dropManager dm;
-    private double CARD_HOVER_TIME = 2.0; // seconds?
+
     private double startTime;
     private double currentTime;
     private double triggerTime;
-    private bool checkTime = false;
+    private bool displayDescription = false;
     public bool displayZoomedView = false;
     private GM gm;
 
@@ -26,6 +23,25 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         gm = GameObject.Find("GM").GetComponent<GM>();
     }
 
+    public void Update()
+    {
+        this.currentTime = UnityEngine.Time.time;
+        //Debug.Log("Current time is " + this.currentTime);
+
+
+        if (displayDescription)
+        {
+            if (this.currentTime >= this.triggerTime && GameObject.Find("Card Hover") == null)
+            {
+                //Debug.Log("Current time is >= trigger time");
+
+                gm.DisplayDiscription(this.transform.gameObject, true);
+
+                //Debug.Log("Display open for " + this.transform.gameObject.name);
+            }
+        }
+    }
+
     //incase that the state of the card is needed, this method exists
     public bool isBeingDragged()
     {
@@ -35,16 +51,11 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
     public void OnBeginDrag(PointerEventData data) {
 		//Debug.Log ("on begin drag");
         isDragging = true;
-        this.checkTime = false;
+        this.displayDescription = false;
 
         if (GameObject.Find("Card Hover") != null)
         {
             Destroy(GameObject.Find("Card Hover"));
-        }
-
-        if (this.displayZoomedView)
-        {
-            this.displayZoomedView = false;
         }
 
         //saves the current parent of the object
@@ -65,72 +76,74 @@ public class isDraggable : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndD
         this.GetComponent<Image>().raycastTarget = false;        
     }
 
-    private void Timer_Elapsed(object sender, ElapsedEventArgs e)
+    public void OnDrag(PointerEventData data)
     {
-        Debug.Log("The timer even occured!");
-    }
-
-    public void OnDrag(PointerEventData data) {
 		//Debug.Log ("dragging");
 
         //moves the card to the cursor position
-        this.transform.position = data.position;
+        if (!this.gameObject.GetComponent<Card>().HasBeenPlaced)
+        {
+            this.transform.position = data.position;
 
-        this.gameObject.tag = "Dragging";
+            this.gameObject.tag = "Dragging";
+        }
     }
 
-	public void OnEndDrag(PointerEventData data) {
-		//Debug.Log ("on end drag");
-        isDragging = false;
-
-        dm = GameObject.Find("GM").GetComponent<dropManager>();
-
-        GameObject draggingCard = GameObject.FindGameObjectWithTag("Dragging");
-        GameObject pointerObject = data.pointerCurrentRaycast.gameObject;
-
-        //dm.Drop(data, draggingCard, pointerObject.transform);
-        
-        try
+	public void OnEndDrag(PointerEventData data)
+    {
+        if (!this.gameObject.GetComponent<Card>().HasBeenPlaced)
         {
-            dm.Drop(data, draggingCard, pointerObject.transform);
+            //Debug.Log ("on end drag");
+            isDragging = false;
+
+            dm = GameObject.Find("GM").GetComponent<dropManager>();
+
+            GameObject draggingCard = GameObject.FindGameObjectWithTag("Dragging");
+            GameObject pointerObject = data.pointerCurrentRaycast.gameObject;
+
+            //dm.Drop(data, draggingCard, pointerObject.transform);
+
+            try
+            {
+                dm.Drop(data, draggingCard, pointerObject.transform);
+            }
+            catch
+            {
+                Debug.Log("Nice try, JOHNATHAN!");
+            }
+
+            this.transform.SetParent(parentToReturnTo);
+
+            GetComponent<CanvasGroup>().blocksRaycasts = true;
+            this.GetComponent<Image>().raycastTarget = true;
         }
-        catch
-        {
-            Debug.Log("Nice try, JOHNATHAN!");
-        } 
-
-        this.transform.SetParent(parentToReturnTo);
-
-        GetComponent<CanvasGroup>().blocksRaycasts = true;
-        this.GetComponent<Image>().raycastTarget = true;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        //this.checkTime = true;
-        //this.startTime = Time.time;
-        //this.currentTime = Time.time;
-        //this.triggerTime = startTime + CARD_HOVER_TIME;
+        this.displayDescription = true;
+        this.startTime = UnityEngine.Time.time;
+        this.currentTime = UnityEngine.Time.time;
+        this.triggerTime = startTime + GameConstants.CARD_HOVER_TIME;
+        //Debug.Log("Counter started for " + this.gameObject.name + ".\nStart time is: " + this.startTime);
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        //this.checkTime = false;
+        this.displayDescription = false;
+
+        if (GameObject.Find("Card Hover") != null)
+        {
+            Destroy(GameObject.Find("Card Hover"));
+
+            //Debug.Log("Display closed for " + this.transform.gameObject.name);
+        }
+
+        //Debug.Log("Counter stopped.");
     }
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        if (this.displayZoomedView)
-        {
-            this.displayZoomedView = false;
-            gm.DisplayDiscription(this.transform.gameObject, false);
-            Debug.Log("Display closed for " + this.transform.gameObject.name);
-        }
-        else
-        {
-            this.displayZoomedView = true;
-            gm.DisplayDiscription(this.transform.gameObject, true);
-            Debug.Log("Display open for " + this.transform.gameObject.name);
-        }
+        //this.transform.FindChild("Function Menu").gameObject.SetActive(true);
     }
 }

@@ -125,11 +125,11 @@ public class DeckReader: MonoBehaviour {
         return name;
     }
 
-    public String GetDeckName(MemoryStream stream)
+    public String GetDeckName(TextAsset stream)
     {
         String name = "";
 
-        XmlReader reader = XmlReader.Create(stream);
+        XmlReader reader = XmlReader.Create(new StreamReader(stream.text));
 
         while (reader.Read())
         {
